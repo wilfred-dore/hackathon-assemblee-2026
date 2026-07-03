@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Rapporteur — Assemblée nationale · Hackathon 2026</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/app.css">
+<style>
+  /* Accueil — réutilise les tokens de app.css (design institutionnel de François). */
+  .hero{ max-width:820px; margin:0 auto; padding:56px 24px 8px; }
+  .hero h1{ font-size:2.3rem; }
+  .hero .lead{ font-size:1.1rem; max-width:60ch; margin-top:6px; }
+  .hub{ max-width:820px; margin:0 auto; padding:20px 24px 8px;
+        display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .tile{ display:flex; flex-direction:column; background:var(--bg); border:1px solid var(--border);
+         border-radius:var(--radius); padding:22px 22px 18px; text-decoration:none; color:var(--text);
+         box-shadow:0 1px 2px rgba(0,0,0,.04); transition:border-color .15s, box-shadow .15s, transform .15s; }
+  .tile:hover{ border-color:var(--blue-france); box-shadow:0 4px 14px rgba(0,0,145,.10); transform:translateY(-2px); }
+  .tile .k{ font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+            color:var(--blue-france); margin-bottom:10px; }
+  .tile h2{ font-size:1.15rem; margin:0 0 6px; }
+  .tile p{ font-size:.9rem; color:var(--text-mention); margin:0 0 16px; line-height:1.5; flex:1; }
+  .tile .go{ font-size:.85rem; font-weight:600; color:var(--blue-france); }
+  .meta{ max-width:820px; margin:0 auto; padding:8px 24px 40px; }
+  .meta .row{ display:flex; flex-wrap:wrap; gap:8px 18px; font-size:.85rem; color:var(--text-mention); }
+  .meta a{ font-weight:500; }
+  @media(max-width:720px){ .hub{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/"><img class="logo" src="/favicon.svg" alt=""><span class="wordmark">Le Rapporteur</span></a>
+  <nav>
+    <a href="/demo">Démo</a>
+    <a href="/pitch">Pitch</a>
+    <a href="/details">Comment ça marche</a>
+    <a href="/schema/">Schéma</a>
+  </nav>
+</header>
+<div class="tricolore"></div>
+
+<section class="hero">
+  <div class="kicker">Assemblée nationale · Hackathon 2026</div>
+  <h1>Une IA juridique de confiance, et souveraine</h1>
+  <p class="lead">Le Rapporteur ne cite que du droit vérifié contre les sources
+  officielles — sinon il refuse. Et il tourne sans dépendre de NVIDIA.</p>
+</section>
+
+<nav class="hub">
+  <a class="tile" href="/pitch">
+    <span class="k">Présentation</span>
+    <h2>Pitch</h2>
+    <p>Le projet en quelques planches : problème, garanties, souveraineté matérielle, démo.</p>
+    <span class="go">Ouvrir la présentation →</span>
+  </a>
+  <a class="tile" href="/demo">
+    <span class="k">Interactif</span>
+    <h2>Démo</h2>
+    <p>Posez une question de droit ; chaque article cité est vérifié, ou la réponse est un refus.</p>
+    <span class="go">Essayer la démo →</span>
+  </a>
+  <a class="tile" href="/schema/">
+    <span class="k">Documentation</span>
+    <h2>Schéma Canutes</h2>
+    <p>Cartographie de la base Tricoteuses : diagrammes SchemaSpy, DBML, relations déduites, JSON.</p>
+    <span class="go">Parcourir la doc →</span>
+  </a>
+</nav>
+
+<div class="meta">
+  <div class="row">
+    <span>Aussi :</span>
+    <a href="/details">Comment ça marche</a>
+    <a href="/sources">Consulter la loi</a>
+    <a href="https://github.com/wilfred-dore/hackathon-assemblee-2026">Code source</a>
+  </div>
+</div>
+
+<footer>Le Rapporteur · Hackathon Assemblée nationale 2026 — démo publique en précalcul statique ; moteur souverain en direct sur scène.</footer>
+</body>
+</html>

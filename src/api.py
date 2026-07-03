@@ -151,7 +151,12 @@ def _page(name: str) -> FileResponse:
 
 @app.get("/")
 def ui_index() -> FileResponse:
-    return _page("index.html")
+    return _page("landing.html")   # hall d'accueil
+
+
+@app.get("/demo")
+def ui_demo() -> FileResponse:
+    return _page("index.html")     # app « Poser une question » de François
 
 
 @app.get("/details")

@@ -101,9 +101,12 @@ def adapt_html(html: str) -> str:
         'href="/favicon.svg"': 'href="favicon.svg"',
         'src="/favicon.svg"': 'src="favicon.svg"',
         'src="/api.js"': 'src="api.js"',
-        'href="/"': 'href="index.html"',
+        'href="/schema/"': 'href="schema/index.html"',
+        'href="/demo"': 'href="demo.html"',
         'href="/sources"': 'href="sources.html"',
         'href="/details"': 'href="details.html"',
+        'href="/pitch"': 'href="pitch.html"',
+        'href="/"': 'href="index.html"',  # brand -> hall d'accueil
     }
     for old, new in repl.items():
         html = html.replace(old, new)
@@ -122,8 +125,16 @@ def main() -> None:
     for name in ("app.css", "favicon.svg"):
         shutil.copyfile(STATIC / name, OUT / name)
 
-    for name in ("index.html", "sources.html", "details.html", "pitch.html"):
-        (OUT / name).write_text(adapt_html((STATIC / name).read_text(encoding="utf-8")), encoding="utf-8")
+    # landing.html = hall d'accueil (racine) ; index.html de François = /demo
+    pages = {
+        "landing.html": "index.html",
+        "index.html": "demo.html",
+        "sources.html": "sources.html",
+        "details.html": "details.html",
+        "pitch.html": "pitch.html",
+    }
+    for src, dst in pages.items():
+        (OUT / dst).write_text(adapt_html((STATIC / src).read_text(encoding="utf-8")), encoding="utf-8")
 
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
 
