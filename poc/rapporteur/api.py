@@ -38,6 +38,16 @@ def index() -> FileResponse:
     return FileResponse(_STATIC / "index.html")
 
 
+@app.get("/details")
+def details() -> FileResponse:
+    return FileResponse(_STATIC / "details.html")
+
+
+@app.get("/favicon.svg")
+def favicon() -> FileResponse:
+    return FileResponse(_STATIC / "favicon.svg", media_type="image/svg+xml")
+
+
 # --- Serveur MCP (JSON-RPC 2.0, streamable HTTP) ---------------------------
 
 MCP_PROTOCOL_VERSION = "2024-11-05"
