@@ -10,6 +10,8 @@ citations inventées avec aplomb (pour démontrer le refus du pipeline hors-lign
 """
 from __future__ import annotations
 
+import time
+
 from ..config import CONFIG
 
 SYSTEM_PROMPT = """Tu es un assistant juridique pour les citoyens français.
@@ -60,6 +62,7 @@ class LLMClient:
         self.api_key = api_key or CONFIG.llm_api_key
         self.model = model or CONFIG.llm_model
         self._client = None
+        self.last_metrics: dict | None = None  # latence + tokens/s du dernier appel live
 
     @property
     def ready(self) -> bool:
@@ -98,9 +101,19 @@ class LLMClient:
             last = messages[-1]["content"] if messages else ""
             return _demo_answer(last)
 
+        t0 = time.perf_counter()
         resp = self._ensure_client().chat.completions.create(
             model=self.model,
             messages=messages,
             temperature=temperature,
         )
+        dt = time.perf_counter() - t0
+        ct = getattr(getattr(resp, "usage", None), "completion_tokens", None)
+        self.last_metrics = {
+            "backend": self.base_url,
+            "model": self.model,
+            "latency_s": round(dt, 2),
+            "completion_tokens": ct,
+            "tokens_per_s": round(ct / dt, 1) if ct and dt else None,
+        }
         return resp.choices[0].message.content or ""
