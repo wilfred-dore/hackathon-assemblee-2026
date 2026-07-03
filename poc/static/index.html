@@ -14,163 +14,99 @@
   --glass:rgba(255,255,255,.055);--glass-hi:rgba(255,255,255,.14);--glass-bd:rgba(255,255,255,.12);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{
   margin:0;min-height:100vh;font-family:Inter,sans-serif;color:var(--ink);
-  background:linear-gradient(165deg,var(--bg1) 0%,var(--bg0) 72%);
+  background:
+    radial-gradient(900px 500px at 85% -10%,rgba(65,105,225,.10),transparent 60%),
+    radial-gradient(800px 460px at -5% 110%,rgba(224,74,88,.06),transparent 55%),
+    linear-gradient(165deg,var(--bg1) 0%,var(--bg0) 72%);
   overflow-x:hidden;
-}
-/* --- aurores tricolores animées (french touch) --- */
-.aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
-.aurora i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;will-change:transform}
-.aurora .a-bleu{width:620px;height:620px;left:-160px;top:-180px;
-  background:radial-gradient(circle,rgba(65,105,225,.55),transparent 65%);
-  animation:drift1 19s ease-in-out infinite alternate}
-.aurora .a-blanc{width:480px;height:480px;left:38%;top:30%;opacity:.16;
-  background:radial-gradient(circle,rgba(244,246,251,.8),transparent 62%);
-  animation:drift2 24s ease-in-out infinite alternate}
-.aurora .a-rouge{width:600px;height:600px;right:-180px;bottom:-200px;
-  background:radial-gradient(circle,rgba(224,74,88,.42),transparent 65%);
-  animation:drift3 21s ease-in-out infinite alternate}
-@keyframes drift1{to{transform:translate(90px,70px) scale(1.12)}}
-@keyframes drift2{to{transform:translate(-70px,60px) scale(1.18)}}
-@keyframes drift3{to{transform:translate(-80px,-70px) scale(1.1)}}
-/* grain subtil au-dessus des aurores */
-body::after{
-  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 /* liseré tricolore */
 body::before{
-  content:'';position:fixed;top:0;left:0;right:0;height:4px;z-index:10;
-  background:linear-gradient(90deg,#2f55d4 0%,#4d6fd6 32%,#f4f6fb 34%,#f4f6fb 66%,#e0505e 68%,#c93a48 100%);
-  box-shadow:0 0 18px rgba(91,140,255,.45),0 2px 12px rgba(224,74,88,.3);
+  content:'';position:fixed;top:0;left:0;right:0;height:3px;z-index:10;
+  background:linear-gradient(90deg,#2f55d4 0%,#2f55d4 33%,#f4f6fb 33%,#f4f6fb 66%,#c93a48 66%,#c93a48 100%);
 }
 main{max-width:780px;margin:0 auto;padding:52px 24px 70px}
 
-/* --- panneau vitrine (glassmorphism) --- */
+/* --- panneau (glassmorphism sobre) --- */
 .panel{
-  border-radius:26px;padding:34px 36px 30px;position:relative;
-  background:linear-gradient(160deg,var(--glass-hi) 0%,var(--glass) 28%,rgba(255,255,255,.028) 100%);
-  border:1px solid var(--glass-bd);
-  backdrop-filter:blur(22px) saturate(1.35);-webkit-backdrop-filter:blur(22px) saturate(1.35);
-  box-shadow:0 28px 60px rgba(3,6,20,.55),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(255,255,255,.04);
-}
-/* reflet diagonal façon vitre */
-.panel::before{
-  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.075) 42%,transparent 55%);
+  border-radius:18px;padding:32px 34px 28px;position:relative;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 16px 40px rgba(3,6,20,.35),inset 0 1px 0 rgba(255,255,255,.08);
 }
 
-.kicker{display:flex;align-items:center;gap:12px;font-size:.7rem;font-weight:600;
-  letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
-.kicker::before,.kicker::after{content:'';height:1px;flex:1;
-  background:linear-gradient(90deg,transparent,rgba(147,160,189,.4))}
-.kicker::after{background:linear-gradient(90deg,rgba(147,160,189,.4),transparent)}
+.kicker{font-size:.7rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
 h1{
-  font-family:'Playfair Display',serif;font-size:2.7rem;margin:.2rem 0 .15rem;letter-spacing:.01em;
-  background:linear-gradient(115deg,#fff 30%,var(--bleu-clair) 75%,#7fa3ff 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  font-family:'Playfair Display',serif;font-size:2.4rem;margin:.2rem 0 .15rem;
+  color:var(--blanc);font-weight:700;
 }
-.tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:var(--bleu-clair)}
+.tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--bleu-clair)}
 
 /* --- barre de recherche verre --- */
 form{
-  display:flex;gap:0;margin:26px 0 14px;border-radius:16px;overflow:hidden;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 10px 30px rgba(3,6,20,.35);
-  transition:border-color .2s, box-shadow .2s;
+  display:flex;gap:0;margin:24px 0 14px;border-radius:12px;overflow:hidden;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:border-color .2s;
 }
-form:focus-within{border-color:rgba(91,140,255,.55);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 4px rgba(91,140,255,.14),0 10px 30px rgba(3,6,20,.35)}
+form:focus-within{border-color:rgba(91,140,255,.5)}
 input{
-  flex:1;padding:16px 18px;border:none;background:transparent;color:var(--ink);
+  flex:1;padding:15px 17px;border:none;background:transparent;color:var(--ink);
   font-size:1rem;font-family:inherit;outline:none;
 }
-input::placeholder{color:var(--muted);font-style:italic}
+input::placeholder{color:var(--muted)}
 button{
-  margin:6px;padding:12px 22px;border-radius:11px;border:1px solid rgba(255,255,255,.22);
-  cursor:pointer;font-weight:600;font-size:.95rem;font-family:inherit;color:#fff;
-  background:linear-gradient(135deg,rgba(53,87,212,.92) 0%,rgba(91,140,255,.88) 100%);
-  box-shadow:0 8px 22px rgba(53,87,212,.45),inset 0 1px 0 rgba(255,255,255,.32);
-  transition:transform .12s, filter .12s;
+  margin:5px;padding:11px 20px;border-radius:8px;border:none;
+  cursor:pointer;font-weight:600;font-size:.92rem;font-family:inherit;color:#fff;
+  background:var(--bleu);
+  transition:filter .12s;
 }
-button:hover{filter:brightness(1.12);transform:translateY(-1px)}
-button:active{transform:translateY(0)}
+button:hover{filter:brightness(1.12)}
 
 .examples{display:flex;flex-wrap:wrap;gap:8px}
 .examples span{
-  font-size:.78rem;color:var(--muted);border-radius:99px;padding:6px 14px;cursor:pointer;
-  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
-  transition:all .15s;
+  font-size:.78rem;color:var(--muted);border-radius:99px;padding:6px 13px;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+  transition:color .15s, border-color .15s;
 }
-.examples span:hover{color:var(--ink);border-color:rgba(91,140,255,.6);
-  background:rgba(91,140,255,.12);transform:translateY(-1px)}
+.examples span:hover{color:var(--ink);border-color:rgba(91,140,255,.5)}
 
 /* --- carte résultat verre --- */
 .result{
-  border-radius:20px;padding:24px 26px;margin-top:22px;position:relative;overflow:hidden;
-  background:linear-gradient(165deg,rgba(30,42,88,.55),rgba(16,24,52,.4));
-  border:1px solid rgba(255,255,255,.16);
-  backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);
-  box-shadow:0 22px 50px rgba(3,6,20,.5),inset 0 1px 0 rgba(255,255,255,.2);
-  animation:rise .35s ease-out;
+  border-radius:14px;padding:22px 24px;margin-top:20px;position:relative;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 14px 34px rgba(3,6,20,.3);
+  animation:rise .25s ease-out;
 }
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.result::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.result.ok::before{background:linear-gradient(90deg,var(--bleu),var(--bleu-vif),var(--bleu-clair))}
-.result.refus::before{background:linear-gradient(90deg,#c93a48,var(--rouge),var(--rouge-clair))}
-.result.ok{box-shadow:0 22px 50px rgba(3,6,20,.5),0 0 42px rgba(91,140,255,.12),inset 0 1px 0 rgba(255,255,255,.16)}
-.result.refus{box-shadow:0 22px 50px rgba(3,6,20,.5),0 0 42px rgba(224,74,88,.12),inset 0 1px 0 rgba(255,255,255,.16)}
-.status{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
-.result.ok .status{color:var(--bleu-clair);text-shadow:0 0 14px rgba(91,140,255,.5)}
-.result.refus .status{color:var(--rouge-clair);text-shadow:0 0 14px rgba(224,74,88,.5)}
-.answer{line-height:1.65;margin-bottom:16px;font-size:1.02rem}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.result.ok{border-left:3px solid var(--bleu-vif)}
+.result.refus{border-left:3px solid var(--rouge)}
+.status{font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+.result.ok .status{color:var(--bleu-clair)}
+.result.refus .status{color:var(--rouge-clair)}
+.answer{line-height:1.65;margin-bottom:16px}
 .detail{font-size:.85rem;color:var(--muted);margin-bottom:14px}
 .cite{
   display:flex;align-items:center;gap:10px;font-size:.88rem;
-  padding:10px 14px;border-radius:12px;margin-top:7px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+  padding:9px 13px;border-radius:10px;margin-top:6px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
 }
-.cite .dot{width:9px;height:9px;border-radius:50%;flex:none}
-.cite.exists .dot{background:var(--bleu-vif);box-shadow:0 0 10px rgba(91,140,255,.8)}
-.cite.missing .dot{background:var(--rouge);box-shadow:0 0 10px rgba(224,74,88,.8)}
+.cite .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.cite.exists .dot{background:var(--bleu-vif)}
+.cite.missing .dot{background:var(--rouge)}
 .cite a{color:var(--bleu-clair)}
 .cite .src{margin-left:auto;font-size:.7rem;color:var(--muted)}
 .loading{color:var(--muted);font-style:italic}
-.loading::after{content:'';display:inline-block;width:1em;text-align:left;animation:dots 1.2s steps(4) infinite}
-@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
 
-/* --- devise (french touch) --- */
-footer{margin-top:44px;text-align:center}
-.devise{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;letter-spacing:.06em;color:var(--muted)}
-.devise b{font-weight:600}
-.devise .d-bleu{color:var(--bleu-clair)}.devise .d-blanc{color:var(--blanc)}.devise .d-rouge{color:var(--rouge-clair)}
-.mentions{margin-top:10px;font-size:.66rem;letter-spacing:.14em;color:rgba(147,160,189,.65);text-transform:uppercase}
+footer{margin-top:40px;text-align:center;font-size:.68rem;letter-spacing:.12em;color:rgba(147,160,189,.7);text-transform:uppercase}
 
-/* --- écrin de la mascotte : cocarde en verre qui tourne --- */
-.brand{display:flex;align-items:center;gap:22px;position:relative;z-index:1}
-.halo{
-  position:relative;width:104px;height:104px;flex:none;border-radius:50%;
-  display:grid;place-items:center;
-  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.14),rgba(255,255,255,.035) 60%);
-  border:1px solid rgba(255,255,255,.16);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  box-shadow:0 14px 34px rgba(3,6,20,.45),inset 0 1px 0 rgba(255,255,255,.22);
-}
-.halo::before{
-  content:'';position:absolute;inset:-7px;border-radius:50%;
-  background:conic-gradient(#2f55d4 0 120deg,#f4f6fb 120deg 240deg,#e04a58 240deg 360deg);
-  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px));
-  mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px));
-  opacity:.75;animation:cocarde 14s linear infinite;
-}
-@keyframes cocarde{to{transform:rotate(360deg)}}
+/* --- mascotte --- */
+.brand{display:flex;align-items:center;gap:18px}
 #mascotte{width:86px;height:86px;flex:none;filter:drop-shadow(0 6px 18px rgba(91,140,255,.35));cursor:pointer}
 #mascotte .eye-lid{transform-origin:center;transform:scaleY(0);transition:transform .12s}
 /* repos : flottement + clignement */
@@ -202,12 +138,10 @@ footer{margin-top:44px;text-align:center}
 </style>
 </head>
 <body>
-<div class="aurora"><i class="a-bleu"></i><i class="a-blanc"></i><i class="a-rouge"></i></div>
 <main>
   <div class="panel">
   <div class="kicker">Hackathon Assemblée nationale · 2026</div>
   <div class="brand">
-    <div class="halo">
     <svg id="mascotte" class="idle" viewBox="0 0 100 100" role="img" aria-label="La Chouette Rapporteure" title="Cliquez-moi">
       <!-- ailes -->
       <g class="wing-l"><ellipse cx="24" cy="60" rx="9" ry="18" fill="#2c3f7d"/></g>
@@ -239,7 +173,6 @@ footer{margin-top:44px;text-align:center}
       <circle cx="50" cy="56" r="4.6" fill="#f4f6fb"/>
       <circle class="cocarde-center" cx="50" cy="56" r="2.4" fill="#e04a58"/>
     </svg>
-    </div>
     <div>
       <h1>Le Rapporteur</h1>
       <div class="tagline">Zéro article inventé. Chaque citation vérifiée.</div>
@@ -260,10 +193,7 @@ footer{margin-top:44px;text-align:center}
 
   <div id="out"></div>
 
-  <footer>
-    <div class="devise"><b class="d-bleu">Liberté</b> · <b class="d-blanc">Égalité</b> · <b class="d-rouge">Traçabilité</b></div>
-    <div class="mentions">LE RAPPORTEUR · POC — LLM LOCAL + VÉRIFICATION MCP MOULINEUSE / CANUTES</div>
-  </footer>
+  <footer>Le Rapporteur · POC — LLM local + vérification MCP Moulineuse / Canutes</footer>
 </main>
 <script>
 const f = document.getElementById('f'), q = document.getElementById('q'), out = document.getElementById('out');
