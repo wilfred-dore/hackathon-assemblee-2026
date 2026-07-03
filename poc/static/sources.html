@@ -36,6 +36,7 @@
 
 <footer>Le Rapporteur · POC — textes chargés depuis Légifrance. Le droit français est librement réutilisable.</footer>
 
+<script src="/api.js"></script>
 <script>
 const list = document.getElementById('list'), out = document.getElementById('out'),
       f = document.getElementById('f'), q = document.getElementById('q');
@@ -43,7 +44,7 @@ const esc = s => String(s).replace(/[&<>"']/g, m =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
 async function loadList(){
-  const d = await (await fetch('/api/articles')).json();
+  const d = await articlesApi();
   list.innerHTML = '<div class="examples">' + (d.articles || []).map(a =>
     `<button type="button" data-ref="${esc(a.label)}">Article ${esc(a.num)} · ${esc(a.code)}</button>`
   ).join('') + '</div>';
@@ -54,7 +55,7 @@ async function loadList(){
 async function show(ref){
   q.value = ref;
   out.innerHTML = '<div class="card"><p class="empty">Chargement depuis Légifrance…</p></div>';
-  const d = await (await fetch('/api/article?ref=' + encodeURIComponent(ref))).json();
+  const d = await articleApi(ref);
   if (!d.found){
     out.innerHTML = `<div class="card result refus">
       <div class="status">Introuvable</div>

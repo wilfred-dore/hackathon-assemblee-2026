@@ -54,6 +54,11 @@ def app_css() -> FileResponse:
     return FileResponse(_STATIC / "app.css", media_type="text/css")
 
 
+@app.get("/api.js")
+def api_js() -> FileResponse:
+    return FileResponse(_STATIC / "api.js", media_type="text/javascript")
+
+
 @app.get("/favicon.svg")
 def favicon() -> FileResponse:
     return FileResponse(_STATIC / "favicon.svg", media_type="image/svg+xml")

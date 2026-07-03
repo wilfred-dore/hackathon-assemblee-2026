@@ -40,6 +40,7 @@
 
 <footer>Le Rapporteur · POC — LLM souverain + vérification MCP Moulineuse / Canutes (Légifrance). Mode démo hors-ligne.</footer>
 
+<script src="/api.js"></script>
 <script>
 const f = document.getElementById('f'), q = document.getElementById('q'), out = document.getElementById('out');
 const esc = s => String(s).replace(/[&<>"']/g, m =>
@@ -51,11 +52,7 @@ document.querySelectorAll('.examples button').forEach(b =>
 f.addEventListener('submit', async e => {
   e.preventDefault();
   out.innerHTML = '<div class="card result"><div class="loading">Génération et vérification des sources…</div></div>';
-  const r = await fetch('/api/ask', {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({question: q.value})
-  });
-  const d = await r.json();
+  const d = await askApi(q.value);
   const ok = d.status === 'ok';
   const cites = (d.citations || []).map(c => `
     <div class="cite ${c.exists ? 'exists' : 'missing'}">
