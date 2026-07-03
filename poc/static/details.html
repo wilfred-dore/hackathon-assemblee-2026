@@ -27,19 +27,23 @@
 
   <h2>Le pipeline de confiance</h2>
   <div class="steps">
-    <div class="step"><span class="n">1</span><b>Ancrage dans les sources</b>
-      <p>La question est enrichie de passages récupérés dans les corpus officiels
-      (Légifrance / Canutes, débats parlementaires) via le protocole MCP.</p></div>
-    <div class="step"><span class="n">2</span><b>Génération</b>
-      <p>Un LLM souverain (Mistral, infrastructure dédiée) rédige une réponse en citant
-      ses sources au format « article … du Code … ».</p></div>
-    <div class="step"><span class="n">3</span><b>Extraction &amp; vérification</b>
-      <p>Chaque citation est extraite puis confrontée une à une aux sources.
-      Une erreur réseau vaut non-vérification : fail-closed.</p></div>
+    <div class="step"><span class="n">1</span><b>Génération</b>
+      <p>Un LLM souverain (Llama-3.1-8B sur Qualcomm Cloud AI 100 ; Mistral via
+      Modular MAX visé) rédige une réponse en citant ses sources au format
+      « article … du Code … ».</p></div>
+    <div class="step"><span class="n">2</span><b>Extraction des citations</b>
+      <p>Chaque référence d'article est extraite du texte généré (« article L. 3121-27
+      du Code du travail »).</p></div>
+    <div class="step"><span class="n">3</span><b>Vérification en base</b>
+      <p>Chaque citation est confrontée à Canutes / Légifrance : l'article existe-t-il,
+      dans ce code, en vigueur ? Lien Légifrance réel. Erreur réseau = non-vérifié
+      (fail-closed).</p></div>
     <div class="step refus"><span class="n">4</span><b>Réponse sourcée — ou refus</b>
       <p>Toutes les citations existent → réponse avec liens cliquables. Une seule
       introuvable → « Je ne trouve pas de texte applicable. »</p></div>
   </div>
+  <p class="lead" style="margin-top:12px;font-size:.9rem">Aujourd'hui : <b>génération → vérification</b>
+  (fact-check a posteriori). L'ancrage amont (RAG) est sur la feuille de route.</p>
 
   <h2>Les garanties</h2>
   <div class="card">

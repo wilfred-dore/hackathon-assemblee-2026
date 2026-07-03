@@ -1,5 +1,8 @@
 # hackathon-assemblee-2026 — IA de confiance juridique
 
+> 🌐 **Démo & docs en ligne** : <https://wilfred-dore.github.io/hackathon-assemblee-2026/>
+> — pitch `/pitch.html`, « comment ça marche » `/details.html`, cartographie schéma `/schema/`.
+
 Assistant juridique **sourcé** : le LLM répond, puis **chaque article cité est
 vérifié** contre les sources (MCP Moulineuse / Canutes-Légifrance). Au moindre
 article introuvable — ou en l'absence de citation vérifiable — la réponse est un
