@@ -51,7 +51,8 @@ def main() -> None:
     wiring_report()
 
     console.print(f"\n[bold]Question :[/bold] {question}")
-    ans = answer_question(question)
+    llm = LLMClient()
+    ans = answer_question(question, llm=llm)
 
     style = "green" if ans.ok else "yellow"
     verdict = "RÉPONSE SOURCÉE" if ans.ok else "REFUS EXPLICITE"
@@ -71,6 +72,20 @@ def main() -> None:
         console.print(f"[dim]{ans.detail}[/dim]")
     for note in ans.validation.get("retrieval_notes", []):
         console.print(f"  [dim]· {note}[/dim]")
+
+    # Panneau frugalité / souveraineté (backend hardware-agnostique)
+    m = llm.last_metrics
+    if m:
+        host = (m["backend"] or "").split("//")[-1].split("/")[0]
+        tf = Table(title="Frugalité & souveraineté", show_header=True, header_style="bold")
+        tf.add_column("Backend souverain")
+        tf.add_column("Modèle")
+        tf.add_column("Latence")
+        tf.add_column("Débit")
+        tf.add_row(host or "?", m["model"] or "?", f"{m['latency_s']} s",
+                   f"{m['tokens_per_s']} tok/s" if m["tokens_per_s"] else "—")
+        console.print(tf)
+        console.print("[dim]Même pipeline, backend swappable (Qualcomm Cloud AI 100 ⇄ AMD/MAX) — hors CUDA/NVIDIA.[/dim]")
 
     console.print(
         "\n[dim]Note : hors-ligne, un LLM démo répond (dont des citations "

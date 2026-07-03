@@ -1,0 +1,294 @@
+// Canutes — schémas legifrance, assemblee (introspecté 2026-07-03)
+// Rendu : coller sur https://dbdiagram.io. NB: aucune FK déclarée en base
+// (relations implicites -> voir docs/schema/README.md).
+
+Table assemblee.acteurs {
+  "uid" text [not null]
+  "data" jsonb
+  "depute_actif" boolean
+  "depute_groupe_parlementaire_uid" text
+  "nom_complet" text [not null]
+  "slug" text [not null]
+}
+
+Table assemblee.amendements {
+  "uid" text [not null]
+  "data" jsonb
+  "legislature" integer [not null]
+}
+
+Table assemblee.amendements_text_search {
+  "uid" text [not null]
+  "text_search" tsvector [not null]
+}
+
+Table assemblee.deputes_signataires_amendements {
+  "amendement_uid" text [not null]
+  "auteur" boolean
+  "depute_uid" text [not null]
+}
+
+Table assemblee.derouleur_lignes {
+  "jaune_id" text [not null]
+  "ligne_index" integer [not null]
+  "ligne_type" text
+  "texte_bibard" text
+  "amendement_uid" text
+  "numero" text
+  "division" text
+  "phase_libelle" text
+  "phase_type" text
+  "jaune_date_time" timestamp_with_time_zone
+  "extract_date_time" timestamp_with_time_zone
+  "detail" jsonb
+  "data" jsonb [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+
+Table assemblee.documents {
+  "uid" text [not null]
+  "data" jsonb
+  "legislature" integer [not null]
+}
+
+Table assemblee.dossiers {
+  "uid" text [not null]
+  "data" jsonb
+  "date_dernier_acte" timestamp_with_time_zone
+  "date_prochain_acte" timestamp_with_time_zone
+  "legislature" integer [not null]
+}
+
+Table assemblee.dossiers_autocomplete {
+  "uid" text [not null]
+  "autocomplete" text [not null]
+}
+
+Table assemblee.dossiers_text_search {
+  "uid" text [not null]
+  "text_search" tsvector [not null]
+}
+
+Table assemblee.eliasse_amendements {
+  "legislature" integer [not null]
+  "bibard" text [not null]
+  "bibard_suffixe" text [not null]
+  "organe_abrv" text [not null]
+  "numero" text [not null]
+  "position" text
+  "sort" text
+  "discussion_commune" text
+  "discussion_commune_position" text
+  "discussion_identique" text
+  "discussion_identique_position" text
+  "nbr_amdt_restant" integer
+  "amendement_uid" text
+  "resolution_reason" text
+  "data" jsonb [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+
+Table assemblee.organes {
+  "uid" text [not null]
+  "data" jsonb
+}
+
+Table assemblee.reunions {
+  "uid" text [not null]
+  "data" jsonb
+  "jour_debut" date [not null]
+  "jour_fin" date [not null]
+  "legislature" integer [not null]
+}
+
+Table assemblee.reunions_acteurs_demandeurs {
+  "reunion_uid" text [not null]
+  "acteur_uid" text [not null]
+}
+
+Table assemblee.reunions_acteurs_participants {
+  "reunion_uid" text [not null]
+  "acteur_uid" text [not null]
+}
+
+Table assemblee.reunions_organes_demandeurs {
+  "reunion_uid" text [not null]
+  "organe_uid" text [not null]
+}
+
+Table assemblee.reunions_organes_reunis {
+  "reunion_uid" text [not null]
+  "organe_uid" text [not null]
+}
+
+Table assemblee.scrutins {
+  "uid" text [not null]
+  "data" jsonb
+  "legislature" integer [not null]
+}
+
+Table assemblee.scrutins_temps_reel {
+  "uid" text [not null]
+  "numero" text [not null]
+  "legislature" integer [not null]
+  "date_scrutin" date
+  "data" jsonb [not null]
+  "source" jsonb [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "compte_rendu_ref" text
+  "numero_seance" text
+}
+
+Table assemblee.version {
+  "number" integer [not null]
+}
+
+Table legifrance.article {
+  "id" character [not null]
+  "data" jsonb [not null]
+  "num" text
+}
+
+Table legifrance.article_contenu_avec_liens {
+  "id" character [not null]
+  "bloc_textuel" text
+  "date_extraction_liens" character [not null]
+  "next_article_context" json
+  "nota" text
+}
+
+Table legifrance.article_git {
+  "id" character [not null]
+  "date" character [not null]
+  "path" text [not null]
+}
+
+Table legifrance.article_lien {
+  "article_id" character [not null]
+  "cible" boolean [not null]
+  "cidtexte" character
+  "id" character [not null]
+  "typelien" text [not null]
+}
+
+Table legifrance.article_lien_extrait {
+  "field_name" text [not null]
+  "index" smallint [not null]
+  "link" jsonb [not null]
+  "source_id" character [not null]
+  "target_id" character
+}
+
+Table legifrance.consolidated_texts_git_hashes {
+  "id" character [not null]
+  "data_hash" text [not null]
+  "source_code_commit_oid" text [not null]
+}
+
+Table legifrance.dossier_legislatif {
+  "id" character [not null]
+  "data" jsonb [not null]
+  "jorf_texte_principal_id" character
+  "jorf_textes_id" ARRAY
+}
+
+Table legifrance.id {
+  "eli" text [not null]
+  "id" character [not null]
+}
+
+Table legifrance.idcc {
+  "id" character [not null]
+  "data" jsonb [not null]
+}
+
+Table legifrance.jo {
+  "id" character [not null]
+  "data" jsonb [not null]
+}
+
+Table legifrance.last_update {
+  "commit_id" text [not null]
+  "origin" text [not null]
+}
+
+Table legifrance.section_ta {
+  "id" character [not null]
+  "data" jsonb [not null]
+}
+
+Table legifrance.section_ta_git {
+  "id" character [not null]
+  "date" character [not null]
+  "path" text [not null]
+}
+
+Table legifrance.texte_contenu_avec_liens {
+  "id" character [not null]
+  "abro" text
+  "date_extraction_liens" character [not null]
+  "nota" text
+  "notice" text
+  "signataires" text
+  "sm" text
+  "tp" text
+  "visas" text
+}
+
+Table legifrance.texte_lien_extrait {
+  "field_name" text [not null]
+  "index" smallint [not null]
+  "link" jsonb [not null]
+  "source_id" character [not null]
+  "target_id" character
+}
+
+Table legifrance.texte_version {
+  "id" character [not null]
+  "data" jsonb [not null]
+  "commission_fond_assemblee_uid" text
+  "est_texte_principal" boolean
+  "nature" text
+  "nature_et_num" text
+  "text_search" tsvector [not null]
+}
+
+Table legifrance.texte_version_dossier_legislatif_assemblee_associations {
+  "id" character [not null]
+  "assemblee_uid" character [not null]
+}
+
+Table legifrance.texte_version_git {
+  "id" character [not null]
+  "date" character [not null]
+  "path" text [not null]
+}
+
+Table legifrance.texte_version_lien {
+  "texte_version_id" character [not null]
+  "cible" boolean [not null]
+  "cidtexte" character
+  "id" character [not null]
+  "typelien" text [not null]
+}
+
+Table legifrance.textekali {
+  "id" character [not null]
+  "data" jsonb [not null]
+}
+
+Table legifrance.textelr {
+  "id" character [not null]
+  "data" jsonb [not null]
+}
+
+Table legifrance.version {
+  "number" integer [not null]
+}
+
+Table legifrance.versions {
+  "eli" text [not null]
+  "id" character [not null]
+  "data" jsonb [not null]
+}
+

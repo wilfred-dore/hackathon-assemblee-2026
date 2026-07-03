@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Redirection…</title>
+<script>
+  // GitHub Pages ne fait pas de routing : /pitch n'existe pas, /pitch.html oui.
+  // On rattrape les URL « propres » (sans extension) en ajoutant .html.
+  (function () {
+    var p = location.pathname.replace(/\/+$/, "");      // enlève le slash final
+    if (p && !/\.[a-z0-9]+$/i.test(p)) {                 // pas d'extension -> tente .html
+      location.replace(p + ".html" + location.search + location.hash);
+    }
+  })();
+</script>
+<meta http-equiv="refresh" content="2;url=/hackathon-assemblee-2026/">
+</head>
+<body style="font:16px system-ui;max-width:640px;margin:12vh auto;padding:0 1.2rem">
+  <h1>Page introuvable</h1>
+  <p>Redirection en cours… sinon, retournez à
+  <a href="/hackathon-assemblee-2026/">l'accueil du Rapporteur</a>.</p>
+</body>
+</html>

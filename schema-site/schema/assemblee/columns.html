@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>canutes.assemblee</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+        <!-- Bootstrap 3.3.5 -->
+        <link rel="stylesheet" href="bower/admin-lte/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="bower/ionicons/css/ionicons.min.css">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="bower/datatables.net-bs/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" href="bower/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
+        <!-- Code Mirror -->
+        <link rel="stylesheet" href="bower/codemirror/codemirror.css">
+        <!-- Fonts -->
+        <link href='fonts/indieflower/indie-flower.css' rel='stylesheet' type='text/css'>
+        <link href='fonts/source-sans-pro/source-sans-pro.css' rel='stylesheet' type='text/css'>
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/AdminLTE.min.css">
+        <!-- Salvattore -->
+        <link rel="stylesheet" href="bower/salvattore/salvattore.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/skins/_all-skins.min.css">
+        <!-- SchemaSpy -->
+        <link rel="stylesheet" href="schemaSpy.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="bower/html5shiv/html5shiv.min.js"></script>
+        <script src="bower/respond/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+    <body class="hold-transition skin-blue layout-top-nav">
+        <div class="wrapper">
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a href="index.html" class="navbar-brand"><b>canutes</b></a><span class="navbar-brand" style="padding-left: 0">.assemblee</span>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="index.html">Tables <span class="sr-only">(current)</span></a></li>
+                                <li><a href="columns.html" title="All of the columns in the schema">Columns</a></li>
+                                <li><a href="constraints.html" title="Useful for diagnosing error messages that just give constraint name or number">Constraints</a></li>
+                                <li><a href="relationships.html" title="Diagram of table relationships">Relationships</a></li>
+                                <li><a href="orphans.html" title="View of tables with neither parents nor children">Orphan&nbsp;Tables</a></li>
+                                <li><a href="anomalies.html" title="Things that might not be quite right">Anomalies</a></li>
+                                <li><a href="routines.html" title="Procedures and functions">Routines</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                        <!-- Navbar Right Menu -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            </header>
+            <!-- Main content -->
+            <!-- Full Width Column -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>Columns</h1>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            <h3 class="box-title">Columns</h3>
+                        </div>
+                        <div class="box-body">
+                            <table
+                                    id="column_table"
+                                    class="table table-bordered table-striped dataTable"
+                                    role="grid"
+                                    data-paging="true"
+                                    data-page-length="50"
+                                    data-length-change="false">
+                                <thead align='left'>
+                                    <tr>
+                                        <th>Table</th>
+                                        <th>Type</th>
+                                        <th>Column</th>
+                                        <th>Type</th>
+                                        <th>Size</th>
+                                        <th title='Are nulls allowed?'>Nullable</th>
+                                        <th title='Is column automatically updated?'>Auto</th>
+                                        <th title='Default value'>Default</th>
+                                        <th title='Comments' class="toggle"><span>Comments</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <script>
+                    var tableData = [
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>bibard",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>numero",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>bibard_suffixe",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "''::text",
+        "comments": ""
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "discussion_identique_position",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>raw Eliasse data used for this amendment<\/p>"
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID reconstructed like open data scrutin UID<\/p>"
+    },
+    {
+        "tableName": "amendements",
+        "tableFileName": "amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>JSON data of amendment<\/p>"
+    },
+    {
+        "tableName": "dossiers_autocomplete",
+        "tableFileName": "dossiers_autocomplete",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>autocomplete",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>autocompletion text of dossier<\/p>"
+    },
+    {
+        "tableName": "amendements",
+        "tableFileName": "amendements",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>legislature",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>législature of the dataset that this amendment belongs to<\/p>"
+    },
+    {
+        "tableName": "reunions",
+        "tableFileName": "reunions",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>legislature",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>législature of the dataset that this meeting belongs to<\/p>"
+    },
+    {
+        "tableName": "reunions",
+        "tableFileName": "reunions",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>jour_debut",
+        "type": "date",
+        "length": 13,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>first day of meeting<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "discussion_commune",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "acteurs",
+        "tableFileName": "acteurs",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "nom_complet",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>full name of acteur<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "sort",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>ligne_index",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>line position in dérouleur payload<\/p>"
+    },
+    {
+        "tableName": "dossiers",
+        "tableFileName": "dossiers",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>legislature",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>législature of the dataset that this dossier belongs to<\/p>"
+    },
+    {
+        "tableName": "version",
+        "tableFileName": "version",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>number",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>version number of database schema<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>amendement_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>open data amendment UID when the line is an amendment<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "resolution_reason",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>reason used to resolve amendment_uid, or ambiguous when unresolved<\/p>"
+    },
+    {
+        "tableName": "reunions_acteurs_demandeurs",
+        "tableFileName": "reunions_acteurs_demandeurs",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>acteur_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of person<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "nbr_amdt_restant",
+        "type": "int4",
+        "length": 10,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "deputes_signataires_amendements",
+        "tableFileName": "deputes_signataires_amendements",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>amendement_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of amendment<\/p>"
+    },
+    {
+        "tableName": "acteurs",
+        "tableFileName": "acteurs",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>slug",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>slug constructed from full name of acteur<\/p>"
+    },
+    {
+        "tableName": "documents",
+        "tableFileName": "documents",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of document (given by Assemblée)<\/p>"
+    },
+    {
+        "tableName": "reunions_organes_demandeurs",
+        "tableFileName": "reunions_organes_demandeurs",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>organe_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of organization<\/p>"
+    },
+    {
+        "tableName": "documents",
+        "tableFileName": "documents",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>JSON data of document<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>position",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "dossiers",
+        "tableFileName": "dossiers",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>date_prochain_acte",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>date &amp; time of the next acte<\/p>"
+    },
+    {
+        "tableName": "dossiers_autocomplete",
+        "tableFileName": "dossiers_autocomplete",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of dossier (same as dossiers)<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>ligne_type",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>numero_seance",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>public sitting number extracted from compte_rendu_ref<\/p>"
+    },
+    {
+        "tableName": "documents",
+        "tableFileName": "documents",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>legislature",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>législature of the dataset that this document belongs to<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "discussion_commune_position",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>compte_rendu_ref",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>debate report UID extracted from Assemblée website<\/p>"
+    },
+    {
+        "tableName": "amendements_text_search",
+        "tableFileName": "amendements_text_search",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>text_search",
+        "type": "tsvector",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>full text search vector of amendement<\/p>"
+    },
+    {
+        "tableName": "organes",
+        "tableFileName": "organes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>JSON data of organe<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "foreignKey",
+        "keyTitle": "Foreign Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>amendement_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>resolved open data amendment UID, when unambiguous<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "phase_libelle",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>extract_date_time",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "detail",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>raw detail returned by /dyn/api/amendements/jaune/{uid}, for amendment lines only<\/p>"
+    },
+    {
+        "tableName": "amendements_text_search",
+        "tableFileName": "amendements_text_search",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of amendement (same as amendements)<\/p>"
+    },
+    {
+        "tableName": "acteurs",
+        "tableFileName": "acteurs",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>depute_actif",
+        "type": "bool",
+        "length": 1,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "false",
+        "comments": "<p>when true the person is currently a député<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "division",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "dossiers",
+        "tableFileName": "dossiers",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of dossier (given by Assemblée)<\/p>"
+    },
+    {
+        "tableName": "acteurs",
+        "tableFileName": "acteurs",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>JSON data of acteur<\/p>"
+    },
+    {
+        "tableName": "scrutins",
+        "tableFileName": "scrutins",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of scrutin (given by Assemblée)<\/p>"
+    },
+    {
+        "tableName": "dossiers_text_search",
+        "tableFileName": "dossiers_text_search",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>text_search",
+        "type": "tsvector",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>full text search vector of dossier<\/p>"
+    },
+    {
+        "tableName": "deputes_signataires_amendements",
+        "tableFileName": "deputes_signataires_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "auteur",
+        "type": "bool",
+        "length": 1,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "false",
+        "comments": "<p>true when député is the author of amendment<\/p>"
+    },
+    {
+        "tableName": "acteurs",
+        "tableFileName": "acteurs",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of acteur (given by Assemblée)<\/p>"
+    },
+    {
+        "tableName": "dossiers",
+        "tableFileName": "dossiers",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>date_dernier_acte",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>date &amp; time of the latest acte<\/p>"
+    },
+    {
+        "tableName": "reunions_organes_demandeurs",
+        "tableFileName": "reunions_organes_demandeurs",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>reunion_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of meeting<\/p>"
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>JSON data reconstructed as close as possible to Scrutin clean<\/p>"
+    },
+    {
+        "tableName": "organes",
+        "tableFileName": "organes",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of organe (given by Assemblée)<\/p>"
+    },
+    {
+        "tableName": "scrutins",
+        "tableFileName": "scrutins",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>JSON data of scrutin<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>organe_abrv",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "reunions_organes_reunis",
+        "tableFileName": "reunions_organes_reunis",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>organe_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of organization<\/p>"
+    },
+    {
+        "tableName": "reunions_acteurs_demandeurs",
+        "tableFileName": "reunions_acteurs_demandeurs",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>reunion_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of meeting<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "jaune_date_time",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "source",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>raw source fields extracted from Assemblée website<\/p>"
+    },
+    {
+        "tableName": "reunions_acteurs_participants",
+        "tableFileName": "reunions_acteurs_participants",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>reunion_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of meeting<\/p>"
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "numero",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "reunions",
+        "tableFileName": "reunions",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>jour_fin",
+        "type": "date",
+        "length": 13,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>last day of meeting<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "phase_type",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "texte_bibard",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>date_scrutin",
+        "type": "date",
+        "length": 13,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "scrutins",
+        "tableFileName": "scrutins",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>legislature",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>législature of the dataset that this scrutin belongs to<\/p>"
+    },
+    {
+        "tableName": "acteurs",
+        "tableFileName": "acteurs",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>depute_groupe_parlementaire_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>ID of the current groupe parlementaire of député<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>raw dérouleur line and context data<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "updated_at",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "now()",
+        "comments": ""
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>legislature",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "dossiers",
+        "tableFileName": "dossiers",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>JSON data of dossier<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "updated_at",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "now()",
+        "comments": ""
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "updated_at",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "now()",
+        "comments": ""
+    },
+    {
+        "tableName": "amendements",
+        "tableFileName": "amendements",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of amendment (given by Assemblée)<\/p>"
+    },
+    {
+        "tableName": "deputes_signataires_amendements",
+        "tableFileName": "deputes_signataires_amendements",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>depute_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of député<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "numero",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "reunions",
+        "tableFileName": "reunions",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "data",
+        "type": "jsonb",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>JSON data of meeting<\/p>"
+    },
+    {
+        "tableName": "dossiers_text_search",
+        "tableFileName": "dossiers_text_search",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of dossier (same as dossiers)<\/p>"
+    },
+    {
+        "tableName": "reunions_acteurs_participants",
+        "tableFileName": "reunions_acteurs_participants",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>acteur_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of person<\/p>"
+    },
+    {
+        "tableName": "scrutins_temps_reel",
+        "tableFileName": "scrutins_temps_reel",
+        "tableType": "Table",
+        "keyClass": "indexedColumn",
+        "keyTitle": "Indexed",
+        "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'><\/i>legislature",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "reunions_organes_reunis",
+        "tableFileName": "reunions_organes_reunis",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>reunion_uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of meeting<\/p>"
+    },
+    {
+        "tableName": "derouleur_lignes",
+        "tableFileName": "derouleur_lignes",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>jaune_id",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>public dérouleur snapshot identifier<\/p>"
+    },
+    {
+        "tableName": "reunions",
+        "tableFileName": "reunions",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'><\/i>uid",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": "<p>unique ID of meeting (given by Assemblée)<\/p>"
+    },
+    {
+        "tableName": "eliasse_amendements",
+        "tableFileName": "eliasse_amendements",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "discussion_identique",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    }
+];
+                    var config = {
+                        pagination: true
+                    };
+                </script>
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div>
+                    <div class="pull-right hidden-xs">
+                        <a href="https://github.com/schemaspy/schemaspy" title="GitHub for SchemaSpy"><i class="fa fa-github-square fa-2x"></i></a>
+                        <a href="http://stackoverflow.com/questions/tagged/schemaspy" title="StackOverflow for SchemaSpy"><i class="fa fa-stack-overflow fa-2x"></i></a>
+                    </div>
+                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 6.2.4</a></strong>
+                </div>
+                <!-- /.container -->
+            </footer>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery 2.2.3 -->
+        <script src="bower/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="bower/admin-lte/plugins/jQueryUI/jquery-ui.min.js"></script>
+        <!-- Bootstrap 3.3.5 -->
+        <script src="bower/admin-lte/bootstrap/js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script src="bower/datatables.net/jquery.dataTables.min.js"></script>
+        <script src="bower/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/dataTables.buttons.min.js"></script>
+        <script src="bower/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.html5.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.print.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.colVis.min.js"></script>
+        <!-- SheetJS -->
+        <script src="bower/js-xlsx/xlsx.full.min.js"></script>
+        <!-- pdfmake -->
+        <script src="bower/pdfmake/pdfmake.min.js"></script>
+        <script src="bower/pdfmake/vfs_fonts.js"></script>
+        <!-- SlimScroll -->
+        <script src="bower/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="bower/admin-lte/plugins/fastclick/fastclick.js"></script>
+        <!-- Salvattore -->
+        <script src="bower/salvattore/salvattore.min.js"></script>
+        <!-- AnchorJS -->
+        <script src="bower/anchor-js/anchor.min.js"></script>
+        <!-- CodeMirror -->
+        <script src="bower/codemirror/codemirror.js"></script>
+        <script src="bower/codemirror/sql.js"></script>
+        <!-- AdminLTE App -->
+        <script src="bower/admin-lte/dist/js/app.min.js"></script>
+        <script src="column.js"></script>
+        <script src="schemaSpy.js"></script>
+    </body>
+</html>

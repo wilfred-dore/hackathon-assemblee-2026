@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="canutes" schema="legifrance" type="PostgreSQL - 17.10 (Debian 17.10-0+deb13u1)">
+   <tables>
+      <table name="article" numRows="4627132" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <child column="id" foreignKey="article_contenu_avec_liens_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="article_contenu_avec_liens"/>
+            <child column="id" foreignKey="article_git_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="article_git"/>
+            <child column="article_id" foreignKey="article_lien_article_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="article_lien"/>
+            <child column="source_id" foreignKey="article_lien_extrait_source_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="article_lien_extrait"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="num" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="article_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="article_cid_et_num_key" unique="false">
+            <column ascending="true" name="num"/>
+         </index>
+      </table>
+      <table name="article_contenu_avec_liens" numRows="0" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="article_contenu_avec_liens_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="article"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="bloc_textuel" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="date_extraction_liens" nullable="false" remarks="" size="10" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="next_article_context" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="nota" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="article_contenu_avec_liens_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="article_git" numRows="516612" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="article_git_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="article"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="date" nullable="false" remarks="" size="10" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="path" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="article_git_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="article_lien" numRows="8027914" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="article_id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="article_lien_article_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="article"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="cible" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="cidtexte" nullable="true" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="typelien" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="article_id" sequenceNumberInPK="1"/>
+         <primaryKey column="cible" sequenceNumberInPK="2"/>
+         <primaryKey column="typelien" sequenceNumberInPK="3"/>
+         <primaryKey column="id" sequenceNumberInPK="4"/>
+         <index name="article_lien_pkey" unique="true">
+            <column ascending="true" name="article_id"/>
+            <column ascending="true" name="cible"/>
+            <column ascending="true" name="typelien"/>
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="article_lien_cidtext_reverse_key" unique="false">
+            <column ascending="true" name="cidtexte"/>
+            <column ascending="true" name="cible"/>
+            <column ascending="true" name="typelien"/>
+         </index>
+         <index name="article_lien_id_reverse_key" unique="false">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="cible"/>
+            <column ascending="true" name="typelien"/>
+         </index>
+      </table>
+      <table name="article_lien_extrait" numRows="0" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="field_name" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="index" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="link" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="source_id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="article_lien_extrait_source_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="article"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="target_id" nullable="true" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <primaryKey column="source_id" sequenceNumberInPK="1"/>
+         <primaryKey column="field_name" sequenceNumberInPK="2"/>
+         <primaryKey column="index" sequenceNumberInPK="3"/>
+         <index name="article_lien_extrait_pkey" unique="true">
+            <column ascending="true" name="source_id"/>
+            <column ascending="true" name="field_name"/>
+            <column ascending="true" name="index"/>
+         </index>
+         <index name="article_lien_extrait_key" unique="false">
+            <column ascending="true" name="source_id"/>
+            <column ascending="true" name="field_name"/>
+         </index>
+         <index name="article_lien_extrait_reverse_key" unique="false">
+            <column ascending="true" name="target_id"/>
+            <column ascending="true" name="field_name"/>
+         </index>
+      </table>
+      <table name="consolidated_texts_git_hashes" numRows="115" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="consolidated_texts_git_hashes_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data_hash" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="source_code_commit_oid" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="consolidated_texts_git_hashes_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="dossier_legislatif" numRows="3557" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="jorf_texte_principal_id" nullable="true" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="jorf_textes_id" nullable="true" remarks="" size="20" type="_bpchar" typeCode="2003"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="dossier_legislatif_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="dossier_legislatif_jorf_texte_principal_id_key" unique="false">
+            <column ascending="true" name="jorf_texte_principal_id"/>
+         </index>
+         <index name="dossier_legislatif_jorf_textes_id_key" unique="false">
+            <column ascending="true" name="jorf_textes_id"/>
+         </index>
+      </table>
+      <table name="id" numRows="7428" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="eli" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <primaryKey column="eli" sequenceNumberInPK="1"/>
+         <index name="id_pkey" unique="true">
+            <column ascending="true" name="eli"/>
+         </index>
+      </table>
+      <table name="idcc" numRows="0" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="idcc_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="jo" numRows="31989" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="jo_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="jo__key" unique="false"/>
+      </table>
+      <table name="last_update" numRows="3" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="commit_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="origin" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="origin" sequenceNumberInPK="1"/>
+         <index name="last_update_pkey" unique="true">
+            <column ascending="true" name="origin"/>
+         </index>
+      </table>
+      <table name="section_ta" numRows="437111" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <child column="id" foreignKey="section_ta_git_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="section_ta_git"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="section_ta_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="section_ta_cid_key" unique="false"/>
+      </table>
+      <table name="section_ta_git" numRows="105255" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="section_ta_git_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="section_ta"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="date" nullable="false" remarks="" size="10" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="path" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="section_ta_git_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="texte_contenu_avec_liens" numRows="0" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="texte_contenu_avec_liens_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="abro" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="date_extraction_liens" nullable="false" remarks="" size="10" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="nota" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="notice" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="signataires" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="sm" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="tp" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="visas" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="texte_contenu_avec_liens_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="texte_lien_extrait" numRows="0" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="field_name" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="index" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="link" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="source_id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="texte_lien_extrait_source_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="target_id" nullable="true" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <primaryKey column="source_id" sequenceNumberInPK="1"/>
+         <primaryKey column="field_name" sequenceNumberInPK="2"/>
+         <primaryKey column="index" sequenceNumberInPK="3"/>
+         <index name="texte_lien_extrait_pkey" unique="true">
+            <column ascending="true" name="source_id"/>
+            <column ascending="true" name="field_name"/>
+            <column ascending="true" name="index"/>
+         </index>
+         <index name="texte_lien_extrait_key" unique="false">
+            <column ascending="true" name="source_id"/>
+            <column ascending="true" name="field_name"/>
+         </index>
+         <index name="texte_lien_extrait_reverse_key" unique="false">
+            <column ascending="true" name="target_id"/>
+            <column ascending="true" name="field_name"/>
+         </index>
+      </table>
+      <table name="texte_version" numRows="1417700" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <child column="id" foreignKey="consolidated_texts_git_hashes_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="consolidated_texts_git_hashes"/>
+            <child column="id" foreignKey="texte_contenu_avec_liens_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_contenu_avec_liens"/>
+            <child column="source_id" foreignKey="texte_lien_extrait_source_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_lien_extrait"/>
+            <child column="id" foreignKey="texte_version_dossier_legislatif_assemblee_associations_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version_dossier_legislatif_assemblee_associations"/>
+            <child column="id" foreignKey="texte_version_git_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version_git"/>
+            <child column="texte_version_id" foreignKey="texte_version_lien_texte_version_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version_lien"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="commission_fond_assemblee_uid" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="est_texte_principal" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="nature" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="nature_et_num" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="text_search" nullable="false" remarks="" size="2147483647" type="tsvector" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="texte_version_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="texte_version_nature_et_num_key" unique="false">
+            <column ascending="true" name="nature_et_num"/>
+         </index>
+      </table>
+      <table name="texte_version_dossier_legislatif_assemblee_associations" numRows="0" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="texte_version_dossier_legislatif_assemblee_associations_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="assemblee_uid" nullable="false" remarks="" size="13" type="bpchar" typeCode="1"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="texte_version_dossier_legislatif_assemblee_associations_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="texte_version_git" numRows="115" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="texte_version_git_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="date" nullable="false" remarks="" size="10" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="path" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="texte_version_git_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="texte_version_lien" numRows="400828" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="texte_version_id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1">
+            <parent column="id" foreignKey="texte_version_lien_texte_version_id_fkey" implied="false" onDeleteCascade="true" schema="legifrance" table="texte_version"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="cible" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="cidtexte" nullable="true" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="typelien" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="texte_version_id" sequenceNumberInPK="1"/>
+         <primaryKey column="cible" sequenceNumberInPK="2"/>
+         <primaryKey column="typelien" sequenceNumberInPK="3"/>
+         <primaryKey column="id" sequenceNumberInPK="4"/>
+         <index name="texte_version_lien_pkey" unique="true">
+            <column ascending="true" name="texte_version_id"/>
+            <column ascending="true" name="cible"/>
+            <column ascending="true" name="typelien"/>
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="texte_version_lien_cidtext_reverse_key" unique="false">
+            <column ascending="true" name="cidtexte"/>
+            <column ascending="true" name="cible"/>
+            <column ascending="true" name="typelien"/>
+         </index>
+         <index name="texte_version_lien_id_reverse_key" unique="false">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="cible"/>
+            <column ascending="true" name="typelien"/>
+         </index>
+      </table>
+      <table name="textekali" numRows="0" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="textekali_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="textelr" numRows="1417538" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="textelr_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="version" numRows="1" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="number" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+      </table>
+      <table name="versions" numRows="1506057" remarks="" schema="legifrance" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="eli" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="id" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="data" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="eli" sequenceNumberInPK="1"/>
+         <index name="versions_pkey" unique="true">
+            <column ascending="true" name="eli"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -1,0 +1,1116 @@
+{
+  "assemblee.acteurs": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": true
+      },
+      {
+        "name": "depute_actif",
+        "type": "boolean",
+        "nullable": true
+      },
+      {
+        "name": "depute_groupe_parlementaire_uid",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "nom_complet",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "slug",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.amendements": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": true
+      },
+      {
+        "name": "legislature",
+        "type": "integer",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.amendements_text_search": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "text_search",
+        "type": "tsvector",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.deputes_signataires_amendements": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "amendement_uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "auteur",
+        "type": "boolean",
+        "nullable": true
+      },
+      {
+        "name": "depute_uid",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.derouleur_lignes": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "jaune_id",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "ligne_index",
+        "type": "integer",
+        "nullable": false
+      },
+      {
+        "name": "ligne_type",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "texte_bibard",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "amendement_uid",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "numero",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "division",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "phase_libelle",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "phase_type",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "jaune_date_time",
+        "type": "timestamp with time zone",
+        "nullable": true
+      },
+      {
+        "name": "extract_date_time",
+        "type": "timestamp with time zone",
+        "nullable": true
+      },
+      {
+        "name": "detail",
+        "type": "jsonb",
+        "nullable": true
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.documents": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": true
+      },
+      {
+        "name": "legislature",
+        "type": "integer",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.dossiers": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": true
+      },
+      {
+        "name": "date_dernier_acte",
+        "type": "timestamp with time zone",
+        "nullable": true
+      },
+      {
+        "name": "date_prochain_acte",
+        "type": "timestamp with time zone",
+        "nullable": true
+      },
+      {
+        "name": "legislature",
+        "type": "integer",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.dossiers_autocomplete": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "autocomplete",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.dossiers_text_search": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "text_search",
+        "type": "tsvector",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.eliasse_amendements": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "legislature",
+        "type": "integer",
+        "nullable": false
+      },
+      {
+        "name": "bibard",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "bibard_suffixe",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "organe_abrv",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "numero",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "position",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "sort",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "discussion_commune",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "discussion_commune_position",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "discussion_identique",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "discussion_identique_position",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "nbr_amdt_restant",
+        "type": "integer",
+        "nullable": true
+      },
+      {
+        "name": "amendement_uid",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "resolution_reason",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.organes": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": true
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.reunions": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": true
+      },
+      {
+        "name": "jour_debut",
+        "type": "date",
+        "nullable": false
+      },
+      {
+        "name": "jour_fin",
+        "type": "date",
+        "nullable": false
+      },
+      {
+        "name": "legislature",
+        "type": "integer",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.reunions_acteurs_demandeurs": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "reunion_uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "acteur_uid",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.reunions_acteurs_participants": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "reunion_uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "acteur_uid",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.reunions_organes_demandeurs": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "reunion_uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "organe_uid",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.reunions_organes_reunis": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "reunion_uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "organe_uid",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.scrutins": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": true
+      },
+      {
+        "name": "legislature",
+        "type": "integer",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.scrutins_temps_reel": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "uid",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "numero",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "legislature",
+        "type": "integer",
+        "nullable": false
+      },
+      {
+        "name": "date_scrutin",
+        "type": "date",
+        "nullable": true
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "source",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "nullable": false
+      },
+      {
+        "name": "compte_rendu_ref",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "numero_seance",
+        "type": "text",
+        "nullable": true
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "assemblee.version": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "number",
+        "type": "integer",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.article": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "num",
+        "type": "text",
+        "nullable": true
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.article_contenu_avec_liens": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "bloc_textuel",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "date_extraction_liens",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "next_article_context",
+        "type": "json",
+        "nullable": true
+      },
+      {
+        "name": "nota",
+        "type": "text",
+        "nullable": true
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.article_git": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "date",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "path",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.article_lien": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "article_id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "cible",
+        "type": "boolean",
+        "nullable": false
+      },
+      {
+        "name": "cidtexte",
+        "type": "character",
+        "nullable": true
+      },
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "typelien",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.article_lien_extrait": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "field_name",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "index",
+        "type": "smallint",
+        "nullable": false
+      },
+      {
+        "name": "link",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "source_id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "target_id",
+        "type": "character",
+        "nullable": true
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.consolidated_texts_git_hashes": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data_hash",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "source_code_commit_oid",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.dossier_legislatif": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "jorf_texte_principal_id",
+        "type": "character",
+        "nullable": true
+      },
+      {
+        "name": "jorf_textes_id",
+        "type": "ARRAY",
+        "nullable": true
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.id": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "eli",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.idcc": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.jo": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.last_update": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "commit_id",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "origin",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.section_ta": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.section_ta_git": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "date",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "path",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.texte_contenu_avec_liens": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "abro",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "date_extraction_liens",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "nota",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "notice",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "signataires",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "sm",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "tp",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "visas",
+        "type": "text",
+        "nullable": true
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.texte_lien_extrait": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "field_name",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "index",
+        "type": "smallint",
+        "nullable": false
+      },
+      {
+        "name": "link",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "source_id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "target_id",
+        "type": "character",
+        "nullable": true
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.texte_version": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      },
+      {
+        "name": "commission_fond_assemblee_uid",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "est_texte_principal",
+        "type": "boolean",
+        "nullable": true
+      },
+      {
+        "name": "nature",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "nature_et_num",
+        "type": "text",
+        "nullable": true
+      },
+      {
+        "name": "text_search",
+        "type": "tsvector",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.texte_version_dossier_legislatif_assemblee_associations": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "assemblee_uid",
+        "type": "character",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.texte_version_git": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "date",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "path",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.texte_version_lien": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "texte_version_id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "cible",
+        "type": "boolean",
+        "nullable": false
+      },
+      {
+        "name": "cidtexte",
+        "type": "character",
+        "nullable": true
+      },
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "typelien",
+        "type": "text",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.textekali": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.textelr": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.version": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "number",
+        "type": "integer",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  },
+  "legifrance.versions": {
+    "is_view": false,
+    "columns": [
+      {
+        "name": "eli",
+        "type": "text",
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "character",
+        "nullable": false
+      },
+      {
+        "name": "data",
+        "type": "jsonb",
+        "nullable": false
+      }
+    ],
+    "pk": [],
+    "fks": []
+  }
+}

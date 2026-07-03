@@ -17,6 +17,7 @@ from dataclasses import dataclass
 
 from .citations import Citation
 from .config import CONFIG
+from .data import canutes
 from .mcp.client import moulineuse
 
 
@@ -24,8 +25,9 @@ from .mcp.client import moulineuse
 class VerificationResult:
     citation: Citation
     exists: bool
-    source: str               # « mock », « mcp-moulineuse:<tool> », …
+    source: str               # « mock », « canutes-db:… », « mcp-moulineuse:<tool> »
     excerpt: str | None = None
+    url: str | None = None     # URL Légifrance réelle (ID LEGIARTI) si dispo
 
 
 class MockVerifier:
@@ -97,12 +99,38 @@ class MoulineuseVerifier:
             )
 
 
-# TODO : repli Canutes direct (PostgREST) via src/data/canutes.py une fois le
-# schéma réel connu (ne pas inventer la forme des tables — cf. CLAUDE.md).
+class CanutesDBVerifier:
+    """Vérificateur branché sur Canutes en direct (PostgreSQL, table
+    legifrance.article). Schéma introspecté (cf. docs/canutes-schema.md) :
+    on vérifie num + code + version EN VIGUEUR, et on renvoie la vraie URL
+    Légifrance (ID LEGIARTI). Fail-closed sur erreur réseau/DB."""
+
+    SOURCE = "canutes-db:legifrance.article"
+
+    def verify(self, citation: Citation) -> VerificationResult:
+        try:
+            res = canutes.verify_article(citation.num, citation.code)
+            return VerificationResult(
+                citation=citation,
+                exists=res["exists"],
+                source=f"{self.SOURCE}" + (f" ({res['etat']})" if res.get("etat") else ""),
+                excerpt=res.get("excerpt"),
+                url=res.get("url"),
+            )
+        except Exception as exc:  # noqa: BLE001 — fail-closed
+            return VerificationResult(
+                citation=citation, exists=False, source=f"{self.SOURCE} (erreur: {type(exc).__name__})",
+            )
 
 
 def default_verifier():
-    """Live (MCP Moulineuse) si MODE=live et URL câblée, sinon Mock (hors-ligne)."""
+    """Choix du vérificateur :
+    - MODE=live + accès DB Canutes  -> CanutesDBVerifier (vérif réelle, URL Légifrance)
+    - MODE=live + MCP Moulineuse    -> MoulineuseVerifier (SQL/JS via MCP)
+    - sinon                         -> MockVerifier (hors-ligne déterministe)
+    """
+    if CONFIG.is_live and CONFIG.canutes_db_ready:
+        return CanutesDBVerifier()
     if CONFIG.is_live and CONFIG.mcp_moulineuse_url:
         return MoulineuseVerifier()
     return MockVerifier()

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="canutes" schema="assemblee" type="PostgreSQL - 17.10 (Debian 17.10-0+deb13u1)">
+   <tables>
+      <table name="acteurs" numRows="3115" remarks="persons (députés, sénateurs, …)" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of acteur (given by Assemblée)" size="2147483647" type="text" typeCode="12">
+            <child column="depute_uid" foreignKey="deputes_signataires_amendements_depute_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="deputes_signataires_amendements"/>
+            <child column="acteur_uid" foreignKey="reunions_acteurs_demandeurs_acteur_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions_acteurs_demandeurs"/>
+            <child column="acteur_uid" foreignKey="reunions_acteurs_participants_acteur_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions_acteurs_participants"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="JSON data of acteur" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="2" name="depute_actif" nullable="true" remarks="when true the person is currently a député" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="depute_groupe_parlementaire_uid" nullable="true" remarks="ID of the current groupe parlementaire of député" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="nom_complet" nullable="false" remarks="full name of acteur" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="slug" nullable="false" remarks="slug constructed from full name of acteur" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="acteurs_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+         <index name="acteurs_data_mandats_gin_idx" unique="false"/>
+         <index name="acteurs_depute_actif_idx" unique="false">
+            <column ascending="true" name="depute_actif"/>
+         </index>
+         <index name="acteurs_depute_groupe_parlementaire_uid_idx" unique="false">
+            <column ascending="true" name="depute_groupe_parlementaire_uid"/>
+         </index>
+         <index name="acteurs_slug_idx" unique="false">
+            <column ascending="true" name="slug"/>
+         </index>
+      </table>
+      <table name="amendements" numRows="598383" remarks="amendments of bills" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of amendment (given by Assemblée)" size="2147483647" type="text" typeCode="12">
+            <child column="uid" foreignKey="amendements_text_search_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="amendements_text_search"/>
+            <child column="amendement_uid" foreignKey="deputes_signataires_amendements_amendement_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="deputes_signataires_amendements"/>
+            <child column="amendement_uid" foreignKey="eliasse_amendements_amendement_uid_fkey" implied="false" onDeleteCascade="false" schema="assemblee" table="eliasse_amendements"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="JSON data of amendment" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="legislature" nullable="false" remarks="législature of the dataset that this amendment belongs to" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="amendements_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+         <index name="amendements_article_designation_trgm_idx" unique="false"/>
+         <index name="amendements_auteur_acteur_ref_idx" unique="false"/>
+         <index name="amendements_cosignataires_refs_idx" unique="false"/>
+         <index name="amendements_legislature_idx" unique="false">
+            <column ascending="true" name="legislature"/>
+         </index>
+         <index name="amendements_texte_legislatif_ref_idx" unique="false"/>
+         <index name="amendements_texte_legislatif_ref_tri_idx" unique="false"/>
+      </table>
+      <table name="amendements_text_search" numRows="496302" remarks="full text search for amendements" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of amendement (same as amendements)" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="amendements_text_search_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="amendements"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="text_search" nullable="false" remarks="full text search vector of amendement" size="2147483647" type="tsvector" typeCode="1111"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="amendements_text_search_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+         <index name="amendements_text_search_idx" unique="false">
+            <column ascending="true" name="text_search"/>
+         </index>
+      </table>
+      <table name="deputes_signataires_amendements" numRows="9531279" remarks="députés that have created or signed amendments" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="amendement_uid" nullable="false" remarks="unique ID of amendment" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="deputes_signataires_amendements_amendement_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="amendements"/>
+         </column>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="1" name="auteur" nullable="true" remarks="true when député is the author of amendment" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="depute_uid" nullable="false" remarks="unique ID of député" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="deputes_signataires_amendements_depute_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="acteurs"/>
+         </column>
+         <primaryKey column="depute_uid" sequenceNumberInPK="1"/>
+         <primaryKey column="amendement_uid" sequenceNumberInPK="2"/>
+         <index name="deputes_signataires_amendements_pkey" unique="true">
+            <column ascending="true" name="depute_uid"/>
+            <column ascending="true" name="amendement_uid"/>
+         </index>
+      </table>
+      <table name="derouleur_lignes" numRows="5006" remarks="all real-time lines received from public séance dérouleur, including non-amendment lines" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="jaune_id" nullable="false" remarks="public dérouleur snapshot identifier" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="ligne_index" nullable="false" remarks="line position in dérouleur payload" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="ligne_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="texte_bibard" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="amendement_uid" nullable="true" remarks="open data amendment UID when the line is an amendment" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="numero" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="division" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="phase_libelle" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="phase_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="9" name="jaune_date_time" nullable="true" remarks="" size="35" type="timestamptz" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="10" name="extract_date_time" nullable="true" remarks="" size="35" type="timestamptz" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="detail" nullable="true" remarks="raw detail returned by /dyn/api/amendements/jaune/{uid}, for amendment lines only" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="data" nullable="false" remarks="raw dérouleur line and context data" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="13" name="updated_at" nullable="false" remarks="" size="35" type="timestamptz" typeCode="93"/>
+         <primaryKey column="jaune_id" sequenceNumberInPK="1"/>
+         <primaryKey column="ligne_index" sequenceNumberInPK="2"/>
+         <index name="derouleur_lignes_pkey" unique="true">
+            <column ascending="true" name="jaune_id"/>
+            <column ascending="true" name="ligne_index"/>
+         </index>
+         <index name="derouleur_lignes_amendement_uid_idx" unique="false">
+            <column ascending="true" name="amendement_uid"/>
+         </index>
+         <index name="derouleur_lignes_extract_date_time_idx" unique="false">
+            <column ascending="true" name="extract_date_time"/>
+         </index>
+         <index name="derouleur_lignes_ligne_type_idx" unique="false">
+            <column ascending="true" name="ligne_type"/>
+         </index>
+      </table>
+      <table name="documents" numRows="28690" remarks="legislative documents (bills, …)" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of document (given by Assemblée)" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="JSON data of document" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="legislature" nullable="false" remarks="législature of the dataset that this document belongs to" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="documents_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+         <index name="documents_dossier_ref_idx" unique="false"/>
+         <index name="documents_legislature_idx" unique="false">
+            <column ascending="true" name="legislature"/>
+         </index>
+      </table>
+      <table name="dossiers" numRows="13958" remarks="set of documents and operations produced during the legislative process of a bill" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of dossier (given by Assemblée)" size="2147483647" type="text" typeCode="12">
+            <child column="uid" foreignKey="dossiers_autocomplete_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="dossiers_autocomplete"/>
+            <child column="uid" foreignKey="dossiers_text_search_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="dossiers_text_search"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="JSON data of dossier" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="date_dernier_acte" nullable="true" remarks="date &amp; time of the latest acte" size="35" type="timestamptz" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="date_prochain_acte" nullable="true" remarks="date &amp; time of the next acte" size="35" type="timestamptz" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="legislature" nullable="false" remarks="législature of the dataset that this dossier belongs to" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="dossiers_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+         <index name="dossiers_all_xsitypes_idx" unique="false"/>
+         <index name="dossiers_date_dernier_acte_idx" unique="false">
+            <column ascending="true" name="date_dernier_acte"/>
+         </index>
+         <index name="dossiers_date_prochain_acte_idx" unique="false">
+            <column ascending="true" name="date_prochain_acte"/>
+         </index>
+         <index name="dossiers_legislature_idx" unique="false">
+            <column ascending="true" name="legislature"/>
+         </index>
+      </table>
+      <table name="dossiers_autocomplete" numRows="13850" remarks="autocompletions texts for dossiers" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of dossier (same as dossiers)" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="dossiers_autocomplete_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="dossiers"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="autocomplete" nullable="false" remarks="autocompletion text of dossier" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <primaryKey column="autocomplete" sequenceNumberInPK="2"/>
+         <index name="dossiers_autocomplete_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+            <column ascending="true" name="autocomplete"/>
+         </index>
+         <index name="dossiers_autocomplete_trigrams_idx" unique="false">
+            <column ascending="true" name="autocomplete"/>
+         </index>
+      </table>
+      <table name="dossiers_text_search" numRows="11077" remarks="full text search for dossiers" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of dossier (same as dossiers)" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="dossiers_text_search_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="dossiers"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="text_search" nullable="false" remarks="full text search vector of dossier" size="2147483647" type="tsvector" typeCode="1111"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <primaryKey column="text_search" sequenceNumberInPK="2"/>
+         <index name="dossiers_text_search_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+            <column ascending="true" name="text_search"/>
+         </index>
+         <index name="dossiers_text_search_idx" unique="false">
+            <column ascending="true" name="text_search"/>
+         </index>
+      </table>
+      <table name="eliasse_amendements" numRows="1260" remarks="real-time amendment data received from Eliasse" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="legislature" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="bibard" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::text" digits="0" id="2" name="bibard_suffixe" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="organe_abrv" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="numero" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="position" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="sort" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="discussion_commune" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="discussion_commune_position" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="discussion_identique" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="discussion_identique_position" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="nbr_amdt_restant" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="amendement_uid" nullable="true" remarks="resolved open data amendment UID, when unambiguous" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="eliasse_amendements_amendement_uid_fkey" implied="false" onDeleteCascade="false" schema="assemblee" table="amendements"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="resolution_reason" nullable="true" remarks="reason used to resolve amendment_uid, or ambiguous when unresolved" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="data" nullable="false" remarks="raw Eliasse data used for this amendment" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="15" name="updated_at" nullable="false" remarks="" size="35" type="timestamptz" typeCode="93"/>
+         <primaryKey column="legislature" sequenceNumberInPK="1"/>
+         <primaryKey column="bibard" sequenceNumberInPK="2"/>
+         <primaryKey column="bibard_suffixe" sequenceNumberInPK="3"/>
+         <primaryKey column="organe_abrv" sequenceNumberInPK="4"/>
+         <primaryKey column="numero" sequenceNumberInPK="5"/>
+         <index name="eliasse_amendements_pkey" unique="true">
+            <column ascending="true" name="legislature"/>
+            <column ascending="true" name="bibard"/>
+            <column ascending="true" name="bibard_suffixe"/>
+            <column ascending="true" name="organe_abrv"/>
+            <column ascending="true" name="numero"/>
+         </index>
+         <index name="eliasse_amendements_amendement_uid_idx" unique="false">
+            <column ascending="true" name="amendement_uid"/>
+         </index>
+         <index name="eliasse_amendements_position_idx" unique="false">
+            <column ascending="true" name="legislature"/>
+            <column ascending="true" name="bibard"/>
+            <column ascending="true" name="bibard_suffixe"/>
+            <column ascending="true" name="organe_abrv"/>
+            <column ascending="true" name="position"/>
+         </index>
+      </table>
+      <table name="organes" numRows="10802" remarks="organizations (commissions, groupes, …)" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of organe (given by Assemblée)" size="2147483647" type="text" typeCode="12">
+            <child column="organe_uid" foreignKey="reunions_organes_demandeurs_organe_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions_organes_demandeurs"/>
+            <child column="organe_uid" foreignKey="reunions_organes_reunis_organe_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions_organes_reunis"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="JSON data of organe" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="organes_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+      </table>
+      <table name="reunions" numRows="8026" remarks="public meetings" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of meeting (given by Assemblée)" size="2147483647" type="text" typeCode="12">
+            <child column="reunion_uid" foreignKey="reunions_acteurs_demandeurs_reunion_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions_acteurs_demandeurs"/>
+            <child column="reunion_uid" foreignKey="reunions_acteurs_participants_reunion_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions_acteurs_participants"/>
+            <child column="reunion_uid" foreignKey="reunions_organes_demandeurs_reunion_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions_organes_demandeurs"/>
+            <child column="reunion_uid" foreignKey="reunions_organes_reunis_reunion_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions_organes_reunis"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="JSON data of meeting" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="jour_debut" nullable="false" remarks="first day of meeting" size="13" type="date" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="jour_fin" nullable="false" remarks="last day of meeting" size="13" type="date" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="legislature" nullable="false" remarks="législature of the dataset that this meeting belongs to" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="reunions_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+         <index name="reunions_jour_debut_idx" unique="false">
+            <column ascending="true" name="jour_debut"/>
+         </index>
+         <index name="reunions_jour_fin_idx" unique="false">
+            <column ascending="true" name="jour_fin"/>
+         </index>
+         <index name="reunions_legislature_idx" unique="false">
+            <column ascending="true" name="legislature"/>
+         </index>
+         <index name="reunions_lieu_code_idx" unique="false"/>
+         <index name="reunions_timestamp_debut_idx" unique="false"/>
+         <index name="reunions_xsi_type_idx" unique="false"/>
+      </table>
+      <table name="reunions_acteurs_demandeurs" numRows="658" remarks="persons that have requested the public meetings" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="reunion_uid" nullable="false" remarks="unique ID of meeting" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="reunions_acteurs_demandeurs_reunion_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="acteur_uid" nullable="false" remarks="unique ID of person" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="reunions_acteurs_demandeurs_acteur_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="acteurs"/>
+         </column>
+         <primaryKey column="reunion_uid" sequenceNumberInPK="1"/>
+         <primaryKey column="acteur_uid" sequenceNumberInPK="2"/>
+         <index name="reunions_acteurs_demandeurs_pkey" unique="true">
+            <column ascending="true" name="reunion_uid"/>
+            <column ascending="true" name="acteur_uid"/>
+         </index>
+      </table>
+      <table name="reunions_acteurs_participants" numRows="164797" remarks="persons that are participating to the public meetings" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="reunion_uid" nullable="false" remarks="unique ID of meeting" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="reunions_acteurs_participants_reunion_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="acteur_uid" nullable="false" remarks="unique ID of person" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="reunions_acteurs_participants_acteur_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="acteurs"/>
+         </column>
+         <primaryKey column="reunion_uid" sequenceNumberInPK="1"/>
+         <primaryKey column="acteur_uid" sequenceNumberInPK="2"/>
+         <index name="reunions_acteurs_participants_pkey" unique="true">
+            <column ascending="true" name="reunion_uid"/>
+            <column ascending="true" name="acteur_uid"/>
+         </index>
+      </table>
+      <table name="reunions_organes_demandeurs" numRows="0" remarks="organizations that are participating to the public meetings" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="reunion_uid" nullable="false" remarks="unique ID of meeting" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="reunions_organes_demandeurs_reunion_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="organe_uid" nullable="false" remarks="unique ID of organization" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="reunions_organes_demandeurs_organe_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="organes"/>
+         </column>
+         <primaryKey column="reunion_uid" sequenceNumberInPK="1"/>
+         <primaryKey column="organe_uid" sequenceNumberInPK="2"/>
+         <index name="reunions_organes_demandeurs_pkey" unique="true">
+            <column ascending="true" name="reunion_uid"/>
+            <column ascending="true" name="organe_uid"/>
+         </index>
+      </table>
+      <table name="reunions_organes_reunis" numRows="6461" remarks="organizations the have requested the public meetings" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="reunion_uid" nullable="false" remarks="unique ID of meeting" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="reunions_organes_reunis_reunion_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="reunions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="organe_uid" nullable="false" remarks="unique ID of organization" size="2147483647" type="text" typeCode="12">
+            <parent column="uid" foreignKey="reunions_organes_reunis_organe_uid_fkey" implied="false" onDeleteCascade="true" schema="assemblee" table="organes"/>
+         </column>
+         <primaryKey column="reunion_uid" sequenceNumberInPK="1"/>
+         <primaryKey column="organe_uid" sequenceNumberInPK="2"/>
+         <index name="reunions_organes_reunis_pkey" unique="true">
+            <column ascending="true" name="reunion_uid"/>
+            <column ascending="true" name="organe_uid"/>
+         </index>
+      </table>
+      <table name="scrutins" numRows="17855" remarks="ballots of public votings" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID of scrutin (given by Assemblée)" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="JSON data of scrutin" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="legislature" nullable="false" remarks="législature of the dataset that this scrutin belongs to" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="scrutins_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+         <index name="scrutins_legislature_idx" unique="false">
+            <column ascending="true" name="legislature"/>
+         </index>
+         <index name="scrutins_seance_ref_idx" unique="false"/>
+      </table>
+      <table name="scrutins_temps_reel" numRows="0" remarks="public voting data scraped from Assemblée website before open data publication" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="uid" nullable="false" remarks="unique ID reconstructed like open data scrutin UID" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="numero" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="legislature" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="date_scrutin" nullable="true" remarks="" size="13" type="date" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="data" nullable="false" remarks="JSON data reconstructed as close as possible to Scrutin clean" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="source" nullable="false" remarks="raw source fields extracted from Assemblée website" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="6" name="updated_at" nullable="false" remarks="" size="35" type="timestamptz" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="compte_rendu_ref" nullable="true" remarks="debate report UID extracted from Assemblée website" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="numero_seance" nullable="true" remarks="public sitting number extracted from compte_rendu_ref" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="uid" sequenceNumberInPK="1"/>
+         <index name="scrutins_temps_reel_pkey" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+         <index name="scrutins_temps_reel_compte_rendu_ref_idx" unique="false">
+            <column ascending="true" name="compte_rendu_ref"/>
+         </index>
+         <index name="scrutins_temps_reel_date_scrutin_idx" unique="false">
+            <column ascending="true" name="date_scrutin"/>
+         </index>
+         <index name="scrutins_temps_reel_legislature_idx" unique="false">
+            <column ascending="true" name="legislature"/>
+         </index>
+         <index name="scrutins_temps_reel_numero_seance_idx" unique="false">
+            <column ascending="true" name="numero_seance"/>
+         </index>
+      </table>
+      <table name="version" numRows="1" remarks="version of database" schema="assemblee" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="number" nullable="false" remarks="version number of database schema" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="number" sequenceNumberInPK="1"/>
+         <index name="version_pkey" unique="true">
+            <column ascending="true" name="number"/>
+         </index>
+      </table>
+   </tables>
+</database>

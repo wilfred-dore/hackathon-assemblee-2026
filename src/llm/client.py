@@ -10,6 +10,8 @@ citations inventées avec aplomb (pour démontrer le refus du pipeline hors-lign
 """
 from __future__ import annotations
 
+import time
+
 from ..config import CONFIG
 
 SYSTEM_PROMPT = """Tu es un assistant juridique pour les citoyens français.
@@ -60,6 +62,7 @@ class LLMClient:
         self.api_key = api_key or CONFIG.llm_api_key
         self.model = model or CONFIG.llm_model
         self._client = None
+        self.last_metrics: dict | None = None  # latence + tokens/s du dernier appel live
 
     @property
     def ready(self) -> bool:
@@ -72,12 +75,17 @@ class LLMClient:
             self._client = OpenAI(base_url=self.base_url, api_key=self.api_key)
         return self._client
 
+    @property
+    def live(self) -> bool:
+        """Appelle le vrai endpoint seulement en MODE=live ET si configuré."""
+        return self.ready and CONFIG.is_live
+
     def complete(self, question: str, context: str = "") -> str:
         """Réponse à une question citoyenne (éventuellement ancrée par `context`).
 
-        Mode démo déterministe si aucune clé LLM n'est configurée.
+        Mode démo déterministe hors `MODE=live` (ou si aucune clé configurée).
         """
-        if not self.ready:
+        if not self.live:
             return _demo_answer(question)
 
         user = question if not context else f"{question}\n\nContexte sourcé :\n{context}"
@@ -88,14 +96,24 @@ class LLMClient:
         return self.chat(messages)
 
     def chat(self, messages: list[dict], temperature: float = 0.2) -> str:
-        """Appel bas niveau OpenAI-compatible. Mode démo si non configuré."""
-        if not self.ready:
+        """Appel bas niveau OpenAI-compatible. Mode démo hors MODE=live."""
+        if not self.live:
             last = messages[-1]["content"] if messages else ""
             return _demo_answer(last)
 
+        t0 = time.perf_counter()
         resp = self._ensure_client().chat.completions.create(
             model=self.model,
             messages=messages,
             temperature=temperature,
         )
+        dt = time.perf_counter() - t0
+        ct = getattr(getattr(resp, "usage", None), "completion_tokens", None)
+        self.last_metrics = {
+            "backend": self.base_url,
+            "model": self.model,
+            "latency_s": round(dt, 2),
+            "completion_tokens": ct,
+            "tokens_per_s": round(ct / dt, 1) if ct and dt else None,
+        }
         return resp.choices[0].message.content or ""

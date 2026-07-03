@@ -1,4 +1,5 @@
 name: Déploiement démo (GitHub Pages)
+# Pages activé (Source = GitHub Actions). Redéploiement.
 
 # Construit un site 100 % statique depuis le POC (moteur pré-calculé par le
 # pipeline Python) et le publie sur GitHub Pages. Aucun backend n'est déployé.
@@ -6,10 +7,11 @@ name: Déploiement démo (GitHub Pages)
 
 on:
   push:
-    branches: [francois-sandbox, main]
+    branches: [main]          # Pages ne sert qu'un site -> on déploie depuis main
     paths:
       - 'poc/**'
       - 'presentation/**'
+      - 'schema-site/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -45,6 +47,8 @@ jobs:
           npm install
           npx slidev build slides.md --base /hackathon-assemblee-2026/presentation/ --out "$GITHUB_WORKSPACE/site/presentation"
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true   # active GitHub Pages si pas encore fait (évite « Get Pages site failed »)
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

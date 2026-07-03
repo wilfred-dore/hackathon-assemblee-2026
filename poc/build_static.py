@@ -101,9 +101,12 @@ def adapt_html(html: str) -> str:
         'href="/favicon.svg"': 'href="favicon.svg"',
         'src="/favicon.svg"': 'src="favicon.svg"',
         'src="/api.js"': 'src="api.js"',
-        'href="/"': 'href="index.html"',
+        'href="/schema/"': 'href="schema/index.html"',
+        'href="/demo"': 'href="demo.html"',
         'href="/sources"': 'href="sources.html"',
         'href="/details"': 'href="details.html"',
+        'href="/pitch"': 'href="pitch.html"',
+        'href="/"': 'href="index.html"',  # brand -> hall d'accueil
     }
     for old, new in repl.items():
         html = html.replace(old, new)
@@ -121,13 +124,27 @@ def main() -> None:
     articles, article_map = build_articles()
     (OUT / "api.js").write_text(render_api_js(answers, articles, article_map), encoding="utf-8")
 
-    for name in ("app.css", "favicon.svg"):
+    for name in ("app.css", "favicon.svg", "404.html"):
         shutil.copyfile(STATIC / name, OUT / name)
 
-    for name in ("index.html", "sources.html", "details.html"):
-        (OUT / name).write_text(adapt_html((STATIC / name).read_text(encoding="utf-8")), encoding="utf-8")
+    # landing.html = hall d'accueil (racine) ; index.html de François = /demo
+    pages = {
+        "landing.html": "index.html",
+        "index.html": "demo.html",
+        "sources.html": "sources.html",
+        "details.html": "details.html",
+        "pitch.html": "pitch.html",
+    }
+    for src, dst in pages.items():
+        (OUT / dst).write_text(adapt_html((STATIC / src).read_text(encoding="utf-8")), encoding="utf-8")
 
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
+
+    # Notre asset : cartographie du schéma Canutes (SchemaSpy + JSON/DBML) -> /schema
+    schema_src = POC.parent / "schema-site"
+    if schema_src.exists():
+        shutil.copytree(schema_src, OUT / "schema", dirs_exist_ok=True)
+        print(f"  + doc schéma copiée depuis {schema_src.name}/ -> site/schema/")
 
     print(f"Site statique généré dans {OUT}")
     print(f"  {len(answers)} réponses pré-calculées, {len(articles)} articles.")
