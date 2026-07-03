@@ -122,7 +122,7 @@ def main() -> None:
     articles, article_map = build_articles()
     (OUT / "api.js").write_text(render_api_js(answers, articles, article_map), encoding="utf-8")
 
-    for name in ("app.css", "favicon.svg"):
+    for name in ("app.css", "favicon.svg", "404.html"):
         shutil.copyfile(STATIC / name, OUT / name)
 
     # landing.html = hall d'accueil (racine) ; index.html de François = /demo
