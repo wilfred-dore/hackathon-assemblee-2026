@@ -105,7 +105,7 @@ def adapt_html(html: str) -> str:
         'href="/demo"': 'href="demo.html"',
         'href="/sources"': 'href="sources.html"',
         'href="/details"': 'href="details.html"',
-        'href="/pitch"': 'href="pitch.html"',
+        'href="/presentation/"': 'href="presentation/"',  # deck Slidev (Pages)
         'href="/"': 'href="index.html"',  # brand -> hall d'accueil
     }
     for old, new in repl.items():
@@ -133,7 +133,6 @@ def main() -> None:
         "index.html": "demo.html",
         "sources.html": "sources.html",
         "details.html": "details.html",
-        "pitch.html": "pitch.html",
     }
     for src, dst in pages.items():
         (OUT / dst).write_text(adapt_html((STATIC / src).read_text(encoding="utf-8")), encoding="utf-8")

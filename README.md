@@ -1,14 +1,13 @@
 # hackathon-assemblee-2026 — IA de confiance juridique
 
 > 🌐 **Démo & docs en ligne** : **<https://wilfred-dore.github.io/hackathon-assemblee-2026/>** (hall d'accueil)
-> · [Pitch](https://wilfred-dore.github.io/hackathon-assemblee-2026/pitch.html)
+> · [Présentation](https://wilfred-dore.github.io/hackathon-assemblee-2026/presentation/)
 > · [Démo](https://wilfred-dore.github.io/hackathon-assemblee-2026/demo.html)
 > · [Comment ça marche](https://wilfred-dore.github.io/hackathon-assemblee-2026/details.html)
 > · [Schéma Canutes](https://wilfred-dore.github.io/hackathon-assemblee-2026/schema/)
 >
-> ⚠️ Sur GitHub Pages (statique), utiliser les URL **avec `.html`** (le `/pitch` sans
-> extension est rattrapé par un `404.html` de secours). Les URL propres `/pitch`,
-> `/demo` ne marchent qu'en **live** (`make api`).
+> La **présentation** (deck Slidev) est publiée sous `/presentation/`. Les autres pages
+> statiques utilisent l'extension `.html` (un `404.html` rattrape les URL sans extension).
 
 Assistant juridique **sourcé** : le LLM répond, puis **chaque article cité est
 vérifié** contre les sources (MCP Moulineuse / Canutes-Légifrance). Au moindre

@@ -10,6 +10,7 @@ on:
     branches: [main]          # Pages ne sert qu'un site -> on déploie depuis main
     paths:
       - 'poc/**'
+      - 'presentation/**'
       - 'schema-site/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:

@@ -169,11 +169,6 @@ def ui_sources() -> FileResponse:
     return _page("sources.html")
 
 
-@app.get("/pitch")
-def ui_pitch() -> FileResponse:
-    return _page("pitch.html")
-
-
 @app.get("/app.css")
 def ui_css() -> FileResponse:
     return FileResponse(_STATIC / "app.css", media_type="text/css")

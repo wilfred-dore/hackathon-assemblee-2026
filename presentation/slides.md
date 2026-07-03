@@ -1,6 +1,6 @@
 ---
 theme: seriph
-title: Le Rapporteur — Pitch Hackathon Assemblée 2026
+title: Le Rapporteur, Pitch Hackathon Assemblée 2026
 class: text-center
 highlighter: shiki
 transition: slide-left
@@ -76,7 +76,7 @@ Réponse plausible ≠ réponse vraie.
 
 <!--
 [0:20 – 0:50]
-Le problème : les modèles génératifs sont des machines à plausibilité, pas à vérité. En droit, c'est dangereux. Un article inventé, une jurisprudence fictive — le citoyen ne peut pas vérifier.
+Le problème : les modèles génératifs sont des machines à plausibilité, pas à vérité. En droit, c'est dangereux. Un article inventé, une jurisprudence fictive, le citoyen ne peut pas vérifier.
 -->
 
 ---
@@ -89,7 +89,7 @@ class: text-center
 # La solution
 
 <div class="text-xl mt-2 mb-8" style="color: var(--lr-muted)">
-Un assistant qui <b>prouve</b> chaque citation — ou refuse de répondre
+Un assistant qui <b>prouve</b> chaque citation, ou refuse de répondre
 </div>
 
 ```mermaid {scale: 0.9}
@@ -200,7 +200,7 @@ Scénario: Pas de citation inventée
 
 <!--
 [1:50 – 2:15]
-On ne vous demande pas de nous croire : le critère du jury — fiable — est encodé en scénarios Given/When/Then, rejoués automatiquement sur un benchmark de questions citoyennes. Un seul article fictif fait échouer le build.
+On ne vous demande pas de nous croire : le critère du jury, fiable, est encodé en scénarios Given/When/Then, rejoués automatiquement sur un benchmark de questions citoyennes. Un seul article fictif fait échouer le build.
 -->
 
 ---
@@ -214,9 +214,9 @@ layoutClass: gap-10
 
 <v-clicks>
 
-- **Fiable** — vérification systématique, refus explicite, benchmark reproductible
-- **Frugal** — modèle compact quantisé, une requête MCP par citation
-- **Portable** — `docker pull` et c'est parti : AN, préfecture, mairie
+- **Fiable**, vérification systématique, refus explicite, benchmark reproductible
+- **Frugal**, modèle compact quantisé, une requête MCP par citation
+- **Portable**, `docker pull` et c'est parti : AN, préfecture, mairie
 
 </v-clicks>
 
@@ -228,9 +228,9 @@ layoutClass: gap-10
 
 <v-clicks>
 
-- **Aujourd'hui** — questions citoyennes sur les codes en vigueur
-- **Demain** — un produit pour les **services de l'AN** : vérifier les références des amendements et questions écrites
-- **Après-demain** — brancher **Catala** : des réponses *calculées*, pas seulement citées
+- **Aujourd'hui**, questions citoyennes sur les codes en vigueur
+- **Demain**, un produit pour les **services de l'AN** : vérifier les références des amendements et questions écrites
+- **Après-demain**, brancher **Catala** : des réponses *calculées*, pas seulement citées
 
 </v-clicks>
 
@@ -252,28 +252,27 @@ layoutClass: gap-10 items-center
 
 <div class="mt-4 text-sm" style="color: var(--lr-muted)">
 Une interface OpenAI-compatible. On change de backend, le pipeline ne bouge pas.
-Faire tourner un LLM open source rime aujourd'hui avec NVIDIA et CUDA. Nous le prouvons autrement.
+Servir un LLM open source rime aujourd'hui avec NVIDIA et CUDA. Nous le prouvons autrement.
 </div>
 
 <v-clicks>
 
 - <b style="color: var(--lr-gold)">Qualcomm Cloud AI 100</b> : backend souverain, prouvé en direct
-- <b>Modular MAX</b> porte l'inférence sur <b>AMD</b>, et sur NVIDIA pour la rétrocompatibilité
-- Demain, les puces <b>européennes</b> : VSora (France), Axelera (Europe)
+- <b>Modular MAX et Mojo</b> : le même code sur <b>AMD</b>, <b>NVIDIA</b> et <b>Apple Silicon</b> (CUDA, ROCm, Metal)
+- À venir : les puces <b>européennes</b>, VSora (France) et Axelera (Europe)
 
 </v-clicks>
 
 ::right::
 
-```mermaid {scale: 0.75}
-flowchart TD
-    L["Interface LLM<br>OpenAI-compatible"] --> Q["Qualcomm Cloud AI 100<br>live"]
+```mermaid {scale: 0.62}
+flowchart LR
+    L["Interface LLM<br>OpenAI-compatible"] --> Q["Qualcomm Cloud AI 100<br>souverain, live"]
     L --> M["Modular MAX / Mojo"]
-    M --> AMD["AMD Instinct<br>souverain"]
-    M --> NV["NVIDIA<br>rétrocompatibilité"]
-    L --> EU["Vision EU / FR"]
-    EU --> VS["VSora · France"]
-    EU --> AX["Axelera · Europe"]
+    M --> AMD["AMD"]
+    M --> NV["NVIDIA"]
+    M --> APL["Apple Silicon"]
+    M -. à venir .-> FUT["VSora, Axelera<br>TPU (visé)"]
     style Q stroke:#c9a24b,stroke-width:2px
     style AMD stroke:#5b8cff,stroke-width:2px
 ```
@@ -328,7 +327,7 @@ benchmarké contre Python, alimente le panneau de frugalité.</p>
 <div class="foot"><span>LE RAPPORTEUR</span><span>07 / PERFORMANCE</span></div>
 
 <!--
-[Performance] Un datacenter d'IA, c'est une facture d'électricité avant tout. Une puce d'inférence dédiée comme le Cloud AI 100 fait le même travail pour beaucoup moins de watts qu'un GPU généraliste. Frugalité égale souveraineté plus écologie. Modular MAX est la couche de portabilité, et Mojo permet d'optimiser les points chauds. On mesure la latence et le débit en direct ; le benchmark AMD contre NVIDIA est notre prochaine étape.
+[Performance] Un datacenter d'IA, c'est une facture d'électricité avant tout. Une puce d'inférence dédiée comme le Qualcomm Cloud AI 100 fait le même travail pour beaucoup moins de watts qu'un GPU généraliste. Frugalité égale souveraineté plus écologie. Modular MAX est la couche de portabilité, et Mojo permet d'optimiser les points chauds. On mesure la latence et le débit en direct ; le benchmark AMD contre NVIDIA est notre prochaine étape.
 -->
 
 ---
@@ -410,7 +409,7 @@ layoutClass: gap-10
 <div class="foot"><span>LE RAPPORTEUR</span><span>09 / ROADMAP</span></div>
 
 <!--
-[Roadmap] Soyons transparents sur l'état. Ce qui tourne aujourd'hui : la vérification en base réelle, le refus explicite, la preuve Gherkin, le backend souverain Qualcomm en direct, le serveur MCP et la carte du schéma. Ce qui vient : le RAG pour ancrer le contenu et pas seulement la citation, Mistral en direct via Modular MAX sur AMD, le benchmark performance par watt entre AMD et NVIDIA avec un noyau Mojo, et l'unification du serveur MCP sur notre moteur de vérification.
+[Roadmap] Soyons transparents sur l'état. Ce qui tourne aujourd'hui : la vérification en base réelle, le refus explicite, la preuve Gherkin, le backend souverain Qualcomm Cloud AI 100 en direct, le serveur MCP et la carte du schéma. Ce qui vient : le RAG pour ancrer le contenu et pas seulement la citation, Mistral en direct via Modular MAX sur AMD, le benchmark performance par watt entre AMD et NVIDIA avec un noyau Mojo, et l'unification du serveur MCP sur notre moteur de vérification.
 -->
 
 ---
@@ -435,5 +434,5 @@ La confiance dans le droit, ça ne s'improvise pas.<br>
 
 <!--
 [2:45 – 3:00]
-Le Rapporteur : zéro article inventé, chaque citation vérifiée. Merci — et maintenant, la démo.
+Le Rapporteur : zéro article inventé, chaque citation vérifiée. Merci, et maintenant, la démo.
 -->
