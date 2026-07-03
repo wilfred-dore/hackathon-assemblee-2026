@@ -23,6 +23,24 @@ non-NVIDIA — même code, du Qualcomm Cloud AI 100 à l'AMD via Modular MAX. »
 
 ## Slides à ajouter (proposition)
 
+### Slide « Prouvé, pas promis » (Gherkin) — **fort**
+La garantie anti-hallucination n'est pas un discours : elle est **encodée en
+Gherkin français**, exécutée à chaque changement (`make bdd`, vert/rouge en direct).
+- **Lisible et auditable par un juriste** (langage métier, pas technique — c'est
+  François qui les écrit).
+- **Un seul article fictif fait échouer le build** → la confiance est *testée*, pas
+  affirmée. 3 scénarios : citation vérifiée · citation inventée (prime de Noël →
+  refus) · aucune source (refus).
+- À montrer en démo : le tableau `behave` vert, puis on casse volontairement → rouge.
+```gherkin
+Scénario: Pas de citation inventée
+  Étant donné une question citoyenne "Ai-je droit à la prime de Noël ?"
+  Quand le système répond
+  Alors la réponse doit être un refus explicite
+  Et aucun article absent des sources ne doit être présenté comme vérifié
+```
+
+
 ### Slide « Le piège NVIDIA » (nouveau)
 - Servir un LLM open-source ≈ dépendre de CUDA/NVIDIA (dispo, coût, souveraineté).
 - Notre thèse : **portabilité par Modular MAX/Mojo** → écrire une fois, exécuter

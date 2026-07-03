@@ -35,6 +35,8 @@ jobs:
           pip install httpx
           python poc/build_static.py
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true   # active GitHub Pages si pas encore fait (évite « Get Pages site failed »)
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
