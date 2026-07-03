@@ -32,6 +32,7 @@ class Config:
     canutes_db_port: str | None = _get("CANUTES_DB_PORT")
     canutes_db_user: str | None = _get("CANUTES_DB_USER")
     canutes_db_password: str | None = _get("CANUTES_DB_PASSWORD")
+    canutes_db_name: str = _get("CANUTES_DB_NAME") or "canutes"  # base unifiée
 
     @property
     def is_live(self) -> bool:

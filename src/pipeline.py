@@ -63,22 +63,14 @@ def retrieve(question: str, notes: list[str] | None = None) -> list[Source]:
     notes = notes if notes is not None else []
     sources: list[Source] = []
 
-    mcp = moulineuse()
-    if CONFIG.is_live and mcp.ready:
-        try:
-            # TODO : adapter au nom réel de l'outil de recherche du serveur.
-            res = mcp.call_tool("search", {"query": question})
-            for item in _as_items(res):
-                sources.append(Source(
-                    ref=item.get("ref", "?"),
-                    title=item.get("title", ""),
-                    snippet=item.get("snippet", ""),
-                    origin="moulineuse",
-                ))
-        except Exception as e:  # noqa: BLE001 — fail-closed volontaire
-            notes.append(f"moulineuse: ancrage indisponible ({type(e).__name__}) -> ignoré")
+    if CONFIG.is_live:
+        # L'ancrage RAG passera par le vrai outil SQL de MCP Moulineuse (à
+        # confirmer sur place, cf. docs/mcp.md). En attendant, on génère sans
+        # ancrage et on s'appuie sur la VÉRIFICATION post-hoc (Canutes) — le
+        # garde-fou anti-hallucination reste actif.
+        notes.append("ancrage RAG non câblé (outil SQL Moulineuse à confirmer) -> vérif post-hoc seule")
 
-    _ = parlement, canutes  # pointeurs pour brancher plus tard selon le défi
+    _ = moulineuse, parlement, canutes  # pointeurs pour brancher l'ancrage SQL
     return sources
 
 
@@ -111,7 +103,8 @@ def answer_question(question: str, llm: LLMClient | None = None, verifier=None) 
         {
             "label": r.citation.label,
             "exists": r.exists,
-            "url": r.citation.legifrance_url if r.exists else None,
+            # URL réelle (LEGIARTI) si le vérificateur l'a fournie, sinon recherche Légifrance
+            "url": (r.url or r.citation.legifrance_url) if r.exists else None,
             "source": r.source,
         }
         for r in results
