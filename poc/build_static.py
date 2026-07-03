@@ -110,6 +110,8 @@ def adapt_html(html: str) -> str:
     }
     for old, new in repl.items():
         html = html.replace(old, new)
+    # Lien vers le deck Slidev hébergé sous /presentation/ (ajouté pour la version Pages).
+    html = html.replace('</nav>', '    <a href="presentation/">Présentation ↗</a>\n  </nav>', 1)
     return html
 
 
