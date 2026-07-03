@@ -40,13 +40,23 @@ Voir [`../canutes-schema.md`](../canutes-schema.md) et
 `src/data/canutes.py::verify_article` : num (variantes) + code (ILIKE) + VIGUEUR
 → ID LEGIARTI → URL Légifrance.
 
-## Option SchemaSpy (rendu HTML humain)
-Faisable en local (Java 11 OK). Produit un site HTML navigable — mais **relations
-vides** ici (pas de FK). Utile surtout pour parcourir colonnes/commentaires.
+## SchemaSpy (rendu HTML humain) — généré
+Site HTML navigable (colonnes, types, détail par table). Généré en local pour
+`legifrance` (23 tables) et `assemblee` (19 tables) → `out/schemaspy/` (gitignoré,
+volumineux ; partager en zip ou régénérer). **Relations quasi vides** (pas de FK
+en base) — d'où l'intérêt des relations implicites curées ci-dessus.
+
+Reproduire :
 ```bash
-# nécessite : java, graphviz (dot), driver JDBC PostgreSQL
-java -jar schemaspy.jar -t pgsql -db canutes -host hackathon2026.leximpact.dev \
-  -port 5432 -u hackathon2026 -p '***' -s legifrance -o out/schemaspy \
-  -dp postgresql.jar
+# 1) deps
+brew install graphviz            # fournit `dot`
+curl -L -o schemaspy.jar   https://github.com/schemaspy/schemaspy/releases/download/v6.2.4/schemaspy-6.2.4.jar
+curl -L -o postgresql.jar  https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.4/postgresql-42.7.4.jar
+# 2) run (password lu depuis .env, jamais en dur)
+PW=$(grep -E '^CANUTES_DB_PASSWORD=' .env | cut -d= -f2-)
+java -jar schemaspy.jar -t pgsql -dp postgresql.jar \
+  -host hackathon2026.leximpact.dev -port 5432 -db canutes \
+  -u hackathon2026 -p "$PW" -s legifrance -o out/schemaspy/legifrance -imageformat png
 ```
-(mot de passe via `.env`, jamais en clair dans un script commité.)
+> ⚠️ Le fat jar est celui des **releases GitHub** (pas Maven Central, qui n'est
+> pas exécutable). Les warnings `dot ... cell size too small` sont cosmétiques.

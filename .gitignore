@@ -24,3 +24,6 @@ node_modules/
 data/fixtures/*
 !data/fixtures/README.md
 !data/fixtures/.gitkeep
+
+# Sorties générées (SchemaSpy HTML, volumineux)
+out/
