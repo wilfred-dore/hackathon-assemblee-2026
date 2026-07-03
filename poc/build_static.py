@@ -122,7 +122,7 @@ def main() -> None:
     for name in ("app.css", "favicon.svg"):
         shutil.copyfile(STATIC / name, OUT / name)
 
-    for name in ("index.html", "sources.html", "details.html"):
+    for name in ("index.html", "sources.html", "details.html", "pitch.html"):
         (OUT / name).write_text(adapt_html((STATIC / name).read_text(encoding="utf-8")), encoding="utf-8")
 
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
