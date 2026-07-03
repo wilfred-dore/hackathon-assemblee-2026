@@ -1,5 +1,5 @@
 name: Déploiement démo (GitHub Pages)
-# Pages activé (Source = GitHub Actions). Redéploiement.
+# Pages activé (Source = GitHub Actions). Redéploiement (retry après échec transitoire).
 
 # Construit un site 100 % statique depuis le POC (moteur pré-calculé par le
 # pipeline Python) et le publie sur GitHub Pages. Aucun backend n'est déployé.
