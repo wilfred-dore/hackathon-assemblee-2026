@@ -17,6 +17,10 @@ Conséquence : **ni dbdiagram ni SchemaSpy ne tracent de relations** (il n'y en 
 pas à découvrir automatiquement). Les liens sont **implicites**, encodés dans les
 `id` Légifrance et le `data` jsonb. D'où l'intérêt de la carte annotée ci-dessous.
 
+> 🌐 Site statique publiable (SchemaSpy + formats machine, **sans endpoint/secret**)
+> dans [`/site`](../../site) → prêt pour GitHub Pages.
+> 🔗 Relations **déduites** (Mermaid, étiquetées) : [inferred_relations.md](inferred_relations.md).
+
 ## Relations implicites clés (curées, `legifrance`) — *inférées, non contraintes*
 Les `id` Légifrance portent le type dans leur préfixe :
 - `LEGIARTI…` = article · `LEGISCTA…` = section (hiérarchie du code) ·

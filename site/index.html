@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canutes — cartographie de schéma (Le Rapporteur)</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 16px/1.55 system-ui, sans-serif; max-width: 820px; margin: 3rem auto; padding: 0 1.2rem; }
+  h1 { margin-bottom: .2rem; } .sub { opacity:.7; margin-top:0; }
+  .card { border:1px solid #8883; border-radius:10px; padding:1rem 1.2rem; margin:1rem 0; }
+  a { color:#3b82f6; } code { background:#8882; padding:.1em .3em; border-radius:4px; }
+  .warn { border-left:3px solid #f59e0b; padding-left:.8rem; }
+</style>
+</head>
+<body>
+  <h1>Canutes — cartographie de schéma</h1>
+  <p class="sub">Documentation lisible par humains <em>et</em> agents, produite pour « Le Rapporteur » (Hackathon Assemblée nationale 2026).</p>
+
+  <div class="card">
+    <h2>Diagrammes navigables (SchemaSpy)</h2>
+    <ul>
+      <li><a href="schema/legifrance/index.html">Schéma <code>legifrance</code></a> — articles, textes, codes, sections (23 tables)</li>
+      <li><a href="schema/assemblee/index.html">Schéma <code>assemblee</code></a> — acteurs, amendements, dossiers, scrutins (19 tables)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Formats machine (pour agents / LLM / MCP)</h2>
+    <ul>
+      <li><a href="schema/canutes_schema.json">canutes_schema.json</a> — tables → colonnes, types, clés</li>
+      <li><a href="schema/canutes.dbml">canutes.dbml</a> — à rendre sur <a href="https://dbdiagram.io">dbdiagram.io</a></li>
+    </ul>
+  </div>
+
+  <div class="card warn">
+    <p><strong>Relations :</strong> la base Canutes ne déclare <em>aucune clé étrangère</em>
+    (modèle dénormalisé jsonb). Les diagrammes ne montrent donc pas de liens
+    automatiques. Les relations <em>implicites</em> (préfixes <code>LEGIARTI</code>/<code>LEGISCTA</code>/<code>LEGITEXT</code>)
+    sont reconstruites à part et signalées comme <strong>déductions</strong>.</p>
+  </div>
+
+  <p class="sub">Aucune donnée d'accès (endpoint, identifiant, mot de passe) n'est incluse.</p>
+</body>
+</html>
