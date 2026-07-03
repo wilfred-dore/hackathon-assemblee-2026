@@ -14,8 +14,17 @@ Rien à recoder → le swap est démontrable **en direct sur scène**.
 | # | Backend | Matériel | Modèle | Souverain ? | Statut |
 |---|---|---|---|---|---|
 | 1 | **Modular MAX** (`modular/max-openai-api`) | **AMD** (Instinct, distant) | Mistral (open-weight) | ✅ | à obtenir (crédits AMD Dev Cloud ~100$, ou orga) |
-| 2 | **Qualcomm Cloud AI 100 playground** | Qualcomm | Llama (Mistral si dispo) | ✅ | à tester : endpoint OpenAI-compat ? Mistral servi ? |
+| 2 | **Qualcomm Cloud AI 100** via Cirrascale AI Suite | Qualcomm | **Llama-3.1-8B** (pas de Mistral) | ✅ | ✅ **CONFIRMÉ LIVE** — OpenAI-compat OK |
 | 3 | **Colab (Google AI One / Pro)** | NVIDIA (L4/A100) | Mistral via MAX ou vLLM | ✅ (open-weight auto-hébergé) | fallback fiable |
+
+### Backend #2 confirmé (Qualcomm Cloud AI 100 / Cirrascale)
+- `LLM_BASE_URL=https://aisuite.cirrascale.com/apis/v2` · `LLM_MODEL=Llama-3.1-8B`
+  · auth `Authorization: Bearer <clé>` (dans `.env`).
+- `GET /models` → `llm:[Llama-3.1-8B]`, embeddings BAAI, image sdxl-turbo.
+- `POST /chat/completions` = format OpenAI standard → marche direct avec `LLMClient`.
+- ⚠️ Mistral non servi (nom rejeté) → pour Mistral, backend #1 (AMD/MAX) ou #3 (Colab).
+- 💡 Démo : en live, Llama a cité un **faux** article (L.3132-2 au lieu de
+  L.3121-27) → capté par la vérification. Preuve d'hallucination souveraine réelle.
 
 **Le récit qui gagne** : « notre assistant de confiance tourne, sans changer une
 ligne, sur **AMD (MAX/Mojo)** *et* sur **Qualcomm Cloud AI 100** — souveraineté +

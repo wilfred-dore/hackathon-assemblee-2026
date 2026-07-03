@@ -72,12 +72,17 @@ class LLMClient:
             self._client = OpenAI(base_url=self.base_url, api_key=self.api_key)
         return self._client
 
+    @property
+    def live(self) -> bool:
+        """Appelle le vrai endpoint seulement en MODE=live ET si configuré."""
+        return self.ready and CONFIG.is_live
+
     def complete(self, question: str, context: str = "") -> str:
         """Réponse à une question citoyenne (éventuellement ancrée par `context`).
 
-        Mode démo déterministe si aucune clé LLM n'est configurée.
+        Mode démo déterministe hors `MODE=live` (ou si aucune clé configurée).
         """
-        if not self.ready:
+        if not self.live:
             return _demo_answer(question)
 
         user = question if not context else f"{question}\n\nContexte sourcé :\n{context}"
@@ -88,8 +93,8 @@ class LLMClient:
         return self.chat(messages)
 
     def chat(self, messages: list[dict], temperature: float = 0.2) -> str:
-        """Appel bas niveau OpenAI-compatible. Mode démo si non configuré."""
-        if not self.ready:
+        """Appel bas niveau OpenAI-compatible. Mode démo hors MODE=live."""
+        if not self.live:
             last = messages[-1]["content"] if messages else ""
             return _demo_answer(last)
 
