@@ -39,27 +39,35 @@ class Answer:
 
 # --- 1. Retrieval ---------------------------------------------------------
 
-def retrieve(question: str) -> list[Source]:
+def retrieve(question: str, notes: list[str] | None = None) -> list[Source]:
     """Interroge les sources disponibles. Renvoie [] si rien trouvé.
 
     En mode mock (URLs/clés absentes), renvoie [] : le pipeline doit alors
     REFUSER — c'est le comportement de confiance qu'on veut démontrer.
     Branche ici les vrais appels (moulineuse().call_tool(...),
     canutes.rest_get(...)) une fois les endpoints/tokens disponibles.
+
+    Tolérant aux pannes (fail-closed) : toute erreur réseau/protocole est
+    traitée comme une ABSENCE de source (-> refus), jamais comme un crash.
+    Les diagnostics sont ajoutés à `notes` pour affichage.
     """
+    notes = notes if notes is not None else []
     sources: list[Source] = []
 
     mcp = moulineuse()
     if mcp.ready:
-        # TODO : adapter au nom réel de l'outil de recherche exposé par le serveur.
-        res = mcp.call_tool("search", {"query": question})
-        for item in _as_items(res):
-            sources.append(Source(
-                ref=item.get("ref", "?"),
-                title=item.get("title", ""),
-                snippet=item.get("snippet", ""),
-                origin="moulineuse",
-            ))
+        try:
+            # TODO : adapter au nom réel de l'outil de recherche du serveur.
+            res = mcp.call_tool("search", {"query": question})
+            for item in _as_items(res):
+                sources.append(Source(
+                    ref=item.get("ref", "?"),
+                    title=item.get("title", ""),
+                    snippet=item.get("snippet", ""),
+                    origin="moulineuse",
+                ))
+        except Exception as e:  # noqa: BLE001 — fail-closed volontaire
+            notes.append(f"moulineuse: retrieval indisponible ({type(e).__name__}) -> ignoré")
 
     # Idem pour parlement() et canutes.rest_get(...) selon le défi.
     _ = parlement, canutes  # pointeurs pour brancher plus tard
@@ -123,12 +131,15 @@ REFUSAL = (
 
 def answer_question(question: str, llm: LLMClient | None = None) -> Answer:
     llm = llm or LLMClient()
-    sources = retrieve(question)
+    notes: list[str] = []
+    sources = retrieve(question, notes)
 
     if not sources:
         return Answer(question=question, text=REFUSAL, refused=True,
-                      validation={"has_sources": False, "no_invented_citation": True})
+                      validation={"has_sources": False, "no_invented_citation": True,
+                                  "retrieval_notes": notes})
 
     text = generate(question, sources, llm)
     validation = validate(text, sources)
+    validation["retrieval_notes"] = notes
     return Answer(question=question, text=text, sources=sources, validation=validation)

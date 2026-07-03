@@ -57,6 +57,8 @@ def main() -> None:
     console.print(Panel(ans.text, title=f"[{style}]{verdict}[/{style}]", border_style=style))
 
     console.print("[bold]Sources :[/bold]", f"{len(ans.sources)} trouvée(s)")
+    for note in ans.validation.get("retrieval_notes", []):
+        console.print(f"  [dim]· {note}[/dim]")
     console.print("[bold]Validation :[/bold]", ans.validation)
 
     console.print(

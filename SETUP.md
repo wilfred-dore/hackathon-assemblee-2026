@@ -5,7 +5,7 @@
 | Outil   | Version        | Rôle |
 |---------|----------------|------|
 | git     | 2.39.5         | ✅ versionnage |
-| python3 | 3.13.2         | ✅ langage principal |
+| python3 | 3.11.11        | ✅ langage principal |
 | uv      | 0.11.21        | ✅ gestion env/deps |
 | node    | 25.6.1         | ✅ optionnel (schémas Tricoteuses) |
 | docker  | **absent**     | ⚠️ non requis pour ce scaffold |
@@ -43,6 +43,9 @@ make db        # = uv sync --extra db
 
 ## Prochaines actions
 
+0. Compléter [docs/](docs/) : coller le deck orga/ressources et, sur place, le
+   schéma réel des outils MCP dans [docs/mcp.md](docs/mcp.md). Contexte projet
+   permanent dans [CLAUDE.md](CLAUDE.md).
 1. Remplir `.env` avec les tokens LLM + MCP dès que dispo.
 2. Dans [src/pipeline.py](src/pipeline.py), brancher les vrais appels dans
    `retrieve()` (nom réel de l'outil MCP `search`, requêtes Canutes).
