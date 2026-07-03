@@ -51,41 +51,45 @@
     <p><b>Tricoteuses</b> est un projet <b>open-source</b> qui <b>nettoie et republie</b>
     les données ouvertes du Parlement français (Assemblée nationale, Sénat) et du droit
     (Légifrance, Service-public) — souvent brutes et hétérogènes (XML, dumps PostgreSQL
-    anciens) — dans une base <b>PostgreSQL unifiée nommée Canutes</b>, avec une API
+    anciens), dans une base <b>PostgreSQL unifiée nommée Canutes</b>, avec une API
     PostgREST et des serveurs <b>MCP</b> (Moulineuse, Parlement).</p>
     <p style="margin-bottom:0">Concrètement, Canutes rassemble : articles de codes
     (Légifrance), textes et amendements de l'AN et du Sénat, débats, scrutins, dossiers
-    législatifs, fiches Service-public — la matière première d'une IA juridique sourcée.</p>
+    législatifs, fiches Service-public. C'est la matière première d'une IA juridique sourcée.</p>
   </div>
 
   <h2>Ce qu'on a fait</h2>
   <div class="card">
     <ul style="margin:0">
-      <li><b>Introspection</b> du schéma réel (253 tables) — les schémas en ligne de
+      <li><b>Introspection</b> du schéma réel (253 tables). Les schémas en ligne de
         Tricoteuses sont derrière un anti-bot, et l'API PostgREST n'expose que 3 tables.</li>
-      <li>Production d'une <b>cartographie lisible par un agent/LLM</b> : JSON structuré
-        + DBML, pour écrire du SQL correct sans deviner.</li>
-      <li>Génération de <b>diagrammes navigables</b> (SchemaSpy) pour humains.</li>
+      <li>Production d'une <b>cartographie lisible par un agent ou un LLM</b> : JSON structuré
+        et DBML, pour écrire du SQL correct sans deviner.</li>
+      <li>Génération de <b>diagrammes navigables</b> (SchemaSpy) pour les humains.</li>
       <li>Reconstruction des <b>relations implicites</b> (aucune clé étrangère n'est
-        déclarée) — clairement étiquetées « déduction ».</li>
+        déclarée), clairement étiquetées « déduction ».</li>
     </ul>
   </div>
 
   <h2>Le schéma de base de données</h2>
   <div class="grid">
-    <div class="card"><b>SchemaSpy — legifrance</b>
+    <div class="card"><b>SchemaSpy · legifrance</b>
       <p>Articles, textes, codes, sections (23 tables).</p>
       <a class="go" href="schema/legifrance/index.html">Ouvrir le diagramme →</a></div>
-    <div class="card"><b>SchemaSpy — assemblee</b>
+    <div class="card"><b>SchemaSpy · assemblee</b>
       <p>Acteurs, amendements, dossiers, scrutins (19 tables).</p>
       <a class="go" href="schema/assemblee/index.html">Ouvrir le diagramme →</a></div>
-    <div class="card"><b>Formats machine</b>
-      <p>Pour LLM / MCP : tables → colonnes, types.</p>
+    <div class="card"><b>Diagramme &amp; formats</b>
+      <p>Vue d'ensemble et formats lisibles par un LLM.</p>
+      <a class="go" href="schema/canutes.dbml.svg">Diagramme (SVG)</a> ·
       <a class="go" href="schema/canutes_schema.json">JSON</a> ·
-      <a class="go" href="schema/canutes.dbml">DBML</a> (rendu sur dbdiagram.io)</div>
+      <a class="go" href="schema/canutes.dbml">DBML</a></div>
   </div>
+  <p class="lead" style="font-size:.88rem">Le fichier DBML se rend aussi sur
+  <a href="https://dbdiagram.io">dbdiagram.io</a> ; le SVG ci-dessus est un export
+  déjà généré (sans service externe).</p>
 
-  <h2>Explications — comment lire Canutes</h2>
+  <h2>Comment lire Canutes</h2>
   <div class="card">
     <ul style="margin-top:0">
       <li><b>Base dénormalisée</b> : la donnée « riche » vit dans des colonnes <code>jsonb</code>
