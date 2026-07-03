@@ -18,7 +18,7 @@ pas à découvrir automatiquement). Les liens sont **implicites**, encodés dans
 `id` Légifrance et le `data` jsonb. D'où l'intérêt de la carte annotée ci-dessous.
 
 > 🌐 Site statique publiable (SchemaSpy + formats machine, **sans endpoint/secret**)
-> dans [`/site`](../../site) → prêt pour GitHub Pages.
+> dans [`/site`](../../schema-site) → prêt pour GitHub Pages.
 > 🔗 Relations **déduites** (Mermaid, étiquetées) : [inferred_relations.md](inferred_relations.md).
 
 ## Relations implicites clés (curées, `legifrance`) — *inférées, non contraintes*

@@ -1,14 +1,13 @@
-name: Deploy schema site to Pages
+name: Deploy schema site to Pages (manuel)
 
-# Publie le dossier /site (SchemaSpy scrubbé + JSON/DBML) sur GitHub Pages.
-# Activer d'abord : Settings -> Pages -> Source = GitHub Actions.
-# Déclenchable à la main, ou sur push si /site change.
+# Publie schema-site/ (SchemaSpy scrubbé + JSON/DBML) sur GitHub Pages.
+# ⚠️ François a AUSSI un déploiement Pages (deploy-pages.yml, l'app). Un seul site
+# Pages est possible -> ce workflow est MANUEL uniquement pour ne pas se battre
+# avec le sien. À unifier : app de François à la racine + schéma sous /schema.
+# Activer : Settings -> Pages -> Source = GitHub Actions.
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main, sandbox-wilfred]
-    paths: ["site/**", ".github/workflows/pages.yml"]
 
 permissions:
   contents: read
@@ -30,6 +29,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: schema-site
       - id: deployment
         uses: actions/deploy-pages@v4

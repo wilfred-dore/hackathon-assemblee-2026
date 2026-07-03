@@ -1,0 +1,49 @@
+name: Déploiement démo (GitHub Pages)
+
+# Construit un site 100 % statique depuis le POC (moteur pré-calculé par le
+# pipeline Python) et le publie sur GitHub Pages. Aucun backend n'est déployé.
+# Prérequis : Settings → Pages → Source = « GitHub Actions ».
+
+on:
+  push:
+    branches: [francois-sandbox, main]
+    paths:
+      - 'poc/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Construire le site statique
+        run: |
+          pip install httpx
+          python poc/build_static.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

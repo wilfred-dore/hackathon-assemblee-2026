@@ -25,5 +25,8 @@ data/fixtures/*
 !data/fixtures/README.md
 !data/fixtures/.gitkeep
 
-# Sorties générées (SchemaSpy HTML, volumineux)
+# Sorties générées (SchemaSpy HTML brut, volumineux)
 out/
+
+# Build statique GitHub Pages de l'app — généré par poc/build_static.py (François)
+/site/

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comment ça marche — Le Rapporteur</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/"><img class="logo" src="/favicon.svg" alt=""><span class="wordmark">Le Rapporteur</span></a>
+  <nav>
+    <a href="/">Poser une question</a>
+    <a href="/sources">Consulter la loi</a>
+    <a href="/details" aria-current="page">Comment ça marche</a>
+  </nav>
+</header>
+<div class="tricolore"></div>
+
+<main>
+  <div class="kicker">Fonctionnement</div>
+  <h1>Comment fonctionne Le Rapporteur</h1>
+  <p class="lead">Les IA généralistes répondent au droit avec aplomb — et inventent parfois
+  des articles de loi. Le Rapporteur ne répond jamais de mémoire : chaque référence citée est
+  vérifiée contre les sources officielles avant d'être présentée. Au moindre doute, il refuse.</p>
+
+  <h2>Le pipeline de confiance</h2>
+  <div class="steps">
+    <div class="step"><span class="n">1</span><b>Ancrage dans les sources</b>
+      <p>La question est enrichie de passages récupérés dans les corpus officiels
+      (Légifrance / Canutes, débats parlementaires) via le protocole MCP.</p></div>
+    <div class="step"><span class="n">2</span><b>Génération</b>
+      <p>Un LLM souverain (Mistral, infrastructure dédiée) rédige une réponse en citant
+      ses sources au format « article … du Code … ».</p></div>
+    <div class="step"><span class="n">3</span><b>Extraction &amp; vérification</b>
+      <p>Chaque citation est extraite puis confrontée une à une aux sources.
+      Une erreur réseau vaut non-vérification : fail-closed.</p></div>
+    <div class="step refus"><span class="n">4</span><b>Réponse sourcée — ou refus</b>
+      <p>Toutes les citations existent → réponse avec liens cliquables. Une seule
+      introuvable → « Je ne trouve pas de texte applicable. »</p></div>
+  </div>
+
+  <h2>Les garanties</h2>
+  <div class="card">
+    <ul class="garanties">
+      <li><span class="pict">✓</span><span>Zéro article inventé présenté comme vérifié —
+        <em>le fact-check est systématique, pas statistique.</em></span></li>
+      <li><span class="pict">✓</span><span>Refus explicite plutôt qu'hallucination —
+        <em>pas de source, pas de réponse.</em></span></li>
+      <li><span class="pict">✓</span><span>Sources primaires cliquables et consultables in-app —
+        <em>chaque citation renvoie vers Légifrance.</em></span></li>
+      <li><span class="pict">✓</span><span>Comportement prouvé par des scénarios Gherkin en français —
+        <em>lisibles et auditables par un juriste, exécutés à chaque changement.</em></span></li>
+      <li><span class="pict">✓</span><span>Souveraineté —
+        <em>modèle et données hébergés sur infrastructure maîtrisée, corpus 100 % officiel.</em></span></li>
+    </ul>
+  </div>
+
+  <h2>API &amp; serveur MCP</h2>
+  <div class="card">
+    <div class="endpoint"><span class="verb">POST</span><code>/api/ask</code>
+      <span>réponse sourcée ou refus, citations vérifiées</span></div>
+<pre><code>{"question": "Quelle est la durée légale du travail ?"}
+<span class="c">→ {"status": "ok", "answer": "…", "citations": [{"label": "article L. 3121-27…", "exists": true, "url": "…"}]}</span></code></pre>
+
+    <div class="endpoint"><span class="verb">GET</span><code>/api/article?ref=…</code>
+      <span>texte d'un article chargé depuis Légifrance</span></div>
+
+    <div class="endpoint"><span class="verb">POST</span><code>/mcp</code>
+      <span>serveur MCP (JSON-RPC 2.0) — utilisable par tout agent</span></div>
+<pre><code><span class="c"># outils exposés (tools/list)</span>
+repondre_question   <span class="c">— pipeline complet, refus si source introuvable</span>
+verifier_article    <span class="c">— fact-check d'une référence, ex. « article 9 du Code civil »</span></code></pre>
+  </div>
+</main>
+
+<footer>Le Rapporteur · POC — Hackathon Assemblée nationale 2026</footer>
+</body>
+</html>
