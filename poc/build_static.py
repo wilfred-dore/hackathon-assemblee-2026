@@ -127,6 +127,12 @@ def main() -> None:
 
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
 
+    # Notre asset : cartographie du schéma Canutes (SchemaSpy + JSON/DBML) -> /schema
+    schema_src = POC.parent / "schema-site"
+    if schema_src.exists():
+        shutil.copytree(schema_src, OUT / "schema", dirs_exist_ok=True)
+        print(f"  + doc schéma copiée depuis {schema_src.name}/ -> site/schema/")
+
     print(f"Site statique généré dans {OUT}")
     print(f"  {len(answers)} réponses pré-calculées, {len(articles)} articles.")
     print("  Test local : python -m http.server -d site 8000")

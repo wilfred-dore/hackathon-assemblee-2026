@@ -57,6 +57,39 @@
     </ul>
   </div>
 
+  <h2>Souveraineté matérielle — au-delà de NVIDIA</h2>
+  <div class="card">
+    <p>Notre couche de confiance est <b>indépendante du fournisseur de puce</b>.
+    Une seule interface OpenAI-compatible ; on change le backend, le même pipeline
+    tourne ailleurs. Aujourd'hui, faire tourner un LLM open-source rime de fait avec
+    <b>NVIDIA/CUDA</b> (un seul fournisseur). Nous le prouvons <b>sans NVIDIA</b>.</p>
+    <ul class="garanties">
+      <li><span class="pict">✓</span><span><b>Qualcomm Cloud AI 100</b> — accélérateur
+        d'inférence <em>dédié</em> (pas un GPU graphique détourné) : beaucoup d'opérations
+        par watt. <em>Backend souverain prouvé en live.</em></span></li>
+      <li><span class="pict">✓</span><span><b>Frugalité = souveraineté + écologie</b> —
+        un datacenter IA, c'est d'abord une facture d'électricité ; une puce d'inférence
+        dédiée fait le même travail pour bien moins d'énergie.</span></li>
+      <li><span class="pict">✓</span><span><b>Modular MAX / Mojo</b> = la couche de
+        portabilité : écrire l'inférence une fois, l'exécuter sur AMD, NVIDIA, Apple…
+        → rend les cibles souveraines (AMD, puis EU) réalistes.</span></li>
+    </ul>
+    <p class="c">Le même pipeline, plusieurs silicons :</p>
+    <pre class="mermaid">
+graph TD
+    L["Interface LLM (OpenAI-compatible)"] --> Q["Qualcomm Cloud AI 100 · LIVE ✅"]
+    L --> M["Modular MAX (Mojo)"]
+    M --> AMD["AMD Instinct · souverain"]
+    M --> NV["NVIDIA · rétrocompatibilité"]
+    L --> EU["Vision EU/FR (non mesuré)"]
+    EU --> VS["VSora Jotunn8 · FR"]
+    EU --> AX["Axelera Metis · EU"]
+    L --> LO["Local · Mac / Ollama"]
+    </pre>
+    <p class="c">Statuts : Qualcomm = prouvé live · AMD/NVIDIA via MAX = cible ·
+    VSora/Axelera = vision (pas d'accès). <a href="/schema/">Voir aussi notre cartographie du schéma Canutes.</a></p>
+  </div>
+
   <h2>API &amp; serveur MCP</h2>
   <div class="card">
     <div class="endpoint"><span class="verb">POST</span><code>/api/ask</code>
@@ -76,5 +109,12 @@ verifier_article    <span class="c">— fact-check d'une référence, ex. « art
 </main>
 
 <footer>Le Rapporteur · POC — Hackathon Assemblée nationale 2026</footer>
+<script type="module">
+  // Rendu du diagramme (si en ligne). Sinon, le texte reste lisible tel quel.
+  try {
+    const m = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    m.default.initialize({ startOnLoad: true, theme: 'neutral' });
+  } catch (e) { /* hors-ligne : diagramme affiché en texte */ }
+</script>
 </body>
 </html>

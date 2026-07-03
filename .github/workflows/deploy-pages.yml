@@ -6,9 +6,10 @@ name: Déploiement démo (GitHub Pages)
 
 on:
   push:
-    branches: [francois-sandbox, main]
+    branches: [francois-sandbox, main, integration, sandbox-wilfred]
     paths:
       - 'poc/**'
+      - 'schema-site/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 

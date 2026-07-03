@@ -24,6 +24,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from .citations import extract_citations
@@ -176,3 +177,9 @@ def ui_js() -> FileResponse:
 @app.get("/favicon.svg")
 def ui_favicon() -> FileResponse:
     return FileResponse(_STATIC / "favicon.svg", media_type="image/svg+xml")
+
+
+# Notre doc schéma (cartographie Canutes) servie aussi en live sous /schema
+_SCHEMA_DIR = Path(__file__).resolve().parent.parent / "schema-site"
+if _SCHEMA_DIR.exists():
+    app.mount("/schema", StaticFiles(directory=str(_SCHEMA_DIR), html=True), name="schema")
