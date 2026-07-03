@@ -37,8 +37,22 @@ non-NVIDIA — même code, du Qualcomm Cloud AI 100 à l'AMD via Modular MAX. »
 
 ### Slide « Modular MAX & Mojo » (nouveau)
 - **MAX** : runtime d'inférence portable (container OpenAI-compat, AMD/NVIDIA/Apple).
+  **AMD** = le plus illustratif (souverain, hors NVIDIA) ; **NVIDIA** = montre la
+  rétrocompatibilité (on n'exclut personne).
 - **Mojo** : langage de kernels — piste : réécrire un hot-path (reranking/matching)
   et le benchmarker (perf/watt). *Stretch goal, à cadrer.*
+
+### Slide « Souveraineté matérielle — au-delà de NVIDIA » (nouveau)
+Le même pipeline OpenAI-compatible vise plusieurs silicons souverains :
+- **Qualcomm Cloud AI 100** (via Cirrascale) — ✅ *prouvé live* (Llama-3.1-8B).
+- **AMD Instinct** via **Modular MAX** — cible (AMD Dev Cloud).
+- **Accélérateurs EU/FR émergents** (vision, non benchmarkés — pas d'accès) :
+  - **VSora — Jotunn8** (fabless **français**, inférence datacenter),
+  - **Axelera AI — Metis** (**européen**, inférence édge/datacenter).
+  → l'argument : la thèse de **portabilité MAX/Mojo** rend ces cibles réalistes ;
+  la souveraineté logicielle (poids ouverts + runtime portable) prépare la
+  souveraineté matérielle EU. *(À présenter comme feuille de route/vision, pas
+  comme démontré. Rumeur Qualcomm×Modular = spéculation, ne pas l'affirmer.)*
 
 ### Slide « Notre contribution : cartographie Canutes » (nouveau)
 - Canutes = 253 tables, schémas cryptiques (`senat.ameli_*`…), PostgREST n'expose
