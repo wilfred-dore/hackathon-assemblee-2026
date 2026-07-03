@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Rapporteur — POC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#3557d4;--bleu-vif:#5b8cff;--bleu-clair:#a8c0ff;--blanc:#f4f6fb;
+  --rouge:#e04a58;--rouge-clair:#ff8291;--bg0:#070c1b;--bg1:#0e1730;
+  --ink:#eef2fb;--muted:#93a0bd;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;font-family:Inter,sans-serif;color:var(--ink);
+  background:
+    radial-gradient(1100px 560px at 88% -8%,rgba(91,140,255,.16),transparent 60%),
+    radial-gradient(900px 520px at -8% 112%,rgba(224,74,88,.12),transparent 55%),
+    linear-gradient(160deg,var(--bg1) 0%,var(--bg0) 70%);
+}
+body::before{
+  content:'';position:fixed;top:0;left:0;right:0;height:4px;z-index:10;
+  background:linear-gradient(90deg,#2f55d4 0%,#4d6fd6 32%,#f4f6fb 34%,#f4f6fb 66%,#e0505e 68%,#c93a48 100%);
+  box-shadow:0 0 18px rgba(91,140,255,.45),0 2px 12px rgba(224,74,88,.3);
+}
+main{max-width:760px;margin:0 auto;padding:56px 24px 80px}
+.kicker{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--rouge-clair);text-shadow:0 0 16px rgba(224,74,88,.35)}
+h1{
+  font-family:'Playfair Display',serif;font-size:2.6rem;margin:.3rem 0 .2rem;
+  background:linear-gradient(115deg,#fff 30%,var(--bleu-clair) 75%,#7fa3ff 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.tagline{font-family:'Playfair Display',serif;font-style:italic;color:var(--bleu-clair);margin-bottom:2rem}
+form{display:flex;gap:10px;margin-bottom:14px}
+input{
+  flex:1;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);color:var(--ink);font-size:1rem;outline:none;
+}
+input:focus{border-color:var(--bleu-vif);box-shadow:0 0 0 3px rgba(91,140,255,.2)}
+button{
+  padding:14px 22px;border-radius:12px;border:none;cursor:pointer;font-weight:600;font-size:1rem;
+  color:#fff;background:linear-gradient(135deg,var(--bleu) 0%,var(--bleu-vif) 100%);
+  box-shadow:0 8px 24px rgba(53,87,212,.4);
+}
+button:hover{filter:brightness(1.1)}
+.examples{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.examples span{
+  font-size:.78rem;color:var(--muted);border:1px solid rgba(147,160,189,.25);
+  border-radius:99px;padding:5px 12px;cursor:pointer;
+}
+.examples span:hover{color:var(--ink);border-color:var(--bleu-vif)}
+.result{
+  border-radius:16px;padding:22px 24px;margin-top:8px;
+  background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(14px);
+  box-shadow:0 18px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.12);
+}
+.result.ok{border-top:3px solid var(--bleu-vif)}
+.result.refus{border-top:3px solid var(--rouge)}
+.status{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
+.result.ok .status{color:var(--bleu-clair)}
+.result.refus .status{color:var(--rouge-clair)}
+.answer{line-height:1.6;margin-bottom:16px}
+.detail{font-size:.85rem;color:var(--muted);margin-bottom:14px}
+.cite{
+  display:flex;align-items:center;gap:10px;font-size:.88rem;
+  padding:9px 12px;border-radius:10px;margin-top:6px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+}
+.cite .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.cite.exists .dot{background:var(--bleu-vif);box-shadow:0 0 10px rgba(91,140,255,.8)}
+.cite.missing .dot{background:var(--rouge);box-shadow:0 0 10px rgba(224,74,88,.8)}
+.cite a{color:var(--bleu-clair)}
+.cite .src{margin-left:auto;font-size:.7rem;color:var(--muted)}
+.loading{color:var(--muted);font-style:italic}
+footer{margin-top:48px;font-size:.7rem;letter-spacing:.1em;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">Hackathon Assemblée nationale · 2026</div>
+  <h1>Le Rapporteur</h1>
+  <div class="tagline">Zéro article inventé. Chaque citation vérifiée.</div>
+
+  <form id="f">
+    <input id="q" placeholder="Posez votre question de droit…" autocomplete="off" required>
+    <button type="submit">Vérifier &amp; répondre</button>
+  </form>
+  <div class="examples">
+    <span>Quelle est la durée légale du travail ?</span>
+    <span>Dans quels cas puis-je être embauché en CDD ?</span>
+    <span>On a publié une photo de moi sans mon accord</span>
+    <span>Ai-je droit à la prime de Noël ?</span>
+  </div>
+
+  <div id="out"></div>
+
+  <footer>LE RAPPORTEUR · POC — LLM LOCAL + VÉRIFICATION MCP MOULINEUSE / CANUTES</footer>
+</main>
+<script>
+const f = document.getElementById('f'), q = document.getElementById('q'), out = document.getElementById('out');
+document.querySelectorAll('.examples span').forEach(s =>
+  s.addEventListener('click', () => { q.value = s.textContent; f.requestSubmit(); }));
+f.addEventListener('submit', async e => {
+  e.preventDefault();
+  out.innerHTML = '<div class="result"><div class="loading">Génération et vérification des sources…</div></div>';
+  const r = await fetch('/api/ask', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({question: q.value})
+  });
+  const d = await r.json();
+  const ok = d.status === 'ok';
+  const cites = (d.citations || []).map(c => `
+    <div class="cite ${c.exists ? 'exists' : 'missing'}">
+      <span class="dot"></span>
+      ${c.exists && c.url ? `<a href="${c.url}" target="_blank" rel="noopener">${esc(c.label)}</a>`
+                          : `<s>${esc(c.label)}</s>`}
+      <span class="src">${c.exists ? 'vérifié · ' : 'introuvable · '}${esc(c.source)}</span>
+    </div>`).join('');
+  out.innerHTML = `
+    <div class="result ${ok ? 'ok' : 'refus'}">
+      <div class="status">${ok ? '✓ Réponse sourcée' : '✗ Refus explicite'}</div>
+      <div class="answer">${esc(d.answer)}</div>
+      ${d.detail ? `<div class="detail">${esc(d.detail)}</div>` : ''}
+      ${cites}
+    </div>`;
+});
+const esc = s => String(s).replace(/[&<>"']/g, m =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+</script>
+</body>
+</html>
