@@ -1,11 +1,15 @@
 # Hackathon Assemblée 2026 — commandes rapides
 # uv gère l'env Python (.venv créé automatiquement).
 
-.PHONY: setup smoke bdd db env clean
+.PHONY: setup smoke bdd db api env clean
 
 setup:        ## Crée l'env + installe les deps minimales
 	uv sync
 	@test -f .env || (cp .env.example .env && echo "-> .env créé depuis .env.example (à remplir)")
+
+api:          ## Lance l'API HTTP integration-ready (FastAPI, port 8080)
+	uv sync --extra api
+	uv run uvicorn src.api:app --port 8080 --reload
 
 smoke:        ## Smoke test end-to-end (mode mock, sans vraies clés)
 	uv run python -m src.cli
