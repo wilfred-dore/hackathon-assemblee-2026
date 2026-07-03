@@ -1,5 +1,26 @@
+# Secrets — JAMAIS commité
+.env
+.env.*
+!.env.example
+
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+uv.lock
+
+# Node (optionnel — schémas Tricoteuses)
 node_modules/
-dist/
-.slidev/
-*.local
+
+# OS / éditeurs
 .DS_Store
+.idea/
+.vscode/
+
+# Données lourdes déposées localement
+data/fixtures/*
+!data/fixtures/README.md
+!data/fixtures/.gitkeep
