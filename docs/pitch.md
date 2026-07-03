@@ -23,6 +23,18 @@ non-NVIDIA — même code, du Qualcomm Cloud AI 100 à l'AMD via Modular MAX. »
 
 ## Slides à ajouter (proposition)
 
+### Slide « Fournisseur MCP, pas juste consommateur » — **différenciateur**
+La plupart des projets *consomment* des données. Nous, on **expose une brique de
+confiance réutilisable** : Le Rapporteur est **lui-même un serveur MCP**
+(`repondre_question`, `verifier_article`). N'importe quel agent (Claude, un outil
+de l'AN…) peut nous appeler pour obtenir une **réponse juridique vérifiée** ou
+**fact-checker une citation**.
+- Architecture assumée : **DB Canutes en direct** pour *notre* vérification (rapide,
+  précise, déterministe) **+** **serveur MCP** exposé pour *l'interop*. Deux usages,
+  pas un compromis.
+- Message : « on ne se contente pas de répondre — on devient un **outil de
+  confiance** que tout l'écosystème peut brancher. »
+
 ### Slide « Prouvé, pas promis » (Gherkin) — **fort**
 La garantie anti-hallucination n'est pas un discours : elle est **encodée en
 Gherkin français**, exécutée à chaque changement (`make bdd`, vert/rouge en direct).

@@ -1,6 +1,7 @@
 # Roadmap — fait / à faire (honnête)
 
-Distinguer clairement ce qui **tourne** de ce qui est **visé**. À tenir devant un jury.
+Document de travail **interne** : distinguer ce qui **tourne** de ce qui est **visé**.
+(Une version orientée jury peut en être dérivée, mais celle-ci est pour nous.)
 
 ## ✅ Fait (démontrable)
 - Moteur de confiance **generate → verify** : réponse sourcée ou **refus explicite**.

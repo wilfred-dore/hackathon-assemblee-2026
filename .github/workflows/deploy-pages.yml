@@ -6,7 +6,7 @@ name: Déploiement démo (GitHub Pages)
 
 on:
   push:
-    branches: [francois-sandbox, main, integration, sandbox-wilfred]
+    branches: [main]          # Pages ne sert qu'un site -> on déploie depuis main
     paths:
       - 'poc/**'
       - 'schema-site/**'
