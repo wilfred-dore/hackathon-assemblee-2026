@@ -3,240 +3,75 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Le Rapporteur — POC</title>
+<title>Le Rapporteur — assistant juridique sourcé</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bleu:#3557d4;--bleu-vif:#5b8cff;--bleu-clair:#a8c0ff;--blanc:#f4f6fb;
-  --rouge:#e04a58;--rouge-clair:#ff8291;--bg0:#060a18;--bg1:#0d1630;
-  --ink:#eef2fb;--muted:#93a0bd;
-  --glass:rgba(255,255,255,.055);--glass-hi:rgba(255,255,255,.14);--glass-bd:rgba(255,255,255,.12);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;font-family:Inter,sans-serif;color:var(--ink);
-  background:
-    radial-gradient(900px 500px at 85% -10%,rgba(65,105,225,.10),transparent 60%),
-    radial-gradient(800px 460px at -5% 110%,rgba(224,74,88,.06),transparent 55%),
-    linear-gradient(165deg,var(--bg1) 0%,var(--bg0) 72%);
-  overflow-x:hidden;
-}
-/* liseré tricolore */
-body::before{
-  content:'';position:fixed;top:0;left:0;right:0;height:3px;z-index:10;
-  background:linear-gradient(90deg,#2f55d4 0%,#2f55d4 33%,#f4f6fb 33%,#f4f6fb 66%,#c93a48 66%,#c93a48 100%);
-}
-main{max-width:780px;margin:0 auto;padding:52px 24px 70px}
-
-/* --- panneau (glassmorphism sobre) --- */
-.panel{
-  border-radius:18px;padding:32px 34px 28px;position:relative;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.1);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  box-shadow:0 16px 40px rgba(3,6,20,.35),inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-.kicker{display:flex;align-items:baseline;font-size:.7rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
-.kicker a{margin-left:auto;letter-spacing:.02em;text-transform:none;font-weight:400;font-size:.82rem;
-  color:var(--bleu-clair);text-decoration:none;border-bottom:1px solid rgba(168,192,255,.35)}
-.kicker a:hover{border-bottom-color:var(--bleu-clair)}
-h1{
-  font-family:'Playfair Display',serif;font-size:2.4rem;margin:.2rem 0 .15rem;
-  color:var(--blanc);font-weight:700;
-}
-.tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--bleu-clair)}
-
-/* --- barre de recherche verre --- */
-form{
-  display:flex;gap:0;margin:24px 0 14px;border-radius:12px;overflow:hidden;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  transition:border-color .2s;
-}
-form:focus-within{border-color:rgba(91,140,255,.5)}
-input{
-  flex:1;padding:15px 17px;border:none;background:transparent;color:var(--ink);
-  font-size:1rem;font-family:inherit;outline:none;
-}
-input::placeholder{color:var(--muted)}
-button{
-  margin:5px;padding:11px 20px;border-radius:8px;border:none;
-  cursor:pointer;font-weight:600;font-size:.92rem;font-family:inherit;color:#fff;
-  background:var(--bleu);
-  transition:filter .12s;
-}
-button:hover{filter:brightness(1.12)}
-
-.examples{display:flex;flex-wrap:wrap;gap:8px}
-.examples span{
-  font-size:.78rem;color:var(--muted);border-radius:99px;padding:6px 13px;cursor:pointer;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
-  transition:color .15s, border-color .15s;
-}
-.examples span:hover{color:var(--ink);border-color:rgba(91,140,255,.5)}
-
-/* --- carte résultat verre --- */
-.result{
-  border-radius:14px;padding:22px 24px;margin-top:20px;position:relative;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.1);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  box-shadow:0 14px 34px rgba(3,6,20,.3);
-  animation:rise .25s ease-out;
-}
-@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.result.ok{border-left:3px solid var(--bleu-vif)}
-.result.refus{border-left:3px solid var(--rouge)}
-.status{font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
-.result.ok .status{color:var(--bleu-clair)}
-.result.refus .status{color:var(--rouge-clair)}
-.answer{line-height:1.65;margin-bottom:16px}
-.detail{font-size:.85rem;color:var(--muted);margin-bottom:14px}
-.cite{
-  display:flex;align-items:center;gap:10px;font-size:.88rem;
-  padding:9px 13px;border-radius:10px;margin-top:6px;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-}
-.cite .dot{width:8px;height:8px;border-radius:50%;flex:none}
-.cite.exists .dot{background:var(--bleu-vif)}
-.cite.missing .dot{background:var(--rouge)}
-.cite a{color:var(--bleu-clair)}
-.cite .src{margin-left:auto;font-size:.7rem;color:var(--muted)}
-.loading{color:var(--muted);font-style:italic}
-
-footer{margin-top:40px;text-align:center;font-size:.68rem;letter-spacing:.12em;color:rgba(147,160,189,.7);text-transform:uppercase}
-
-/* --- mascotte --- */
-.brand{display:flex;align-items:center;gap:18px}
-#mascotte{width:86px;height:86px;flex:none;filter:drop-shadow(0 6px 18px rgba(91,140,255,.35));cursor:pointer}
-#mascotte .eye-lid{transform-origin:center;transform:scaleY(0);transition:transform .12s}
-/* repos : flottement + clignement */
-#mascotte.idle{animation:float 3.4s ease-in-out infinite}
-#mascotte.idle .eye-lid{animation:blink 4.2s infinite}
-@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(-2deg)}}
-@keyframes blink{0%,93%,100%{transform:scaleY(0)}95%,97%{transform:scaleY(1)}}
-/* cherche : balancement + pupilles qui scannent + monocle qui brille */
-#mascotte.think{animation:sway .7s ease-in-out infinite}
-#mascotte.think .pupil{animation:scan .8s ease-in-out infinite}
-#mascotte.think .monocle{animation:glint 1s linear infinite}
-@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-@keyframes scan{0%,100%{transform:translateX(-2.2px)}50%{transform:translateX(2.2px)}}
-@keyframes glint{0%{stroke:var(--bleu-clair)}50%{stroke:#fff}100%{stroke:var(--bleu-clair)}}
-/* ok : petit bond + ailes levées */
-#mascotte.ok{animation:hop .55s ease-in-out 2}
-#mascotte.ok .wing-l{animation:flapL .55s ease-in-out 2}
-#mascotte.ok .wing-r{animation:flapR .55s ease-in-out 2}
-@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
-@keyframes flapL{0%,100%{transform:rotate(0)}40%{transform:rotate(-38deg)}}
-@keyframes flapR{0%,100%{transform:rotate(0)}40%{transform:rotate(38deg)}}
-.wing-l{transform-origin:26px 56px}.wing-r{transform-origin:74px 56px}
-/* refus : secoue la tête + sourcils froncés + cocarde rouge */
-#mascotte.non{animation:shake .5s ease-in-out 2}
-#mascotte.non .brow{opacity:1}
-#mascotte.non .cocarde-center{fill:var(--rouge)}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
-.brow{opacity:0;transition:opacity .2s}
-</style>
+<link rel="stylesheet" href="/app.css">
 </head>
 <body>
-<main>
-  <div class="panel">
-  <div class="kicker">Hackathon Assemblée nationale · 2026 <a href="/details">Comment ça marche ?</a></div>
-  <div class="brand">
-    <svg id="mascotte" class="idle" viewBox="0 0 100 100" role="img" aria-label="La Chouette Rapporteure" title="Cliquez-moi">
-      <!-- ailes -->
-      <g class="wing-l"><ellipse cx="24" cy="60" rx="9" ry="18" fill="#2c3f7d"/></g>
-      <g class="wing-r"><ellipse cx="76" cy="60" rx="9" ry="18" fill="#2c3f7d"/></g>
-      <!-- corps -->
-      <ellipse cx="50" cy="62" rx="26" ry="30" fill="#3a56b8"/>
-      <ellipse cx="50" cy="70" rx="16" ry="18" fill="#f4f6fb"/>
-      <!-- tête -->
-      <circle cx="50" cy="34" r="24" fill="#3a56b8"/>
-      <path d="M30 18 Q34 8 40 16 Z" fill="#3a56b8"/>
-      <path d="M70 18 Q66 8 60 16 Z" fill="#3a56b8"/>
-      <!-- yeux -->
-      <circle cx="41" cy="32" r="9.5" fill="#fff"/>
-      <circle cx="59" cy="32" r="9.5" fill="#fff"/>
-      <circle class="pupil" cx="41" cy="32" r="4" fill="#0b1020"/>
-      <circle class="pupil" cx="59" cy="32" r="4" fill="#0b1020"/>
-      <rect class="eye-lid" x="31" y="26" width="20" height="12" rx="6" fill="#3a56b8"/>
-      <rect class="eye-lid" x="49" y="26" width="20" height="12" rx="6" fill="#3a56b8"/>
-      <!-- sourcils fâchés (refus) -->
-      <path class="brow" d="M33 22 L48 27" stroke="#0b1020" stroke-width="3" stroke-linecap="round"/>
-      <path class="brow" d="M67 22 L52 27" stroke="#0b1020" stroke-width="3" stroke-linecap="round"/>
-      <!-- monocle (fact-checker) -->
-      <circle class="monocle" cx="59" cy="32" r="12" fill="none" stroke="var(--bleu-clair)" stroke-width="1.6"/>
-      <path d="M68 41 Q73 48 71 54" fill="none" stroke="var(--bleu-clair)" stroke-width="1.2"/>
-      <!-- bec -->
-      <path d="M50 38 L45 45 L55 45 Z" fill="#ffb454"/>
-      <!-- cocarde tricolore -->
-      <circle cx="50" cy="56" r="7" fill="#2f55d4"/>
-      <circle cx="50" cy="56" r="4.6" fill="#f4f6fb"/>
-      <circle class="cocarde-center" cx="50" cy="56" r="2.4" fill="#e04a58"/>
-    </svg>
-    <div>
-      <h1>Le Rapporteur</h1>
-      <div class="tagline">Zéro article inventé. Chaque citation vérifiée.</div>
-    </div>
-  </div>
+<header class="site">
+  <a class="brand" href="/"><img class="logo" src="/favicon.svg" alt=""><span class="wordmark">Le Rapporteur</span></a>
+  <nav>
+    <a href="/" aria-current="page">Poser une question</a>
+    <a href="/sources">Consulter la loi</a>
+    <a href="/details">Comment ça marche</a>
+  </nav>
+</header>
+<div class="tricolore"></div>
 
-  <form id="f">
+<main>
+  <div class="kicker">Assemblée nationale · Hackathon 2026</div>
+  <h1>Une IA qui cite la loi sans jamais l'inventer</h1>
+  <p class="lead">Posez une question de droit. Chaque article cité est vérifié contre les
+  sources officielles. Au moindre doute, le Rapporteur refuse plutôt que d'inventer.</p>
+
+  <form id="f" class="ask">
     <input id="q" placeholder="Posez votre question de droit…" autocomplete="off" required>
-    <button type="submit">Vérifier &amp; répondre</button>
+    <button class="btn" type="submit">Vérifier &amp; répondre</button>
   </form>
   <div class="examples">
-    <span>Quelle est la durée légale du travail ?</span>
-    <span>Dans quels cas puis-je être embauché en CDD ?</span>
-    <span>On a publié une photo de moi sans mon accord</span>
-    <span>Ai-je droit à la prime de Noël ?</span>
+    <button type="button">Quelle est la durée légale du travail ?</button>
+    <button type="button">Dans quels cas puis-je être embauché en CDD ?</button>
+    <button type="button">On a publié une photo de moi sans mon accord</button>
+    <button type="button">Ai-je droit à la prime de Noël ?</button>
   </div>
-  </div><!-- /panel -->
 
   <div id="out"></div>
-
-  <footer>Le Rapporteur · POC — LLM local + vérification MCP Moulineuse / Canutes</footer>
 </main>
+
+<footer>Le Rapporteur · POC — LLM souverain + vérification MCP Moulineuse / Canutes (Légifrance). Mode démo hors-ligne.</footer>
+
 <script>
 const f = document.getElementById('f'), q = document.getElementById('q'), out = document.getElementById('out');
-const mascotte = document.getElementById('mascotte');
-const setMood = m => { mascotte.classList.remove('idle','think','ok','non'); mascotte.classList.add(m); };
-mascotte.addEventListener('animationend', e => {
-  if (e.target === mascotte && (mascotte.classList.contains('ok') || mascotte.classList.contains('non'))) setMood('idle');
-});
-mascotte.addEventListener('click', () => { setMood('ok'); }); // easter egg : elle saute
-document.querySelectorAll('.examples span').forEach(s =>
-  s.addEventListener('click', () => { q.value = s.textContent; f.requestSubmit(); }));
+const esc = s => String(s).replace(/[&<>"']/g, m =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+document.querySelectorAll('.examples button').forEach(b =>
+  b.addEventListener('click', () => { q.value = b.textContent; f.requestSubmit(); }));
+
 f.addEventListener('submit', async e => {
   e.preventDefault();
-  setMood('think');
-  out.innerHTML = '<div class="result"><div class="loading">Génération et vérification des sources…</div></div>';
+  out.innerHTML = '<div class="card result"><div class="loading">Génération et vérification des sources…</div></div>';
   const r = await fetch('/api/ask', {
     method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({question: q.value})
   });
   const d = await r.json();
   const ok = d.status === 'ok';
-  setMood(ok ? 'ok' : 'non');
   const cites = (d.citations || []).map(c => `
     <div class="cite ${c.exists ? 'exists' : 'missing'}">
-      <span class="dot"></span>
+      <span class="badge">${c.exists ? 'vérifié' : 'introuvable'}</span>
       ${c.exists && c.url ? `<a href="${c.url}" target="_blank" rel="noopener">${esc(c.label)}</a>`
                           : `<s>${esc(c.label)}</s>`}
-      <span class="src">${c.exists ? 'vérifié · ' : 'introuvable · '}${esc(c.source)}</span>
+      <span class="src">${esc(c.source)}</span>
     </div>`).join('');
   out.innerHTML = `
-    <div class="result ${ok ? 'ok' : 'refus'}">
-      <div class="status">${ok ? '✓ Réponse sourcée' : '✗ Refus explicite'}</div>
+    <div class="card result ${ok ? 'ok' : 'refus'}">
+      <div class="status">${ok ? 'Réponse sourcée' : 'Refus explicite'}</div>
       <div class="answer">${esc(d.answer)}</div>
       ${d.detail ? `<div class="detail">${esc(d.detail)}</div>` : ''}
       ${cites}
     </div>`;
 });
-const esc = s => String(s).replace(/[&<>"']/g, m =>
-  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 </script>
 </body>
 </html>

@@ -5,118 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Comment ça marche — Le Rapporteur</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bleu:#3557d4;--bleu-vif:#5b8cff;--bleu-clair:#a8c0ff;--blanc:#f4f6fb;
-  --rouge:#e04a58;--rouge-clair:#ff8291;--bg0:#060a18;--bg1:#0d1630;
-  --ink:#eef2fb;--muted:#93a0bd;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;font-family:Inter,sans-serif;color:var(--ink);
-  background:
-    radial-gradient(900px 500px at 85% -10%,rgba(65,105,225,.10),transparent 60%),
-    radial-gradient(800px 460px at -5% 110%,rgba(224,74,88,.06),transparent 55%),
-    linear-gradient(165deg,var(--bg1) 0%,var(--bg0) 72%);
-  overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;top:0;left:0;right:0;height:3px;z-index:10;
-  background:linear-gradient(90deg,#2f55d4 0%,#2f55d4 33%,#f4f6fb 33%,#f4f6fb 66%,#c93a48 66%,#c93a48 100%);
-}
-main{max-width:820px;margin:0 auto;padding:48px 24px 70px}
-.topnav{display:flex;align-items:center;gap:12px;margin-bottom:26px}
-.topnav img{width:34px;height:34px}
-.topnav .name{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--blanc)}
-.topnav a.back{margin-left:auto;font-size:.85rem;color:var(--bleu-clair);text-decoration:none;
-  border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 14px;
-  background:rgba(255,255,255,.04);transition:border-color .15s}
-.topnav a.back:hover{border-color:rgba(91,140,255,.5)}
-h1{font-family:'Playfair Display',serif;font-size:2rem;margin:.2rem 0 .4rem;color:var(--blanc)}
-.lead{color:var(--muted);line-height:1.65;max-width:640px}
-h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--blanc);margin:40px 0 14px}
-.panel{
-  border-radius:16px;padding:24px 26px;
-  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  box-shadow:0 16px 40px rgba(3,6,20,.35),inset 0 1px 0 rgba(255,255,255,.08);
-}
-/* pipeline en étapes */
-.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.step{border-radius:12px;padding:16px 18px;background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.09)}
-.step .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;
-  background:var(--bleu);color:#fff;font-size:.78rem;font-weight:600;margin-bottom:8px}
-.step b{display:block;margin-bottom:4px;font-size:.95rem}
-.step p{margin:0;font-size:.85rem;color:var(--muted);line-height:1.55}
-.step.refus{border-left:3px solid var(--rouge)}
-.step.refus .n{background:var(--rouge)}
-/* garanties */
-ul.garanties{margin:0;padding:0;list-style:none}
-ul.garanties li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);
-  font-size:.92rem;line-height:1.6}
-ul.garanties li:last-child{border-bottom:none}
-ul.garanties .pict{flex:none;color:var(--bleu-clair);font-weight:600}
-ul.garanties li em{color:var(--muted);font-style:normal;font-size:.85rem}
-/* code */
-pre{
-  margin:10px 0 0;padding:16px 18px;border-radius:12px;overflow-x:auto;
-  background:rgba(3,8,24,.65);border:1px solid rgba(255,255,255,.09);
-  font-size:.8rem;line-height:1.6;color:#c9d6f2;
-}
-pre .c{color:#6b7a9c}
-code{font-family:ui-monospace,'SF Mono',Menlo,monospace}
-.endpoint{display:flex;align-items:baseline;gap:10px;margin-top:14px}
-.endpoint .verb{font-size:.7rem;font-weight:600;letter-spacing:.08em;color:#fff;
-  background:var(--bleu);border-radius:6px;padding:3px 8px}
-.endpoint code{color:var(--bleu-clair)}
-.endpoint span{font-size:.85rem;color:var(--muted)}
-footer{margin-top:48px;text-align:center;font-size:.68rem;letter-spacing:.12em;
-  color:rgba(147,160,189,.7);text-transform:uppercase}
-@media (max-width:640px){.steps{grid-template-columns:1fr}}
-</style>
+<link rel="stylesheet" href="/app.css">
 </head>
 <body>
-<main>
-  <nav class="topnav">
-    <img src="/favicon.svg" alt="">
-    <span class="name">Le Rapporteur</span>
-    <a class="back" href="/">← Poser une question</a>
+<header class="site">
+  <a class="brand" href="/"><img class="logo" src="/favicon.svg" alt=""><span class="wordmark">Le Rapporteur</span></a>
+  <nav>
+    <a href="/">Poser une question</a>
+    <a href="/sources">Consulter la loi</a>
+    <a href="/details" aria-current="page">Comment ça marche</a>
   </nav>
+</header>
+<div class="tricolore"></div>
 
-  <h1>Une IA qui cite la loi sans jamais l'inventer</h1>
+<main>
+  <div class="kicker">Fonctionnement</div>
+  <h1>Comment fonctionne Le Rapporteur</h1>
   <p class="lead">Les IA généralistes répondent au droit avec aplomb — et inventent parfois
   des articles de loi. Le Rapporteur ne répond jamais de mémoire : chaque référence citée est
   vérifiée contre les sources officielles avant d'être présentée. Au moindre doute, il refuse.</p>
 
   <h2>Le pipeline de confiance</h2>
-  <div class="panel">
-    <div class="steps">
-      <div class="step"><span class="n">1</span><b>Ancrage dans les sources</b>
-        <p>La question est enrichie de passages récupérés dans les corpus officiels
-        (Légifrance / Canutes, débats parlementaires) via le protocole MCP.</p></div>
-      <div class="step"><span class="n">2</span><b>Génération</b>
-        <p>Un LLM souverain (Mistral, infrastructure dédiée) rédige une réponse en citant
-        ses sources au format « article … du Code … ».</p></div>
-      <div class="step"><span class="n">3</span><b>Extraction &amp; vérification</b>
-        <p>Chaque citation est extraite puis confrontée une à une aux sources.
-        Une erreur réseau vaut non-vérification : fail-closed.</p></div>
-      <div class="step refus"><span class="n">4</span><b>Réponse sourcée — ou refus</b>
-        <p>Toutes les citations existent → réponse avec liens cliquables. Une seule
-        introuvable → « Je ne trouve pas de texte applicable. »</p></div>
-    </div>
+  <div class="steps">
+    <div class="step"><span class="n">1</span><b>Ancrage dans les sources</b>
+      <p>La question est enrichie de passages récupérés dans les corpus officiels
+      (Légifrance / Canutes, débats parlementaires) via le protocole MCP.</p></div>
+    <div class="step"><span class="n">2</span><b>Génération</b>
+      <p>Un LLM souverain (Mistral, infrastructure dédiée) rédige une réponse en citant
+      ses sources au format « article … du Code … ».</p></div>
+    <div class="step"><span class="n">3</span><b>Extraction &amp; vérification</b>
+      <p>Chaque citation est extraite puis confrontée une à une aux sources.
+      Une erreur réseau vaut non-vérification : fail-closed.</p></div>
+    <div class="step refus"><span class="n">4</span><b>Réponse sourcée — ou refus</b>
+      <p>Toutes les citations existent → réponse avec liens cliquables. Une seule
+      introuvable → « Je ne trouve pas de texte applicable. »</p></div>
   </div>
 
   <h2>Les garanties</h2>
-  <div class="panel">
+  <div class="card">
     <ul class="garanties">
       <li><span class="pict">✓</span><span>Zéro article inventé présenté comme vérifié —
         <em>le fact-check est systématique, pas statistique.</em></span></li>
       <li><span class="pict">✓</span><span>Refus explicite plutôt qu'hallucination —
         <em>pas de source, pas de réponse.</em></span></li>
-      <li><span class="pict">✓</span><span>Sources primaires cliquables —
+      <li><span class="pict">✓</span><span>Sources primaires cliquables et consultables in-app —
         <em>chaque citation renvoie vers Légifrance.</em></span></li>
       <li><span class="pict">✓</span><span>Comportement prouvé par des scénarios Gherkin en français —
         <em>lisibles et auditables par un juriste, exécutés à chaque changement.</em></span></li>
@@ -126,11 +58,14 @@ footer{margin-top:48px;text-align:center;font-size:.68rem;letter-spacing:.12em;
   </div>
 
   <h2>API &amp; serveur MCP</h2>
-  <div class="panel">
+  <div class="card">
     <div class="endpoint"><span class="verb">POST</span><code>/api/ask</code>
       <span>réponse sourcée ou refus, citations vérifiées</span></div>
 <pre><code>{"question": "Quelle est la durée légale du travail ?"}
 <span class="c">→ {"status": "ok", "answer": "…", "citations": [{"label": "article L. 3121-27…", "exists": true, "url": "…"}]}</span></code></pre>
+
+    <div class="endpoint"><span class="verb">GET</span><code>/api/article?ref=…</code>
+      <span>texte d'un article chargé depuis Légifrance</span></div>
 
     <div class="endpoint"><span class="verb">POST</span><code>/mcp</code>
       <span>serveur MCP (JSON-RPC 2.0) — utilisable par tout agent</span></div>
@@ -138,8 +73,8 @@ footer{margin-top:48px;text-align:center;font-size:.68rem;letter-spacing:.12em;
 repondre_question   <span class="c">— pipeline complet, refus si source introuvable</span>
 verifier_article    <span class="c">— fact-check d'une référence, ex. « article 9 du Code civil »</span></code></pre>
   </div>
-
-  <footer>Le Rapporteur · POC — Hackathon Assemblée nationale 2026</footer>
 </main>
+
+<footer>Le Rapporteur · POC — Hackathon Assemblée nationale 2026</footer>
 </body>
 </html>

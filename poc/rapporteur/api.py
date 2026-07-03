@@ -18,6 +18,7 @@ from pydantic import BaseModel
 
 from .citations import extract_citations
 from .pipeline import Rapporteur
+from . import legifrance
 
 app = FastAPI(title="Le Rapporteur", version="0.1.0")
 _rapporteur = Rapporteur()
@@ -43,9 +44,42 @@ def details() -> FileResponse:
     return FileResponse(_STATIC / "details.html")
 
 
+@app.get("/sources")
+def sources() -> FileResponse:
+    return FileResponse(_STATIC / "sources.html")
+
+
+@app.get("/app.css")
+def app_css() -> FileResponse:
+    return FileResponse(_STATIC / "app.css", media_type="text/css")
+
+
 @app.get("/favicon.svg")
 def favicon() -> FileResponse:
     return FileResponse(_STATIC / "favicon.svg", media_type="image/svg+xml")
+
+
+@app.get("/api/articles")
+def api_articles() -> dict:
+    """Liste des articles consultables in-app."""
+    return {"articles": legifrance.available()}
+
+
+@app.get("/api/article")
+def api_article(ref: str) -> dict:
+    """Charge le texte d'un article depuis Légifrance (ou le fond local). Fail-closed."""
+    art = legifrance.get_article(ref)
+    if art is None:
+        return {"found": False, "query": ref}
+    return {
+        "found": True,
+        "num": art.num,
+        "code": art.code,
+        "text": art.text,
+        "url": art.url,
+        "source": art.source,
+        "excerpt": art.excerpt,
+    }
 
 
 # --- Serveur MCP (JSON-RPC 2.0, streamable HTTP) ---------------------------

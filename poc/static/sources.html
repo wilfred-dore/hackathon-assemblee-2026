@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consulter la loi — Le Rapporteur</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/"><img class="logo" src="/favicon.svg" alt=""><span class="wordmark">Le Rapporteur</span></a>
+  <nav>
+    <a href="/">Poser une question</a>
+    <a href="/sources" aria-current="page">Consulter la loi</a>
+    <a href="/details">Comment ça marche</a>
+  </nav>
+</header>
+<div class="tricolore"></div>
+
+<main>
+  <div class="kicker">Source primaire</div>
+  <h1>Consulter la loi à la source</h1>
+  <p class="lead">Le texte affiché est chargé depuis Légifrance (fond documentaire local en
+  mode démo). Il est présenté <b>verbatim</b> : rien n'est reformulé par l'IA. Un article
+  inconnu n'est pas inventé — il est déclaré introuvable.</p>
+
+  <form id="f" class="lookup">
+    <input id="q" placeholder="ex. article 9 du Code civil" autocomplete="off" required>
+    <button class="btn" type="submit">Consulter</button>
+  </form>
+  <div class="article-list" id="list"></div>
+
+  <div id="out"></div>
+</main>
+
+<footer>Le Rapporteur · POC — textes chargés depuis Légifrance. Le droit français est librement réutilisable.</footer>
+
+<script>
+const list = document.getElementById('list'), out = document.getElementById('out'),
+      f = document.getElementById('f'), q = document.getElementById('q');
+const esc = s => String(s).replace(/[&<>"']/g, m =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+async function loadList(){
+  const d = await (await fetch('/api/articles')).json();
+  list.innerHTML = '<div class="examples">' + (d.articles || []).map(a =>
+    `<button type="button" data-ref="${esc(a.label)}">Article ${esc(a.num)} · ${esc(a.code)}</button>`
+  ).join('') + '</div>';
+  list.querySelectorAll('button').forEach(b =>
+    b.addEventListener('click', () => show(b.dataset.ref)));
+}
+
+async function show(ref){
+  q.value = ref;
+  out.innerHTML = '<div class="card"><p class="empty">Chargement depuis Légifrance…</p></div>';
+  const d = await (await fetch('/api/article?ref=' + encodeURIComponent(ref))).json();
+  if (!d.found){
+    out.innerHTML = `<div class="card result refus">
+      <div class="status">Introuvable</div>
+      <p class="empty">Aucun texte applicable pour « ${esc(ref)} ». Le Rapporteur n'invente pas :
+      il n'affiche que ce qui existe réellement dans les sources.</p></div>`;
+    return;
+  }
+  const tag = /live/i.test(d.source)
+    ? '<span class="source-tag live">Légifrance · live</span>'
+    : '<span class="source-tag local">fond documentaire local (démo)</span>';
+  out.innerHTML = `<article class="card doc">
+    <div class="doc-head">
+      <span class="num">Article ${esc(d.num)}</span>
+      <span class="code">${esc(d.code)}</span>
+      <span class="badge-vigueur">en vigueur</span>
+    </div>
+    <div class="text">${esc(d.text)}</div>
+    ${d.excerpt ? '<p class="note">Extrait — le texte complet fait foi sur Légifrance.</p>' : ''}
+    <div class="src">${tag}
+      <a class="btn secondary" href="${d.url}" target="_blank" rel="noopener">Voir sur Légifrance ↗</a>
+    </div>
+  </article>`;
+}
+
+f.addEventListener('submit', e => { e.preventDefault(); show(q.value.trim()); });
+loadList();
+</script>
+</body>
+</html>
