@@ -35,6 +35,14 @@ jobs:
         run: |
           pip install httpx
           python poc/build_static.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Construire le deck Slidev (-> site/presentation)
+        working-directory: presentation
+        run: |
+          npm install
+          npx slidev build slides.md --base /hackathon-assemblee-2026/presentation/ --out "$GITHUB_WORKSPACE/site/presentation"
       - uses: actions/configure-pages@v5
         with:
           enablement: true   # active GitHub Pages si pas encore fait (évite « Get Pages site failed »)

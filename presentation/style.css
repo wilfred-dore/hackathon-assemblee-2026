@@ -1,0 +1,210 @@
+/* ─── Le Rapporteur — design system « tricolore premium » ───── */
+:root {
+  --bleu: #3557d4;
+  --bleu-vif: #5b8cff;
+  --bleu-clair: #a8c0ff;
+  --blanc: #f4f6fb;
+  --rouge: #e04a58;
+  --rouge-clair: #ff8291;
+
+  --lr-bg-0: #070c1b;
+  --lr-bg-1: #0e1730;
+  --lr-ink: #eef2fb;
+  --lr-muted: #93a0bd;
+  --lr-border: rgba(147, 160, 189, 0.22);
+
+  /* alias (utilisés dans slides.md) */
+  --lr-blue: var(--bleu-vif);
+  --lr-gold: var(--bleu-clair);
+  --lr-red: var(--rouge-clair);
+  --lr-green: var(--bleu-vif);
+}
+
+/* Fond global : nuit bleue, halo bleu + halo rouge, vignette */
+.slidev-layout,
+.slidev-layout.cover,
+.slidev-page-1 .slidev-layout {
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(3, 6, 14, 0.55) 100%),
+    radial-gradient(1100px 560px at 88% -8%, rgba(91, 140, 255, 0.16), transparent 60%),
+    radial-gradient(900px 520px at -8% 112%, rgba(224, 74, 88, 0.12), transparent 55%),
+    radial-gradient(700px 400px at 50% 120%, rgba(244, 246, 251, 0.05), transparent 60%),
+    linear-gradient(160deg, var(--lr-bg-1) 0%, var(--lr-bg-0) 70%) !important;
+  color: var(--lr-ink);
+  overflow: hidden;
+}
+
+/* Liseré tricolore premium en haut de CHAQUE slide */
+.slidev-layout::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg,
+    #2f55d4 0%, #4d6fd6 32%,
+    #f4f6fb 34%, #f4f6fb 66%,
+    #e0505e 68%, #c93a48 100%);
+  box-shadow: 0 0 18px rgba(91, 140, 255, 0.45), 0 2px 12px rgba(224, 74, 88, 0.3);
+  z-index: 10;
+}
+
+/* Grain subtil (effet matière) */
+.slidev-layout::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+/* Typographie */
+.slidev-layout h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(115deg, #ffffff 30%, var(--bleu-clair) 75%, #7fa3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--lr-ink);
+  filter: drop-shadow(0 2px 14px rgba(91, 140, 255, 0.25));
+}
+.slidev-layout h2, .slidev-layout h3 { color: var(--lr-ink); }
+.slidev-layout p, .slidev-layout li { color: var(--lr-ink); }
+.slidev-layout b, .slidev-layout strong { color: var(--bleu-clair); }
+.slidev-layout a { color: var(--bleu-vif); }
+.slidev-layout code:not(pre code) {
+  color: var(--bleu-clair);
+  background: rgba(91, 140, 255, 0.13);
+  border: 1px solid rgba(91, 140, 255, 0.25);
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+}
+
+/* Kicker (surtitre) — rouge */
+.kicker {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rouge-clair);
+  text-shadow: 0 0 16px rgba(224, 74, 88, 0.35);
+}
+
+/* Barre tricolore (élément) */
+.tricolore {
+  display: inline-flex;
+  height: 5px;
+  width: 96px;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 22px rgba(91, 140, 255, 0.5), 0 4px 18px rgba(224, 74, 88, 0.35);
+}
+.tricolore span { flex: 1; }
+.tricolore span:nth-child(1) { background: linear-gradient(180deg, #4d6fd6, #2f55d4); }
+.tricolore span:nth-child(2) { background: linear-gradient(180deg, #ffffff, #dfe6f5); }
+.tricolore span:nth-child(3) { background: linear-gradient(180deg, #e0505e, #c93a48); }
+
+/* Cartes — verre dépoli premium */
+.card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.02));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  padding: 1rem 1.1rem;
+}
+.card .card-step {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.card h3 { font-size: 1rem; margin: 0.4rem 0 0.35rem; }
+.card p { font-size: 0.82rem; line-height: 1.45; color: var(--lr-muted); margin: 0; }
+.card p b, .card p strong { color: var(--lr-ink); }
+.card.accent-blue  { border-top: 3px solid var(--bleu-vif); }
+.card.accent-white { border-top: 3px solid var(--blanc); }
+.card.accent-red   { border-top: 3px solid var(--rouge); }
+.card.accent-blue .card-step  { color: var(--bleu-vif);  text-shadow: 0 0 18px rgba(91,140,255,0.6); }
+.card.accent-white .card-step { color: var(--blanc);     text-shadow: 0 0 18px rgba(244,246,251,0.5); }
+.card.accent-red .card-step   { color: var(--rouge-clair); text-shadow: 0 0 18px rgba(224,74,88,0.6); }
+/* anciens alias */
+.card.accent-gold  { border-top: 3px solid var(--blanc); }
+.card.accent-green { border-top: 3px solid var(--rouge); }
+
+/* Stat / chiffre clé — bleu */
+.stat {
+  border: 1px solid rgba(91, 140, 255, 0.3);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(91, 140, 255, 0.12), rgba(91, 140, 255, 0.04));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  padding: 0.7rem 0.6rem;
+  text-align: center;
+}
+.stat .stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--bleu-clair);
+  text-shadow: 0 0 20px rgba(91, 140, 255, 0.55);
+  line-height: 1.15;
+}
+.stat .stat-label { font-size: 0.7rem; color: var(--lr-muted); line-height: 1.35; }
+
+/* Bloc citation "hallucination" — rouge */
+.halluc {
+  border: 1px solid rgba(224, 74, 88, 0.45);
+  border-left: 4px solid var(--rouge);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(224, 74, 88, 0.1), rgba(224, 74, 88, 0.04));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  padding: 1rem 1.2rem;
+}
+.halluc blockquote {
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--lr-ink);
+  opacity: 1;
+}
+
+/* Pied de slide */
+.foot {
+  position: absolute;
+  bottom: 1.1rem;
+  left: 3.5rem;
+  right: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--lr-muted);
+  z-index: 5;
+}
+
+/* Listes */
+.slidev-layout ul { line-height: 1.55; }
+.slidev-layout ul li::marker { color: var(--rouge-clair); }
+
+/* Code blocks */
+.slidev-layout pre.shiki {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Fix Slidev : panneau goto qui reste visible à l'état "fermé" */
+#slidev-goto-dialog.-top-20 { display: none !important; }
+#slidev-goto-dialog .autocomplete-list { max-height: 62vh; overflow-y: auto; }
