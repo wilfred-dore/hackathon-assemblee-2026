@@ -1,15 +1,22 @@
 # language: fr
-Fonctionnalité: IA de confiance — réponses sourcées, pas d'hallucination
-  En tant qu'assistant juridique, je ne réponds qu'à partir de sources
-  vérifiables et je refuse plutôt que d'inventer.
+Fonctionnalité: IA de confiance — pas de citation inventée
+  La garantie : chaque article cité existe dans les sources
+  (vérif via MCP Moulineuse / Canutes-Légifrance), sinon la réponse est un
+  refus explicite. Jamais d'article inventé présenté comme vérifié.
 
-  Scénario: Refus quand aucune source n'est disponible
-    Étant donné une question juridique sans source disponible
-    Quand je pose la question à l'assistant
-    Alors l'assistant refuse de répondre
-    Et la réponse ne contient aucune citation inventée
+  Scénario: Citation vérifiée dans les sources
+    Étant donné une question citoyenne "Quelle est la durée légale du travail ?"
+    Quand le système répond
+    Alors chaque article cité doit exister dans les sources
+    Et la réponse ne doit pas être un refus
 
-  Scénario: Aucune citation inventée quand des sources existent
-    Étant donné une question juridique avec des sources disponibles
-    Quand je pose la question à l'assistant
-    Alors chaque citation de la réponse correspond à une source fournie
+  Scénario: Pas de citation inventée
+    Étant donné une question citoyenne "Ai-je droit à la prime de Noël ?"
+    Quand le système répond
+    Alors la réponse doit être un refus explicite
+    Et aucun article absent des sources ne doit être présenté comme vérifié
+
+  Scénario: Réponse sans aucune source vérifiable
+    Étant donné une question citoyenne "Mon voisin peut-il peindre sa clôture en rose ?"
+    Quand le système répond
+    Alors la réponse doit être un refus explicite

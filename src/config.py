@@ -16,6 +16,8 @@ def _get(key: str) -> str | None:
 
 @dataclass(frozen=True)
 class Config:
+    # Mode d'exécution : "demo" (hors-ligne, déterministe) ou "live" (MAX/MCP réels).
+    mode: str = (_get("MODE") or "demo").lower()
     # LLM
     llm_base_url: str | None = _get("LLM_BASE_URL")
     llm_api_key: str | None = _get("LLM_API_KEY")
@@ -30,6 +32,10 @@ class Config:
     canutes_db_port: str | None = _get("CANUTES_DB_PORT")
     canutes_db_user: str | None = _get("CANUTES_DB_USER")
     canutes_db_password: str | None = _get("CANUTES_DB_PASSWORD")
+
+    @property
+    def is_live(self) -> bool:
+        return self.mode == "live"
 
     @property
     def llm_ready(self) -> bool:

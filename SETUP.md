@@ -24,6 +24,7 @@ make bdd       # scénarios Gherkin (behave)
 
 | Clé | Où l'obtenir |
 |-----|--------------|
+| `MODE` | `demo` (hors-ligne, défaut) ou `live` (MAX/MCP réels) |
 | `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL` | endpoint OpenAI-compatible : Mistral via Modular MAX (AMD). Fallback : playground Qualcomm. |
 | `MCP_MOULINEUSE_URL` | déjà pré-rempli (`https://mcp.hackathon2026.leximpact.dev/mcp`) |
 | `MCP_PARLEMENT_URL` / `MCP_TOKEN` | **fournis par l'orga sur place** |
@@ -47,10 +48,12 @@ make db        # = uv sync --extra db
    schéma réel des outils MCP dans [docs/mcp.md](docs/mcp.md). Contexte projet
    permanent dans [CLAUDE.md](CLAUDE.md).
 1. Remplir `.env` avec les tokens LLM + MCP dès que dispo.
-2. Dans [src/pipeline.py](src/pipeline.py), brancher les vrais appels dans
-   `retrieve()` (nom réel de l'outil MCP `search`, requêtes Canutes).
-3. Confirmer le schéma d'auth MCP dans [src/mcp/client.py](src/mcp/client.py)
-   (`TODO(auth)`).
+2. Passer `MODE=live` et confirmer sur place le **nom réel + arguments** de
+   l'outil MCP de recherche/résolution d'article (le protocole MCP marche déjà —
+   session `initialize` + SSE dans [src/mcp/client.py](src/mcp/client.py) ; reste
+   à valider l'outil dans `retrieve()` [src/pipeline.py](src/pipeline.py) et
+   `MoulineuseVerifier` [src/verify.py](src/verify.py)).
+3. Confirmer le schéma d'auth MCP (`TODO(auth)`) si un `MCP_TOKEN` est requis.
 4. Déposer 1–2 lois de démo dans [data/fixtures/](data/fixtures/).
 5. (Selon défi) brancher OpenFisca/Catala dans [src/rules/](src/rules/).
 

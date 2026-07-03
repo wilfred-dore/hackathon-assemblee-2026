@@ -1,23 +1,29 @@
-"""Pipeline « IA de confiance » : question -> retrieval -> réponse SOURCÉE -> validation.
+"""Pipeline « IA de confiance » (fusion RAG + vérification post-hoc).
 
-Règle d'or : **pas de source, pas de réponse**. Si le retrieval ne ramène
-aucune source, on refuse explicitement plutôt que d'inventer.
+Flux : question -> (ancrage retrieval) -> génération LLM -> extraction des
+citations -> vérification de CHAQUE citation contre les sources -> réponse
+SOURCÉE ou REFUS explicite.
 
-Le flux est volontairement simple et lisible (hackathon). Chaque étape est
-remplaçable selon le défi choisi.
+Règle d'or : **pas de citation vérifiable, pas de réponse**. Défense en
+profondeur : on ancre la génération dans les sources récupérées (RAG) ET on
+fact-checke a posteriori chaque article cité (héritage POC « Le Rapporteur »).
+Au moindre article introuvable — ou en l'absence totale de citation vérifiée —
+on refuse plutôt que d'inventer.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from .citations import extract_citations
 from .data import canutes
 from .llm.client import LLMClient
 from .mcp.client import moulineuse, parlement
+from .verify import default_verifier
 
 
 @dataclass
 class Source:
-    """Une source citable. `ref` doit permettre de retrouver l'original."""
+    """Une source d'ancrage (retrieval). `ref` permet de retrouver l'original."""
     ref: str          # ex : "LEGIARTI000...", "PROJET-LOI-2025-42"
     title: str
     snippet: str
@@ -28,34 +34,37 @@ class Source:
 class Answer:
     question: str
     text: str
-    sources: list[Source] = field(default_factory=list)
-    refused: bool = False
+    status: str = "refus"                 # "ok" | "refus"
+    citations: list[dict] = field(default_factory=list)  # {label, exists, url, source}
+    grounding: list[Source] = field(default_factory=list)
+    detail: str = ""
     validation: dict = field(default_factory=dict)
 
     @property
     def ok(self) -> bool:
-        return not self.refused and bool(self.sources)
+        return self.status == "ok"
+
+    @property
+    def refused(self) -> bool:
+        return self.status != "ok"
 
 
-# --- 1. Retrieval ---------------------------------------------------------
+# --- 1. Ancrage (retrieval, optionnel) -----------------------------------
 
 def retrieve(question: str, notes: list[str] | None = None) -> list[Source]:
-    """Interroge les sources disponibles. Renvoie [] si rien trouvé.
-
-    En mode mock (URLs/clés absentes), renvoie [] : le pipeline doit alors
-    REFUSER — c'est le comportement de confiance qu'on veut démontrer.
-    Branche ici les vrais appels (moulineuse().call_tool(...),
-    canutes.rest_get(...)) une fois les endpoints/tokens disponibles.
+    """Récupère des passages sourcés pour ancrer la génération. [] si rien.
 
     Tolérant aux pannes (fail-closed) : toute erreur réseau/protocole est
-    traitée comme une ABSENCE de source (-> refus), jamais comme un crash.
-    Les diagnostics sont ajoutés à `notes` pour affichage.
+    traitée comme une ABSENCE de source, jamais comme un crash. Diagnostics
+    ajoutés à `notes`. Branche ici les vrais appels (moulineuse().call_tool,
+    canutes.rest_get) selon le défi.
     """
+    from .config import CONFIG
     notes = notes if notes is not None else []
     sources: list[Source] = []
 
     mcp = moulineuse()
-    if mcp.ready:
+    if CONFIG.is_live and mcp.ready:
         try:
             # TODO : adapter au nom réel de l'outil de recherche du serveur.
             res = mcp.call_tool("search", {"query": question})
@@ -67,11 +76,9 @@ def retrieve(question: str, notes: list[str] | None = None) -> list[Source]:
                     origin="moulineuse",
                 ))
         except Exception as e:  # noqa: BLE001 — fail-closed volontaire
-            notes.append(f"moulineuse: retrieval indisponible ({type(e).__name__}) -> ignoré")
+            notes.append(f"moulineuse: ancrage indisponible ({type(e).__name__}) -> ignoré")
 
-    # Idem pour parlement() et canutes.rest_get(...) selon le défi.
-    _ = parlement, canutes  # pointeurs pour brancher plus tard
-
+    _ = parlement, canutes  # pointeurs pour brancher plus tard selon le défi
     return sources
 
 
@@ -83,63 +90,50 @@ def _as_items(res) -> list[dict]:
     return []
 
 
-# --- 2. Génération sourcée -----------------------------------------------
-
-SYSTEM_PROMPT = (
-    "Tu es un assistant juridique de confiance. Tu ne réponds QU'À PARTIR des "
-    "sources fournies. Tu cites chaque affirmation avec [ref]. Si les sources "
-    "ne suffisent pas, tu le dis explicitement. Tu n'inventes JAMAIS de citation."
-)
-
-
-def generate(question: str, sources: list[Source], llm: LLMClient) -> str:
-    bloc = "\n\n".join(f"[{s.ref}] {s.title}\n{s.snippet}" for s in sources)
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": f"Question : {question}\n\nSources :\n{bloc}"},
-    ]
-    return llm.chat(messages)
-
-
-# --- 3. Validation --------------------------------------------------------
-
-def validate(answer_text: str, sources: list[Source]) -> dict:
-    """Garde-fous simples : toute [ref] citée doit exister dans les sources."""
-    known = {s.ref for s in sources}
-    cited = _extract_refs(answer_text)
-    invented = sorted(cited - known)
-    return {
-        "cited_refs": sorted(cited),
-        "invented_refs": invented,
-        "no_invented_citation": not invented,
-        "has_sources": bool(sources),
-    }
-
-
-def _extract_refs(text: str) -> set[str]:
-    import re
-    return set(re.findall(r"\[([^\[\]]+)\]", text))
-
-
 # --- Orchestration --------------------------------------------------------
 
-REFUSAL = (
-    "Je ne peux pas répondre : aucune source vérifiable n'a été trouvée pour "
-    "cette question. (Refus volontaire — pas de source, pas de réponse.)"
-)
+REFUSAL = "Je ne trouve pas de texte applicable."
 
 
-def answer_question(question: str, llm: LLMClient | None = None) -> Answer:
+def answer_question(question: str, llm: LLMClient | None = None, verifier=None) -> Answer:
     llm = llm or LLMClient()
+    verifier = verifier or default_verifier()
+
     notes: list[str] = []
-    sources = retrieve(question, notes)
+    grounding = retrieve(question, notes)
+    context = "\n\n".join(f"[{s.ref}] {s.title}\n{s.snippet}" for s in grounding)
 
-    if not sources:
-        return Answer(question=question, text=REFUSAL, refused=True,
-                      validation={"has_sources": False, "no_invented_citation": True,
-                                  "retrieval_notes": notes})
+    draft = llm.complete(question, context)
+    citations = extract_citations(draft)
+    results = [verifier.verify(c) for c in citations]
 
-    text = generate(question, sources, llm)
-    validation = validate(text, sources)
-    validation["retrieval_notes"] = notes
-    return Answer(question=question, text=text, sources=sources, validation=validation)
+    payload = [
+        {
+            "label": r.citation.label,
+            "exists": r.exists,
+            "url": r.citation.legifrance_url if r.exists else None,
+            "source": r.source,
+        }
+        for r in results
+    ]
+
+    all_verified = bool(results) and all(r.exists for r in results)
+    invented = [r.citation.label for r in results if not r.exists]
+    validation = {
+        "has_grounding": bool(grounding),
+        "cited": [r.citation.label for r in results],
+        "invented": invented,
+        "no_invented_citation": not invented,
+        "retrieval_notes": notes,
+    }
+
+    if all_verified:
+        return Answer(question=question, text=draft, status="ok", citations=payload,
+                      grounding=grounding, validation=validation)
+
+    detail = (
+        "Références introuvables dans les sources : " + " ; ".join(invented)
+        if invented else "La réponse générée ne citait aucune source vérifiable."
+    )
+    return Answer(question=question, text=REFUSAL, status="refus", citations=payload,
+                  grounding=grounding, detail=detail, validation=validation)

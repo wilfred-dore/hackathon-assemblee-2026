@@ -1,19 +1,35 @@
 # hackathon-assemblee-2026 — IA de confiance juridique
 
-Assistant juridique **sourcé** : chaque réponse s'appuie sur une source vérifiable
-(MCP Moulineuse/Parlement, base Canutes, OpenFisca) — **et refuse de répondre s'il
-n'a pas de source**. Objectif : zéro citation inventée.
+Assistant juridique **sourcé** : le LLM répond, puis **chaque article cité est
+vérifié** contre les sources (MCP Moulineuse / Canutes-Légifrance). Au moindre
+article introuvable — ou en l'absence de citation vérifiable — la réponse est un
+**refus explicite** (« Je ne trouve pas de texte applicable »). Objectif : zéro
+citation inventée.
 
-Scaffold agnostique : marche pour les 3 défis (« La loi après la loi »,
-« NormaCheck », « IA de confiance souveraine »). Voir [SETUP.md](SETUP.md).
+Défense en profondeur : ancrage RAG (retrieval) **+** fact-check des citations a
+posteriori. Scaffold agnostique : marche pour les 3 défis (« La loi après la
+loi », « NormaCheck », « IA de confiance souveraine »). Voir [SETUP.md](SETUP.md).
 
 ## Lancer en 30 s
 
 ```bash
 make setup   # crée l'env uv + installe les deps
-make smoke   # smoke test end-to-end en mode mock (SANS vraies clés)
-make bdd     # scénarios Gherkin (behave)
+make smoke   # smoke test end-to-end en mode démo (SANS vraies clés)
+make bdd     # scénarios Gherkin (behave) — 3 scénarios de confiance
 ```
 
-Copie `.env.example` → `.env` et remplis tes tokens quand tu les as (voir SETUP).
-Sans clés, tout tourne en **dry-run/mock**.
+Démo du refus en direct (hors-ligne, LLM démo déterministe) :
+
+```bash
+uv run python -m src.cli "Quelle est la durée légale du travail ?"  # -> RÉPONSE SOURCÉE + lien Légifrance
+uv run python -m src.cli "Ai-je droit à la prime de Noël ?"          # -> REFUS (article inventé détecté)
+```
+
+Copie `.env.example` → `.env`. `MODE=demo` par défaut (hors-ligne) ; passe à
+`MODE=live` + tokens pour brancher MAX/MCP réels.
+
+## Pipeline
+
+`question → (ancrage retrieval) → génération LLM → extraction des citations →
+vérification de chaque article → réponse sourcée ou refus`
+(voir [src/pipeline.py](src/pipeline.py)).
