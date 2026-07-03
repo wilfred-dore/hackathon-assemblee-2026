@@ -94,8 +94,8 @@ Un assistant qui <b>prouve</b> chaque citation — ou refuse de répondre
 
 ```mermaid {scale: 0.9}
 flowchart LR
-    Q["👤 Question<br>citoyenne"] --> LLM["🧠 LLM local<br>Modular MAX"]
-    LLM --> V{"🔍 Vérification<br>MCP Moulineuse"}
+    Q["👤 Question<br>citoyenne"] --> LLM["🧠 LLM souverain<br>Qualcomm Cloud AI 100"]
+    LLM --> V{"🔍 Vérification<br>en base Canutes"}
     V -->|"article existe"| R["✅ Réponse<br>+ citations liées"]
     V -->|"introuvable"| N["🛑 « Je ne trouve pas<br>de texte applicable »"]
     DB[("Canutes /<br>Légifrance")] --- V
@@ -109,7 +109,7 @@ flowchart LR
 
 <!--
 [0:50 – 1:20]
-Notre réponse : Le Rapporteur. Chaque article cité par le modèle passe par le MCP Moulineuse et la base Canutes — le droit consolidé issu de Légifrance. Si l'article existe, on le cite avec un lien vers le texte réel. S'il n'existe pas : refus explicite. Pas de zone grise.
+Notre réponse : Le Rapporteur. Chaque article cité par le modèle est confronté à la base Canutes, le droit consolidé issu de Légifrance. Si l'article existe, on le cite avec un lien vers le texte réel. S'il n'existe pas : refus explicite. Pas de zone grise.
 -->
 
 ---
@@ -123,17 +123,17 @@ Notre réponse : Le Rapporteur. Chaque article cité par le modèle passe par le
 <div class="card accent-blue">
 <div class="card-step">1</div>
 
-### Génération contrainte
+### Génération souveraine
 
-<p>LLM <b>open-weight local</b> servi par <code>modular/max-openai-api</code> — souverain, hors cloud</p>
+<p>Un LLM open source sur silicium souverain : <b>Qualcomm Cloud AI 100</b> en direct, AMD via <b>Modular MAX</b> en cible. Hors NVIDIA.</p>
 </div>
 
 <div class="card accent-white">
 <div class="card-step">2</div>
 
-### Vérification MCP
+### Vérification en base
 
-<p>Chaque référence résolue via <b>MCP Moulineuse</b> contre <b>Canutes</b> et les schémas Tricoteuses</p>
+<p>Chaque référence confrontée à <b>Canutes / Légifrance</b> en direct : existe, dans ce code, en vigueur. On expose aussi un <b>serveur MCP</b>.</p>
 </div>
 
 <div class="card accent-red">
@@ -141,20 +141,20 @@ Notre réponse : Le Rapporteur. Chaque article cité par le modèle passe par le
 
 ### Réponse sourcée
 
-<p>Citations <b>cliquables vers le texte consolidé</b> — ou refus honnête si rien ne s'applique</p>
+<p>Citations <b>cliquables vers le texte consolidé</b>, ou refus honnête si rien ne s'applique.</p>
 </div>
 
 </div>
 
 <div class="mt-10 text-center text-sm" style="color: var(--lr-muted)">
-Données <b>Tricoteuses</b> (assemblée · sénat · légifrance) &nbsp;·&nbsp; Infra : <b>un seul conteneur Docker</b>
+Données <b>Tricoteuses</b> (assemblée · sénat · légifrance) &nbsp;·&nbsp; Backend <b>OpenAI-compatible</b>, swappable
 </div>
 
 <div class="foot"><span>LE RAPPORTEUR</span><span>03 / ARCHITECTURE</span></div>
 
 <!--
 [1:20 – 1:50]
-Trois briques, toutes issues de l'écosystème du hackathon : un modèle ouvert servi localement par Modular MAX, la vérification systématique via MCP Moulineuse sur Canutes, et une interface qui lie chaque phrase à sa source consolidée.
+Trois briques : un modèle ouvert servi sur silicium souverain (Qualcomm Cloud AI 100 en direct, AMD via Modular MAX en cible), la vérification systématique en base Canutes, et une interface qui lie chaque phrase à sa source consolidée.
 -->
 
 ---
@@ -188,8 +188,8 @@ Scénario: Pas de citation inventée
     sur l'article X du code Y
   Quand le système répond
   Alors chaque article cité doit exister
-    dans Canutes/Légifrance
-    (vérification via MCP Moulineuse)
+    dans Canutes / Légifrance
+    (vérification en base)
   Et si aucun texte applicable n'est trouvé,
     la réponse doit être un refus explicite
   Et aucune jurisprudence absente des
@@ -239,6 +239,178 @@ layoutClass: gap-10
 <!--
 [2:15 – 2:45]
 Le Rapporteur coche les trois critères : fiable par construction, frugal par design, portable en un conteneur. Et c'est un produit dont un service de l'Assemblée a besoin dès maintenant : la même vérification s'applique aux références dans les amendements.
+-->
+
+---
+layout: two-cols
+layoutClass: gap-10 items-center
+---
+
+<div class="kicker mb-2">06 · Souveraineté</div>
+
+# Sans verrou NVIDIA
+
+<div class="mt-4 text-sm" style="color: var(--lr-muted)">
+Une interface OpenAI-compatible. On change de backend, le pipeline ne bouge pas.
+Faire tourner un LLM open source rime aujourd'hui avec NVIDIA et CUDA. Nous le prouvons autrement.
+</div>
+
+<v-clicks>
+
+- <b style="color: var(--lr-gold)">Qualcomm Cloud AI 100</b> : backend souverain, prouvé en direct
+- <b>Modular MAX</b> porte l'inférence sur <b>AMD</b>, et sur NVIDIA pour la rétrocompatibilité
+- Demain, les puces <b>européennes</b> : VSora (France), Axelera (Europe)
+
+</v-clicks>
+
+::right::
+
+```mermaid {scale: 0.75}
+flowchart TD
+    L["Interface LLM<br>OpenAI-compatible"] --> Q["Qualcomm Cloud AI 100<br>live"]
+    L --> M["Modular MAX / Mojo"]
+    M --> AMD["AMD Instinct<br>souverain"]
+    M --> NV["NVIDIA<br>rétrocompatibilité"]
+    L --> EU["Vision EU / FR"]
+    EU --> VS["VSora · France"]
+    EU --> AX["Axelera · Europe"]
+    style Q stroke:#c9a24b,stroke-width:2px
+    style AMD stroke:#5b8cff,stroke-width:2px
+```
+
+<div class="foot"><span>LE RAPPORTEUR</span><span>06 / SOUVERAINETÉ MATÉRIELLE</span></div>
+
+<!--
+[Souveraineté] Notre couche de confiance est indépendante du fournisseur de puce. Aujourd'hui, servir un LLM open source rime de fait avec NVIDIA et CUDA, un seul fournisseur américain. Nous le prouvons sans NVIDIA : en direct sur Qualcomm Cloud AI 100, et portable vers AMD via Modular MAX. Demain, les puces souveraines européennes, VSora et Axelera. La rumeur d'un rapprochement Qualcomm et Modular reste une spéculation, nous ne l'affirmons pas.
+-->
+
+---
+layout: two-cols
+layoutClass: gap-10 items-center
+---
+
+<div class="kicker mb-2">07 · Performance & frugalité</div>
+
+# Chaque watt compte
+
+<div class="mt-4 text-sm" style="color: var(--lr-muted)">
+Un datacenter d'IA, c'est d'abord une facture d'électricité. Une puce d'inférence
+dédiée fait le même travail pour bien moins d'énergie qu'un GPU généraliste.
+</div>
+
+<v-click>
+
+<div class="grid grid-cols-3 gap-3 mt-8">
+<div class="stat"><div class="stat-value">dédié</div><div class="stat-label">accélérateur d'inférence, pas un GPU détourné</div></div>
+<div class="stat"><div class="stat-value">perf / watt</div><div class="stat-label">souveraineté et écologie</div></div>
+<div class="stat"><div class="stat-value">3 var.</div><div class="stat-label">changer de backend, une variable d'env</div></div>
+</div>
+
+</v-click>
+
+<div class="mt-6 text-sm" style="color: var(--lr-muted)">
+Mesuré en direct sur Qualcomm Cloud AI 100 : latence et débit affichés à la démo.
+Benchmark AMD et NVIDIA via Modular MAX : la prochaine étape.
+</div>
+
+::right::
+
+<div class="card accent-blue">
+<div class="text-xs font-bold mb-3 tracking-widest" style="color: var(--lr-gold)">MODULAR MAX & MOJO</div>
+
+<p>La couche de <b>portabilité</b> : écrire l'inférence une fois, l'exécuter sur
+AMD, NVIDIA, Apple. C'est ce qui rend les cibles souveraines réalistes.</p>
+
+<p class="mt-3 text-sm" style="color: var(--lr-muted)">Un hot path en <b>Mojo</b>,
+benchmarké contre Python, alimente le panneau de frugalité.</p>
+</div>
+
+<div class="foot"><span>LE RAPPORTEUR</span><span>07 / PERFORMANCE</span></div>
+
+<!--
+[Performance] Un datacenter d'IA, c'est une facture d'électricité avant tout. Une puce d'inférence dédiée comme le Cloud AI 100 fait le même travail pour beaucoup moins de watts qu'un GPU généraliste. Frugalité égale souveraineté plus écologie. Modular MAX est la couche de portabilité, et Mojo permet d'optimiser les points chauds. On mesure la latence et le débit en direct ; le benchmark AMD contre NVIDIA est notre prochaine étape.
+-->
+
+---
+
+<div class="kicker mb-2">08 · Ce qu'on apporte en plus</div>
+
+# Un outil, pas seulement une démo
+
+<div class="grid grid-cols-3 gap-5 mt-10">
+
+<div class="card accent-blue">
+<div class="card-step">A</div>
+
+### Serveur MCP
+
+<p>Le Rapporteur <b>expose</b> <code>repondre_question</code> et <code>verifier_article</code> : tout agent peut brancher notre <b>vérification juridique</b></p>
+</div>
+
+<div class="card accent-white">
+<div class="card-step">B</div>
+
+### Vérification en base
+
+<p>Article confronté à <b>Canutes / Légifrance</b> en direct : existe, dans ce code, <b>en vigueur</b>, lien cliquable</p>
+</div>
+
+<div class="card accent-red">
+<div class="card-step">C</div>
+
+### Carte du schéma
+
+<p>Cartographie de Canutes <b>lisible par les IA</b> (JSON, DBML, SchemaSpy), reversable à Tricoteuses</p>
+</div>
+
+</div>
+
+<div class="mt-10 text-center text-sm" style="color: var(--lr-muted)">
+On ne se contente pas de répondre : on devient une <b>brique de confiance</b> que l'écosystème peut brancher.
+</div>
+
+<div class="foot"><span>LE RAPPORTEUR</span><span>08 / CE QU'ON APPORTE</span></div>
+
+<!--
+[Contribution] Au delà de la démo, on livre trois choses réutilisables. Un : Le Rapporteur est lui même un serveur MCP, n'importe quel agent peut appeler notre vérification. Deux : la vérification tape la base Canutes en direct, article en vigueur, lien Légifrance réel. Trois : on a cartographié le schéma de Canutes, lisible par une IA, reversable au projet Tricoteuses. On ne consomme pas seulement des données, on devient une brique de confiance.
+-->
+
+---
+layout: two-cols
+layoutClass: gap-10
+---
+
+<div class="kicker mb-2">09 · Roadmap</div>
+
+# Ce qui tourne, ce qui vient
+
+<div class="text-xs font-bold mb-2 tracking-widest" style="color: var(--lr-gold)">DÉJÀ EN PLACE</div>
+
+<v-clicks>
+
+- Vérification en base réelle, refus explicite, preuve Gherkin
+- Backend souverain en direct (Qualcomm Cloud AI 100)
+- Serveur MCP, API de fact-check, carte du schéma Canutes
+
+</v-clicks>
+
+::right::
+
+<div class="text-xs font-bold mb-2 tracking-widest" style="color: var(--lr-muted)">À VENIR</div>
+
+<v-clicks>
+
+- **RAG** : ancrer le contenu, pas seulement la citation (recherche plein-texte Canutes ou MCP Moulineuse)
+- **Mistral en direct** via Modular MAX sur AMD
+- **Benchmark perf / watt** AMD contre NVIDIA, hot path **Mojo**
+- Unifier le **serveur MCP** sur le moteur de vérification live
+
+</v-clicks>
+
+<div class="foot"><span>LE RAPPORTEUR</span><span>09 / ROADMAP</span></div>
+
+<!--
+[Roadmap] Soyons transparents sur l'état. Ce qui tourne aujourd'hui : la vérification en base réelle, le refus explicite, la preuve Gherkin, le backend souverain Qualcomm en direct, le serveur MCP et la carte du schéma. Ce qui vient : le RAG pour ancrer le contenu et pas seulement la citation, Mistral en direct via Modular MAX sur AMD, le benchmark performance par watt entre AMD et NVIDIA avec un noyau Mojo, et l'unification du serveur MCP sur notre moteur de vérification.
 -->
 
 ---
