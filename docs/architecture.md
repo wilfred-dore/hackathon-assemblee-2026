@@ -49,6 +49,26 @@ graph TD
   une fois (Mojo), l'exécuter sur AMD, NVIDIA, Apple… → c'est ce qui rend les
   cibles souveraines (AMD, puis VSora/Axelera) réalistes.
 
+## 4. Accès aux données — ce qu'on utilise VRAIMENT (honnête)
+Trois voies existent vers Canutes/Légifrance ; voici lesquelles sont câblées.
+
+| Voie | État réel | Où |
+|---|---|---|
+| **DB directe Canutes (PostgreSQL)** | ✅ **UTILISÉ** — cœur de la **vérification** (`legifrance.article`, num+code+VIGUEUR → lien LEGIARTI) | `src/data/canutes.py::verify_article` |
+| **Serveur MCP (nous, fournisseur)** | ✅ **EXPOSÉ** — `repondre_question`, `verifier_article` : tout agent nous appelle | `poc/rapporteur/api.py::/mcp` |
+| **Client MCP Moulineuse (SQL/JS)** | ⚙️ **disponible, pas dans le chemin live** (protocole OK, outil SQL à confirmer sur place) | `src/mcp/client.py` |
+| **RAG / ancrage retrieval** | 🗺️ **roadmap** — la génération n'est PAS encore ancrée ; on fait *generate → verify* (fact-check a posteriori) | `src/pipeline.py::retrieve` (stub) |
+| PostgREST public | ❌ inutile ici (n'expose que 3 tables) | — |
+
+**En clair :** aujourd'hui on **génère puis on vérifie** chaque citation contre la
+**DB Canutes en direct**, et on **expose un serveur MCP** (interopérabilité). Le
+**RAG (ancrage amont)** est la prochaine étape — faisable via un `SELECT`
+plein-texte Canutes (colonnes `text_search`) ou l'outil SQL de MCP Moulineuse.
+
+> ⚠️ Cohérence pitch : la page `/details` (étape 1) parle d'« ancrage via MCP » —
+> à aligner (soit on l'implémente, soit on reformule en « vérification »), sinon
+> c'est un léger sur-discours devant un jury.
+
 ## Références
 - Panorama des puces IA (paysage du silicium souverain) :
   <https://github.com/basicmi/AI-Chip>
