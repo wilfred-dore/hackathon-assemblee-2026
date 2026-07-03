@@ -3,43 +3,137 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Canutes — cartographie de schéma (Le Rapporteur)</title>
+<title>Documentation Tricoteuses / Canutes — Le Rapporteur</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
-  :root { color-scheme: light dark; }
-  body { font: 16px/1.55 system-ui, sans-serif; max-width: 820px; margin: 3rem auto; padding: 0 1.2rem; }
-  h1 { margin-bottom: .2rem; } .sub { opacity:.7; margin-top:0; }
-  .card { border:1px solid #8883; border-radius:10px; padding:1rem 1.2rem; margin:1rem 0; }
-  a { color:#3b82f6; } code { background:#8882; padding:.1em .3em; border-radius:4px; }
-  .warn { border-left:3px solid #f59e0b; padding-left:.8rem; }
+  :root{ --blue:#000091; --blue-hover:#1212ff; --red:#e1000f; --ink:#161616; --mut:#666;
+         --bg:#fff; --bg-alt:#f5f5fe; --border:#e3e3e8; --success:#18753c; --radius:8px;
+         --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif; --mono:ui-monospace,Menlo,Consolas,monospace; }
+  *{ box-sizing:border-box; } body{ margin:0; font:16px/1.6 var(--sans); color:var(--ink); background:var(--bg-alt); }
+  .site{ display:flex; align-items:center; gap:12px; max-width:900px; margin:0 auto; padding:14px 24px; }
+  .site img{ width:38px; height:38px; } .site b{ font-size:1.05rem; }
+  .site .back{ margin-left:auto; font-size:.9rem; }
+  .tricolore{ height:2px; background:linear-gradient(90deg,#000091 0 33.3%,#fff 33.3% 66.6%,#e1000f 66.6% 100%); }
+  main{ max-width:900px; margin:0 auto; padding:32px 24px 56px; }
+  a{ color:var(--blue); } a:hover{ color:var(--blue-hover); }
+  .kicker{ font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue); }
+  h1{ font-size:2rem; margin:.15em 0 .1em; } h2{ font-size:1.25rem; margin:34px 0 10px; }
+  .lead{ color:var(--mut); max-width:64ch; }
+  .card{ background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:18px 22px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; }
+  .grid .card p{ font-size:.9rem; color:var(--mut); margin:.3em 0 .8em; }
+  .grid .card .go{ font-size:.85rem; font-weight:600; }
+  ul{ max-width:66ch; } li{ margin:.3em 0; }
+  code{ font-family:var(--mono); background:#eeeef8; padding:.1em .35em; border-radius:4px; font-size:.9em; }
+  .mermaid{ background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px; overflow:auto; }
+  .warn{ border-left:3px solid #f59e0b; background:#fff9ec; border-radius:6px; padding:.7rem .9rem; font-size:.92rem; color:#7a5b00; }
+  footer{ max-width:900px; margin:0 auto; padding:22px 24px 48px; border-top:1px solid var(--border); color:var(--mut); font-size:.82rem; }
+  table{ border-collapse:collapse; width:100%; font-size:.9rem; } th,td{ text-align:left; padding:7px 10px; border-bottom:1px solid var(--border); }
+  th{ color:var(--mut); font-weight:600; }
 </style>
 </head>
 <body>
-  <h1>Canutes — cartographie de schéma</h1>
-  <p class="sub">Documentation lisible par humains <em>et</em> agents, produite pour « Le Rapporteur » (Hackathon Assemblée nationale 2026).</p>
+<header class="site">
+  <img src="../favicon.svg" alt=""><b>Documentation Tricoteuses / Canutes</b>
+  <a class="back" href="../">← Accueil</a>
+</header>
+<div class="tricolore"></div>
 
+<main>
+  <div class="kicker">Le Rapporteur · Hackathon Assemblée nationale 2026</div>
+  <h1>La base de données du droit et du Parlement</h1>
+  <p class="lead">Le Rapporteur vérifie chaque citation contre <b>Canutes</b>, la base
+  unifiée du projet <b>Tricoteuses</b>. Cette page explique ce qu'est cette base, ce
+  que nous avons produit pour la rendre exploitable, et comment ses entités s'articulent.</p>
+
+  <h2>C'est quoi Tricoteuses ?</h2>
   <div class="card">
-    <h2>Diagrammes navigables (SchemaSpy)</h2>
-    <ul>
-      <li><a href="schema/legifrance/index.html">Schéma <code>legifrance</code></a> — articles, textes, codes, sections (23 tables)</li>
-      <li><a href="schema/assemblee/index.html">Schéma <code>assemblee</code></a> — acteurs, amendements, dossiers, scrutins (19 tables)</li>
+    <p><b>Tricoteuses</b> est un projet <b>open-source</b> qui <b>nettoie et republie</b>
+    les données ouvertes du Parlement français (Assemblée nationale, Sénat) et du droit
+    (Légifrance, Service-public) — souvent brutes et hétérogènes (XML, dumps PostgreSQL
+    anciens) — dans une base <b>PostgreSQL unifiée nommée Canutes</b>, avec une API
+    PostgREST et des serveurs <b>MCP</b> (Moulineuse, Parlement).</p>
+    <p style="margin-bottom:0">Concrètement, Canutes rassemble : articles de codes
+    (Légifrance), textes et amendements de l'AN et du Sénat, débats, scrutins, dossiers
+    législatifs, fiches Service-public — la matière première d'une IA juridique sourcée.</p>
+  </div>
+
+  <h2>Ce qu'on a fait</h2>
+  <div class="card">
+    <ul style="margin:0">
+      <li><b>Introspection</b> du schéma réel (253 tables) — les schémas en ligne de
+        Tricoteuses sont derrière un anti-bot, et l'API PostgREST n'expose que 3 tables.</li>
+      <li>Production d'une <b>cartographie lisible par un agent/LLM</b> : JSON structuré
+        + DBML, pour écrire du SQL correct sans deviner.</li>
+      <li>Génération de <b>diagrammes navigables</b> (SchemaSpy) pour humains.</li>
+      <li>Reconstruction des <b>relations implicites</b> (aucune clé étrangère n'est
+        déclarée) — clairement étiquetées « déduction ».</li>
     </ul>
   </div>
 
+  <h2>Le schéma de base de données</h2>
+  <div class="grid">
+    <div class="card"><b>SchemaSpy — legifrance</b>
+      <p>Articles, textes, codes, sections (23 tables).</p>
+      <a class="go" href="schema/legifrance/index.html">Ouvrir le diagramme →</a></div>
+    <div class="card"><b>SchemaSpy — assemblee</b>
+      <p>Acteurs, amendements, dossiers, scrutins (19 tables).</p>
+      <a class="go" href="schema/assemblee/index.html">Ouvrir le diagramme →</a></div>
+    <div class="card"><b>Formats machine</b>
+      <p>Pour LLM / MCP : tables → colonnes, types.</p>
+      <a class="go" href="schema/canutes_schema.json">JSON</a> ·
+      <a class="go" href="schema/canutes.dbml">DBML</a> (rendu sur dbdiagram.io)</div>
+  </div>
+
+  <h2>Explications — comment lire Canutes</h2>
   <div class="card">
-    <h2>Formats machine (pour agents / LLM / MCP)</h2>
-    <ul>
-      <li><a href="schema/canutes_schema.json">canutes_schema.json</a> — tables → colonnes, types, clés</li>
-      <li><a href="schema/canutes.dbml">canutes.dbml</a> — à rendre sur <a href="https://dbdiagram.io">dbdiagram.io</a></li>
+    <ul style="margin-top:0">
+      <li><b>Base dénormalisée</b> : la donnée « riche » vit dans des colonnes <code>jsonb</code>
+        (<code>data</code>), pas dans des colonnes classiques.</li>
+      <li><b>Aucune clé étrangère déclarée</b> → ni SchemaSpy ni dbdiagram ne tracent de
+        relations automatiques. Les liens sont <b>implicites</b>.</li>
+      <li><b>Convention d'identifiants Légifrance</b> (la clé de lecture) :</li>
     </ul>
+    <table>
+      <tr><th>Préfixe d'<code>id</code></th><th>Entité</th></tr>
+      <tr><td><code>LEGIARTI…</code></td><td>un <b>article</b> de code</td></tr>
+      <tr><td><code>LEGISCTA…</code></td><td>une <b>section</b> (nœud de l'arbre du code)</td></tr>
+      <tr><td><code>LEGITEXT…</code></td><td>un <b>texte / code</b> entier</td></tr>
+      <tr><td><code>JORFARTI…</code></td><td>une <b>version publiée au Journal officiel</b></td></tr>
+    </table>
   </div>
 
-  <div class="card warn">
-    <p><strong>Relations :</strong> la base Canutes ne déclare <em>aucune clé étrangère</em>
-    (modèle dénormalisé jsonb). Les diagrammes ne montrent donc pas de liens
-    automatiques. Les relations <em>implicites</em> (préfixes <code>LEGIARTI</code>/<code>LEGISCTA</code>/<code>LEGITEXT</code>)
-    sont reconstruites à part et signalées comme <strong>déductions</strong>.</p>
+  <h2>Liens entre les entités</h2>
+  <p class="lead">Reconstitués à partir des conventions d'<code>id</code> et du contenu
+  <code>jsonb</code> (<code>data.CONTEXTE</code>, <code>data.LIENS</code>).</p>
+  <div class="warn">⚠️ <b>Déductions</b> : ces relations ne sont <b>pas</b> déclarées en base
+  (aucune clé étrangère). Ce sont des hypothèses de lecture, pas des contraintes vérifiées.</div>
+  <div class="mermaid">
+erDiagram
+    texte_version ||--o{ section_ta : "contient (LEGITEXT vers LEGISCTA, deduit)"
+    section_ta   ||--o{ article     : "contient (LEGISCTA vers LEGIARTI, deduit)"
+    article      ||--o{ article_lien : "cite (LEGIARTI vers LEGIARTI, deduit)"
+    texte_version ||--o{ dossier_legislatif : "rattache (deduit)"
+    article {
+        character id
+        text num
+        jsonb data
+    }
+    section_ta { character id }
+    texte_version { character id }
+    article_lien { }
+    dossier_legislatif { }
   </div>
+</main>
 
-  <p class="sub">Aucune donnée d'accès (endpoint, identifiant, mot de passe) n'est incluse.</p>
+<footer>Documentation produite pour Le Rapporteur — reversable au projet Tricoteuses.
+Aucune donnée d'accès (endpoint, identifiant, mot de passe) n'est incluse.</footer>
+
+<script type="module">
+  try{
+    const m = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    m.default.initialize({ startOnLoad:true, theme:'neutral' });
+  }catch(e){/* hors-ligne : diagramme en texte */}
+</script>
 </body>
 </html>
