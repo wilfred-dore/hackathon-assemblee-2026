@@ -81,7 +81,14 @@ vérité-terrain, ni n'évalue une couche de vérification \og fail-closed \fg{}
 Chaque item associe une \textbf{question citoyenne} à un ou plusieurs \textbf{articles de
 référence}. La vérité-terrain est fournie par \textbf{Canutes} (table
 \texttt{legifrance.article}, statut \textsc{vigueur}, identifiant \textsc{legiarti}),
-ce qui rend la construction automatisable à grande échelle. Métriques : proportions de
+ce qui rend la construction automatisable à grande échelle. Pour le passage à l'échelle
+($n \geq 100$), des gisements de questions réalistes existent dans les données ouvertes
+parlementaires elles-mêmes : Canutes contient \textbf{292\,746 questions parlementaires
+du Sénat} (\texttt{senat.questions}, comptage effectué sur l'instance du hackathon), et
+les \emph{questions écrites et orales de l'Assemblée nationale au Gouvernement} sont
+disponibles parmi les ressources officielles. Les réponses ministérielles citant les
+textes applicables, elles fournissent des paires question--articles de référence
+vérifiables dans Canutes. Métriques : proportions de
 réponses \emph{correcte} / \emph{hallucination} (citation erronée) / \emph{sans citation},
 avec un score \emph{exact-match} sur le couple (code, numéro). Un numéro proche mais faux
 (p.\,ex. 413-3 pour 414) compte comme hallucination : suivre le mauvais article induit
@@ -150,6 +157,36 @@ modèle souverain français est compétitif avec le meilleur du panel ; (iii) \t
 frugalité/souveraineté} : le petit modèle exécuté localement, idéal pour une inférence
 souveraine et frugale, hallucine le plus (10/12). La vérification est donc \emph{ce qui
 rend} une IA juridique locale digne de confiance.
+
+\subsection{Évaluation de la couche de vérification}
+Nous rejouons les 72 réponses du panel à travers la couche de vérification, en comparant
+trois politiques. Une réponse est \emph{présentée} si toutes ses citations passent la
+politique, sinon \emph{refusée}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Politique} & \textbf{Halluc. présentée} & \textbf{Correct présenté} & \textbf{Sur-refus} \\
+\midrule
+Aucune vérification (LLM seul) & 15/72 (21\,\%) & 57/72 & --- \\
+Existence seule (correspondance de chaîne) & 14/72 (19\,\%) & --- & --- \\
+Existence (CID exact) + pertinence ancrée & \textbf{2/72 (3\,\%)} & 52/72 (72\,\%) & 5/72 (7\,\%) \\
+\bottomrule
+\end{tabular}
+\caption{Effet de la politique de vérification sur les 72 réponses du pilote. L'existence
+seule n'attrape presque rien (1 hallucination sur 15 : les 14 autres citaient des articles
+réels mais hors-sujet). La vérification complète divise l'hallucination présentée par 7,
+au prix d'un sur-refus de 7\,\% --- un compromis assumé (fail-closed : mieux vaut un refus
+qu'un faux).}
+\end{table}
+
+Deux enseignements méthodologiques : (a) le \textbf{match du code par identifiant stable}
+(CID) plutôt que par correspondance de chaîne est indispensable --- un \og article 9 \fg{}
+existe dans des dizaines de codes, et le filtre textuel initial faisait chuter le correct
+présenté à 35\,\% (sur-refus 44\,\%) en résolvant de mauvais articles ; (b) les 2
+hallucinations restantes sont des citations plausibles du bon domaine, que seule une
+pertinence plus fine (au-delà d'un juge unique) attraperait.
 
 \section{Discussion : souveraineté et frugalité}
 La couche de vérification étant \emph{model-agnostique}, elle autorise des choix
