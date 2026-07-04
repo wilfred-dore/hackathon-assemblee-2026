@@ -1,0 +1,640 @@
+{
+  "gpt-4o": {
+    "counts": {
+      "correct": 10,
+      "hallucination": 2,
+      "sans_citation": 0,
+      "erreur": 0
+    },
+    "details": [
+      {
+        "q": "Quelle est la durée légale du travail à ",
+        "gt": "L3121-27",
+        "cité": [
+          "L3121-27"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Dans quels cas un contrat à durée déterm",
+        "gt": "L1242-2",
+        "cité": [
+          "L1242-2"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Un licenciement pour motif personnel doi",
+        "gt": "L1232-1",
+        "cité": [
+          "L1232-1"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article protège le droit au respect",
+        "gt": "9",
+        "cité": [
+          "9"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "À quel âge la majorité est-elle fixée en",
+        "gt": "414",
+        "cité": [
+          "388"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Combien de jours de congés payés par moi",
+        "gt": "L3141-3",
+        "cité": [
+          "L3141-3"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article fonde la responsabilité du ",
+        "gt": "1242",
+        "cité": [
+          "1242"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Les enfants doivent-ils des aliments à l",
+        "gt": "205",
+        "cité": [
+          "205"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quelle est la durée de droit commun de l",
+        "gt": "63",
+        "cité": [
+          "63"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est le délai de rétractation pour u",
+        "gt": "L221-18",
+        "cité": [
+          "L221-18"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est l'âge minimum légal pour se mar",
+        "gt": "144",
+        "cité": [
+          "144"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Sur quel article repose le divorce par c",
+        "gt": "229",
+        "cité": [
+          "229-1"
+        ],
+        "verdict": "hallucination"
+      }
+    ]
+  },
+  "claude-sonnet-4-5": {
+    "counts": {
+      "correct": 12,
+      "hallucination": 0,
+      "sans_citation": 0,
+      "erreur": 0
+    },
+    "details": [
+      {
+        "q": "Quelle est la durée légale du travail à ",
+        "gt": "L3121-27",
+        "cité": [
+          "L3121-27"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Dans quels cas un contrat à durée déterm",
+        "gt": "L1242-2",
+        "cité": [
+          "L1242-2"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Un licenciement pour motif personnel doi",
+        "gt": "L1232-1",
+        "cité": [
+          "L1232-1"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article protège le droit au respect",
+        "gt": "9",
+        "cité": [
+          "9"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "À quel âge la majorité est-elle fixée en",
+        "gt": "414",
+        "cité": [
+          "414"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Combien de jours de congés payés par moi",
+        "gt": "L3141-3",
+        "cité": [
+          "L3141-3"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article fonde la responsabilité du ",
+        "gt": "1242",
+        "cité": [
+          "1242",
+          "1384"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Les enfants doivent-ils des aliments à l",
+        "gt": "205",
+        "cité": [
+          "205"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quelle est la durée de droit commun de l",
+        "gt": "63",
+        "cité": [
+          "63"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est le délai de rétractation pour u",
+        "gt": "L221-18",
+        "cité": [
+          "L221-18"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est l'âge minimum légal pour se mar",
+        "gt": "144",
+        "cité": [
+          "144"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Sur quel article repose le divorce par c",
+        "gt": "229",
+        "cité": [
+          "229"
+        ],
+        "verdict": "correct"
+      }
+    ]
+  },
+  "gemini-2.5-flash": {
+    "counts": {
+      "correct": 10,
+      "hallucination": 2,
+      "sans_citation": 0,
+      "erreur": 0
+    },
+    "details": [
+      {
+        "q": "Quelle est la durée légale du travail à ",
+        "gt": "L3121-27",
+        "cité": [
+          "L3121-27"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Dans quels cas un contrat à durée déterm",
+        "gt": "L1242-2",
+        "cité": [
+          "L1242-2"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Un licenciement pour motif personnel doi",
+        "gt": "L1232-1",
+        "cité": [
+          "L1232-1"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article protège le droit au respect",
+        "gt": "9",
+        "cité": [
+          "9"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "À quel âge la majorité est-elle fixée en",
+        "gt": "414",
+        "cité": [
+          "413-3"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Combien de jours de congés payés par moi",
+        "gt": "L3141-3",
+        "cité": [
+          "L3141-3"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article fonde la responsabilité du ",
+        "gt": "1242",
+        "cité": [
+          "1242"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Les enfants doivent-ils des aliments à l",
+        "gt": "205",
+        "cité": [
+          "205"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quelle est la durée de droit commun de l",
+        "gt": "63",
+        "cité": [
+          "63"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est le délai de rétractation pour u",
+        "gt": "L221-18",
+        "cité": [
+          "L221-23",
+          "L221-25"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Quel est l'âge minimum légal pour se mar",
+        "gt": "144",
+        "cité": [
+          "144"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Sur quel article repose le divorce par c",
+        "gt": "229",
+        "cité": [
+          "229"
+        ],
+        "verdict": "correct"
+      }
+    ]
+  },
+  "mistral-large-3": {
+    "counts": {
+      "correct": 12,
+      "hallucination": 0,
+      "sans_citation": 0,
+      "erreur": 0
+    },
+    "details": [
+      {
+        "q": "Quelle est la durée légale du travail à ",
+        "gt": "L3121-27",
+        "cité": [
+          "L3121-27"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Dans quels cas un contrat à durée déterm",
+        "gt": "L1242-2",
+        "cité": [
+          "L1242-2"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Un licenciement pour motif personnel doi",
+        "gt": "L1232-1",
+        "cité": [
+          "L1232-1"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article protège le droit au respect",
+        "gt": "9",
+        "cité": [
+          "9"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "À quel âge la majorité est-elle fixée en",
+        "gt": "414",
+        "cité": [
+          "414"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Combien de jours de congés payés par moi",
+        "gt": "L3141-3",
+        "cité": [
+          "L3141-3"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article fonde la responsabilité du ",
+        "gt": "1242",
+        "cité": [
+          "1242"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Les enfants doivent-ils des aliments à l",
+        "gt": "205",
+        "cité": [
+          "205"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quelle est la durée de droit commun de l",
+        "gt": "63",
+        "cité": [
+          "63"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est le délai de rétractation pour u",
+        "gt": "L221-18",
+        "cité": [
+          "L221-18"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est l'âge minimum légal pour se mar",
+        "gt": "144",
+        "cité": [
+          "144"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Sur quel article repose le divorce par c",
+        "gt": "229",
+        "cité": [
+          "229"
+        ],
+        "verdict": "correct"
+      }
+    ]
+  },
+  "mistral-small-3.2-24b-instruct": {
+    "counts": {
+      "correct": 11,
+      "hallucination": 1,
+      "sans_citation": 0,
+      "erreur": 0
+    },
+    "details": [
+      {
+        "q": "Quelle est la durée légale du travail à ",
+        "gt": "L3121-27",
+        "cité": [
+          "L3121-27"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Dans quels cas un contrat à durée déterm",
+        "gt": "L1242-2",
+        "cité": [
+          "L1242-2"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Un licenciement pour motif personnel doi",
+        "gt": "L1232-1",
+        "cité": [
+          "L1232-1"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article protège le droit au respect",
+        "gt": "9",
+        "cité": [
+          "9"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "À quel âge la majorité est-elle fixée en",
+        "gt": "414",
+        "cité": [
+          "414"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Combien de jours de congés payés par moi",
+        "gt": "L3141-3",
+        "cité": [
+          "L3141-3"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel article fonde la responsabilité du ",
+        "gt": "1242",
+        "cité": [
+          "1242"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Les enfants doivent-ils des aliments à l",
+        "gt": "205",
+        "cité": [
+          "205"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quelle est la durée de droit commun de l",
+        "gt": "63",
+        "cité": [
+          "63-4"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Quel est le délai de rétractation pour u",
+        "gt": "L221-18",
+        "cité": [
+          "L221-18"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est l'âge minimum légal pour se mar",
+        "gt": "144",
+        "cité": [
+          "144"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Sur quel article repose le divorce par c",
+        "gt": "229",
+        "cité": [
+          "229"
+        ],
+        "verdict": "correct"
+      }
+    ]
+  },
+  "mistral": {
+    "counts": {
+      "correct": 2,
+      "hallucination": 10,
+      "sans_citation": 0,
+      "erreur": 0
+    },
+    "details": [
+      {
+        "q": "Quelle est la durée légale du travail à ",
+        "gt": "L3121-27",
+        "cité": [
+          "L3121-1"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Dans quels cas un contrat à durée déterm",
+        "gt": "L1242-2",
+        "cité": [
+          "L1231-1"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Un licenciement pour motif personnel doi",
+        "gt": "L1232-1",
+        "cité": [
+          "L1234-1"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Quel article protège le droit au respect",
+        "gt": "9",
+        "cité": [
+          "9"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "À quel âge la majorité est-elle fixée en",
+        "gt": "414",
+        "cité": [
+          "213"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Combien de jours de congés payés par moi",
+        "gt": "L3141-3",
+        "cité": [
+          "L3121-4"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Quel article fonde la responsabilité du ",
+        "gt": "1242",
+        "cité": [
+          "1240"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Les enfants doivent-ils des aliments à l",
+        "gt": "205",
+        "cité": [
+          "371-1"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Quelle est la durée de droit commun de l",
+        "gt": "63",
+        "cité": [
+          "71-1"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Quel est le délai de rétractation pour u",
+        "gt": "L221-18",
+        "cité": [
+          "L221-18"
+        ],
+        "verdict": "correct"
+      },
+      {
+        "q": "Quel est l'âge minimum légal pour se mar",
+        "gt": "144",
+        "cité": [
+          "213"
+        ],
+        "verdict": "hallucination"
+      },
+      {
+        "q": "Sur quel article repose le divorce par c",
+        "gt": "229",
+        "cité": [
+          "237-1"
+        ],
+        "verdict": "hallucination"
+      }
+    ]
+  }
+}

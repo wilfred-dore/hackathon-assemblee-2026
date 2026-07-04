@@ -145,6 +145,12 @@ def main() -> None:
         shutil.copytree(schema_src, OUT / "schema", dirs_exist_ok=True)
         print(f"  + doc schéma copiée depuis {schema_src.name}/ -> site/schema/")
 
+    # Papier de recherche (draft PDF) -> /paper.pdf (tuile « Papier » du hall)
+    paper_src = POC.parent / "paper" / "main.pdf"
+    if paper_src.exists():
+        shutil.copy(paper_src, OUT / "paper.pdf")
+        print("  + papier copié -> site/paper.pdf")
+
     print(f"Site statique généré dans {OUT}")
     print(f"  {len(answers)} réponses pré-calculées, {len(articles)} articles.")
     print("  Test local : python -m http.server -d site 8000")

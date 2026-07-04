@@ -1,0 +1,38 @@
+{
+  "gpt-4o": {
+    "correct_presente": 9,
+    "hallu_presentee": 1,
+    "hallu_refusee": 1,
+    "sur_refus": 1
+  },
+  "claude-sonnet-4-5": {
+    "correct_presente": 11,
+    "hallu_presentee": 0,
+    "hallu_refusee": 0,
+    "sur_refus": 1
+  },
+  "gemini-2.5-flash": {
+    "correct_presente": 9,
+    "hallu_presentee": 0,
+    "hallu_refusee": 2,
+    "sur_refus": 1
+  },
+  "mistral-large-3": {
+    "correct_presente": 11,
+    "hallu_presentee": 0,
+    "hallu_refusee": 0,
+    "sur_refus": 1
+  },
+  "mistral-small-3.2-24b-instruct": {
+    "correct_presente": 10,
+    "hallu_presentee": 0,
+    "hallu_refusee": 1,
+    "sur_refus": 1
+  },
+  "mistral": {
+    "correct_presente": 2,
+    "hallu_presentee": 1,
+    "hallu_refusee": 9,
+    "sur_refus": 0
+  }
+}
