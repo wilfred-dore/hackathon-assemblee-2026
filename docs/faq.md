@@ -44,6 +44,13 @@ des deux.
 > **87 % de CUDA** (NVIDIA H100) et **à parité avec HIP** (AMD MI300A), depuis **une source unique**.
 > À cadrer honnêtement : ce sont des **kernels HPC**, pas de l'inférence LLM.
 
+**Nuance importante (à ne pas survendre) : HIP fait DÉJÀ AMD + NVIDIA.** `hipcc` compile pour AMD
+(ROCm) *et* pour NVIDIA (backend CUDA). Donc la portabilité cross-vendor **n'est pas propre à Mojo**.
+Le vrai plus de Mojo : il **ajoute Apple Silicon** (Metal), vit dans l'**écosystème Python** (pas du
+C++ bas-niveau), et s'intègre à un **moteur d'inférence (MAX)** — stack unifiée. On n'oppose donc pas
+Mojo à HIP dogmatiquement : on choisit Mojo/MAX pour l'intégration et l'étendue des cibles, pas parce
+que « HIP ne saurait pas ».
+
 **Qualcomm Cloud AI 100 tourne-t-il sous MAX ?**
 **Non.** Il utilise le **SDK Qualcomm** (compilation ONNX → QPC, avec un fork vLLM). MAX/Mojo
 cible **AMD/NVIDIA/Apple**, pas Qualcomm. C'est pour ça que, dans notre schéma, Qualcomm est une
