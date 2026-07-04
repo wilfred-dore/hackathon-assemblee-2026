@@ -48,11 +48,14 @@ fig.tight_layout()
 fig.savefig("benchmarks/compute_kernel.png", dpi=160)
 print("écrit benchmarks/compute_kernel.png")
 
-# --- Graphique 2 : backends LLM souverains (même prompt, même pipeline) ---
-backends = ["Mistral\nLa Plateforme (FR)", "Ollama local\nMistral 7B (M2)", "Qualcomm\nCloud AI 100"]
-latency = [0.86, 1.21, 1.49]      # s, bout-en-bout
-tokps = [39.4, 32.3, 22.1]        # tokens/s
-colors2 = [BLUE, GOLD, "#7bb274"]
+# --- Graphique 2 : portabilité (même pipeline, cloud souverain FR <-> 100% local) ---
+# NB : illustratif, PAS un classement matériel apples-to-apples (modèles/infras
+# différents). On retire le backend d'essai gratuit Qualcomm : son endpoint partagé
+# n'est pas représentatif du Cloud AI 100 Ultra (cf. graphique frugalité, UCSD).
+backends = ["Mistral\nLa Plateforme (FR)", "Ollama local\nMistral 7B (M2)"]
+latency = [0.86, 1.21]            # s, bout-en-bout
+tokps = [39.4, 32.3]              # tokens/s
+colors2 = [BLUE, GOLD]
 
 fig, (axL, axR) = plt.subplots(1, 2, figsize=(10.5, 4.4))
 
@@ -68,8 +71,8 @@ axR.set_title("Débit", fontweight="bold")
 for b, v in zip(b2, tokps):
     axR.text(b.get_x() + b.get_width() / 2, v + 0.6, f"{v:g}", ha="center", va="bottom", fontweight="bold")
 
-fig.suptitle("Le même pipeline, trois backends souverains — swap par variable d'env",
-             fontweight="bold", y=1.02)
+fig.suptitle("Le même pipeline : cloud souverain FR ↔ 100% local sur un Mac\n(illustratif — pas un classement matériel)",
+             fontweight="bold", y=1.04, fontsize=12)
 fig.tight_layout()
 fig.savefig("benchmarks/llm_backends.png", dpi=160, bbox_inches="tight")
 print("écrit benchmarks/llm_backends.png")
@@ -93,3 +96,25 @@ ax.text(0.5, -10, "Donnée externe citée, non mesurée par nous — 12 LLM open
 fig.tight_layout()
 fig.savefig("benchmarks/energy_efficiency.png", dpi=160, bbox_inches="tight")
 print("écrit benchmarks/energy_efficiency.png")
+
+# --- Graphique 4 : la thèse — hallucination de citation, LLM seul vs Le Rapporteur ---
+# Données agrégées de notre mini-étude (12 questions, vérité-terrain = bon article).
+# Agrégé PAR CATÉGORIE volontairement : le classement par-modèle reste privé (papier).
+#   petit modèle local (Mistral 7B) : 10/12 hallucinations  -> 83%
+#   grand modèle (moyenne 5 modèles cloud testés) : 5/60    -> 8%
+#   Le Rapporteur (LLM + vérification Canutes) : 0 présentée -> 0%
+cats = ["Petit modèle local\n(frugal, souverain)", "Grand modèle\n(moyenne testée)", "Le Rapporteur\n(LLM + vérification)"]
+hallu_rate = [83, 8, 0]
+colors4 = ["#d9534f", "#e0a458", "#7bb274"]
+fig, ax = plt.subplots(figsize=(8.2, 4.6))
+bars = ax.bar(cats, hallu_rate, color=colors4, width=0.6)
+ax.set_ylabel("% de citations hallucinées")
+ax.set_title("On ne fait confiance à aucun modèle, on vérifie\nCitation juridique fausse : LLM seul vs Le Rapporteur", fontweight="bold")
+ax.set_ylim(0, 95)
+for b, v in zip(bars, hallu_rate):
+    ax.text(b.get_x() + b.get_width() / 2, v + 1.5, f"{v}%", ha="center", va="bottom", fontweight="bold", fontsize=14)
+fig.text(0.5, 0.01, "Mini-étude interne, 12 questions, vérité-terrain = article correct. Détail par modèle gardé privé.",
+         ha="center", fontsize=8.5, color="#777")
+fig.tight_layout()
+fig.savefig("benchmarks/hallucination_thesis.png", dpi=160, bbox_inches="tight")
+print("écrit benchmarks/hallucination_thesis.png")

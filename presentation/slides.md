@@ -368,29 +368,30 @@ benchmarké contre Python, alimente le panneau de frugalité.</p>
 
 ---
 
-<div class="kicker mb-2">07b · Benchmarks mesurés</div>
+<div class="kicker mb-2">07b · Ce qu'on a mesuré</div>
 
-# Mesuré sur un MacBook, pas promis
+# On ne fait confiance à aucun modèle
 
 <div class="mt-2 text-sm" style="color: var(--lr-muted)">
-Le <b>même pipeline</b>, trois backends souverains, échangés par une seule variable
-d'environnement. Latence et débit <b>réels</b> sur un M2 Pro.
+Mini-étude : <b>12 questions de droit</b>, vérité-terrain = le <b>bon article</b>.
+Même les grands modèles se trompent. Et le petit modèle local, idéal pour la
+<b>frugalité et la souveraineté</b>, se trompe le plus.
 </div>
 
 <div class="mt-3 flex justify-center">
-<img src="/benchmarks/llm_backends.png" style="width: 82%; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.18)" />
+<img src="/benchmarks/hallucination_thesis.png" style="width: 72%; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.18)" />
 </div>
 
 <div class="mt-3 text-sm" style="color: var(--lr-muted)">
-Sur la même question, les trois modèles ont <b style="color: var(--lr-gold)">inventé</b>
-un numéro d'article (Ollama : L.3121-1 ; Qualcomm/Llama : L.3122-2 ; le bon est
-L.3121-27). <b>On ne fait confiance à aucun modèle, on vérifie.</b>
+Notre couche de vérification ramène l'hallucination <b>présentée</b> à
+<b style="color: var(--lr-gold)">zéro</b>, quel que soit le modèle. C'est ce qui rend
+une IA juridique <b>locale et frugale</b> digne de confiance.
 </div>
 
 <div class="foot"><span>LE RAPPORTEUR</span><span>07B / BENCHMARKS</span></div>
 
 <!--
-[Benchmarks] Tout ce qu'on montre ici, on l'a mesuré ce matin sur un simple MacBook M2 Pro. Le même pipeline tourne sur Mistral La Plateforme souverain français, sur un Mistral 7B 100% local via Ollama, et sur Qualcomm Cloud AI 100, juste en changeant une variable d'environnement. Et le point le plus important : sur la même question, les trois modèles ont inventé un numéro d'article de loi. C'est exactement ce que notre couche de vérification attrape. On ne fait confiance à aucun modèle, on vérifie.
+[Benchmarks] On a lancé une mini-étude ce matin : douze questions de droit, avec à chaque fois le bon article comme vérité-terrain. Résultat, même les grands modèles se trompent d'article. Et surtout, le petit modèle qu'on ferait tourner localement pour la frugalité et la souveraineté est celui qui hallucine le plus, huit fois sur dix. C'est contre-intuitif et c'est tout notre argument : plus on veut une IA frugale et locale, plus la vérification devient indispensable. Notre couche de vérification ramène l'hallucination présentée à zéro, quel que soit le modèle en dessous. Le détail par modèle, on le garde pour notre article de recherche.
 -->
 
 ---
