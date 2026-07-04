@@ -8,6 +8,8 @@ Index de la doc technique. Diagrammes en Mermaid (rendus par GitHub / dbdiagram)
   Qualcomm Cloud AI 100.
 - [pitch.md](pitch.md) — narratif de pitch, slides à greffer, garde-fous
   d'honnêteté, CiviqHub.
+- [faq.md](faq.md) — **FAQ technique** : questions dures anticipées (MAX vs vLLM,
+  MCP vs DB, TPU, souveraineté, benchmark UCSD…) avec réponses défendables.
 - [defis.md](defis.md) — défis visés.
 
 ## Souveraineté / matériel

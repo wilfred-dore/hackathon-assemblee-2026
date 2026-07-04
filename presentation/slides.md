@@ -302,16 +302,17 @@ dédiée fait le même travail pour bien moins d'énergie qu'un GPU généralist
 <v-click>
 
 <div class="grid grid-cols-3 gap-3 mt-8">
+<div class="stat"><div class="stat-value">10–35×</div><div class="stat-label">moins d'énergie qu'un A100 (LLM open source, étude UCSD)</div></div>
 <div class="stat"><div class="stat-value">dédié</div><div class="stat-label">accélérateur d'inférence, pas un GPU détourné</div></div>
 <div class="stat"><div class="stat-value">perf / watt</div><div class="stat-label">souveraineté et écologie</div></div>
-<div class="stat"><div class="stat-value">3 var.</div><div class="stat-label">changer de backend, une variable d'env</div></div>
 </div>
 
 </v-click>
 
 <div class="mt-6 text-sm" style="color: var(--lr-muted)">
-Mesuré en direct sur ex. Qualcomm Cloud AI 100 : latence et débit affichés à la démo.
-Benchmark AMD et NVIDIA via Modular MAX : la prochaine étape.
+Validation externe : une <b>étude UCSD</b> (arXiv 2507.00418) mesure 10 à 35× moins
+d'énergie sur Qualcomm Cloud AI 100 Ultra vs A100, pour 12 LLM open source. Nous citons
+ce résultat, nous ne l'avons pas re-benchmarké. À la démo : latence et débit en direct.
 </div>
 
 ::right::
