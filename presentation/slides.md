@@ -368,6 +368,33 @@ benchmarké contre Python, alimente le panneau de frugalité.</p>
 
 ---
 
+<div class="kicker mb-2">07b · Benchmarks mesurés</div>
+
+# Mesuré sur un MacBook, pas promis
+
+<div class="mt-2 text-sm" style="color: var(--lr-muted)">
+Le <b>même pipeline</b>, trois backends souverains, échangés par une seule variable
+d'environnement. Latence et débit <b>réels</b> sur un M2 Pro.
+</div>
+
+<div class="mt-3 flex justify-center">
+<img src="/benchmarks/llm_backends.png" style="width: 82%; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.18)" />
+</div>
+
+<div class="mt-3 text-sm" style="color: var(--lr-muted)">
+Sur la même question, les trois modèles ont <b style="color: var(--lr-gold)">inventé</b>
+un numéro d'article (Ollama : L.3121-1 ; Qualcomm/Llama : L.3122-2 ; le bon est
+L.3121-27). <b>On ne fait confiance à aucun modèle, on vérifie.</b>
+</div>
+
+<div class="foot"><span>LE RAPPORTEUR</span><span>07B / BENCHMARKS</span></div>
+
+<!--
+[Benchmarks] Tout ce qu'on montre ici, on l'a mesuré ce matin sur un simple MacBook M2 Pro. Le même pipeline tourne sur Mistral La Plateforme souverain français, sur un Mistral 7B 100% local via Ollama, et sur Qualcomm Cloud AI 100, juste en changeant une variable d'environnement. Et le point le plus important : sur la même question, les trois modèles ont inventé un numéro d'article de loi. C'est exactement ce que notre couche de vérification attrape. On ne fait confiance à aucun modèle, on vérifie.
+-->
+
+---
+
 <div class="kicker mb-2">08 · Ce qu'on apporte en plus</div>
 
 # Un outil, pas seulement une démo
