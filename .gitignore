@@ -45,3 +45,8 @@ out/
 
 # Build statique GitHub Pages de l'app — généré par poc/build_static.py (François)
 site/
+
+# DemoDSL — venv + artefacts de génération vidéo
+.demodsl/
+hackathon-an-2026/demo/output/
+hackathon-an-2026/demo/_template.yaml

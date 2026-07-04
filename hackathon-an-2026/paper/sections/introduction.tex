@@ -1,0 +1,94 @@
+\section{Introduction}
+Citizens increasingly turn to general-purpose large language models (LLMs) for
+questions of law: \emph{Am I entitled to a year-end bonus? What is the legal
+working week? Can my landlord keep the deposit?} The models reply in fluent,
+authoritative prose---and sometimes cite articles that do not exist, that exist
+but have been repealed, or that exist and are in force yet say something
+entirely different from what the answer claims. In open-domain conversation
+such slips are tolerable; in law they are not. The domain has an
+\emph{asymmetric} cost structure: a confident, plausible-sounding, fabricated
+citation actively \emph{misleads} a citizen who cannot easily distinguish it
+from a real one, and is therefore strictly worse than an honest admission of
+ignorance. Recent work profiling \emph{legal} hallucinations reports that
+general-purpose LLMs invent or misattribute legal authorities at high
+rates~\cite{dahl2024legalfictions}, confirming that the problem is systemic
+rather than anecdotal.
+
+Hallucination in natural language generation is by now well
+documented~\cite{ji2023hallucination, huang2025hallucination}, and
+retrieval-augmented generation (RAG) is the standard
+mitigation~\cite{lewis2020rag, gao2023ragsurvey}: the model is conditioned on
+retrieved passages so that its output is, ideally, grounded in real text. Yet
+grounding \emph{reduces} but does not \emph{eliminate} invented references. A
+model handed the correct passage can still transpose a digit in an article
+number, cite a neighbouring article, or attribute a real quotation to the wrong
+code. Grounding improves the \emph{expected} faithfulness of a draft; it does
+not \emph{guarantee} any individual citation. In law, the guarantee is what
+matters.
+
+\paragraph{Our stance: refusing is a feature.}
+\emph{Le Rapporteur} adopts a deliberately conservative position suited to the
+domain, organized around a single, non-negotiable invariant: \textbf{no
+verifiable source, no answer}. The invariant is enforced not by prompt
+engineering---advisory, and easily undone by the model's own sampling---but by
+a \emph{post-generation verification stage} that is \emph{fail-closed}. The
+model drafts freely; but before anything reaches the user, every citation in
+the draft is checked, one by one, against an authoritative legal database. If a
+single citation cannot be resolved to a real, in-force article, or if any error
+occurs while checking (a network timeout, a malformed reference, an ambiguous
+code), the system does not guess: it returns an explicit
+refusal---\emph{``Je ne trouve pas de texte applicable.''} (\emph{I find no
+applicable text.}). Doubt collapses to refusal, never to fabrication. This is
+defense in depth: the trust guarantee is a property of the \emph{system} and
+holds even when the model misbehaves.
+
+\paragraph{A running example.}
+Two questions recur throughout the paper. Asked \emph{``Do I have a right to a
+Christmas bonus?''}, a fluent model confidently invents
+\emph{article~L.\,4321-7 du Code du travail}---an authority that simply does
+not exist. Asked for \emph{``the legal working week''}, a live model we tested
+answered \emph{article~L.\,3132-2} (which exists, but governs weekly
+\emph{rest}) instead of the correct \emph{L.\,3121-27}. The first is a
+non-existent authority; the second is real-but-wrong. A system that merely
+pattern-matches ``looks like a citation'' passes both; Le Rapporteur refuses
+the first outright and, as we discuss (\S\ref{sec:eval},~\S\ref{sec:limits}),
+exposes the second as the harder, semantic case.
+
+\paragraph{Contributions.}
+\begin{itemize}
+  \item A \textbf{fail-closed pipeline} for legal QA---\emph{generate,
+  extract, verify, source-or-refuse}---whose trust guarantee is a property of
+  the \emph{system}, not of the model, stated as a precise release predicate
+  (\S\ref{sec:overview}).
+  \item A \textbf{database-centric citation verifier} over the
+  Canutes/Légifrance corpus, and the query engineering---index-friendly
+  variant expansion, accent-folded code disambiguation, state-aware selection
+  of the in-force version---that makes per-citation checking feasible at
+  interactive latency over a large, irregular schema without full-table
+  regular-expression scans (\S\ref{sec:verify}).
+  \item A \textbf{reusable trust service}: the verifier is exposed over HTTP
+  (\texttt{/verify}) and as a Model Context Protocol (MCP) server, so any
+  third-party agent can fact-check the citations in an arbitrary LLM output
+  without adopting our model (\S\ref{sec:service}).
+  \item A \textbf{hardware-sovereign serving layer}: a thin OpenAI-compatible
+  indirection lets the identical pipeline run on non-NVIDIA accelerators; we
+  demonstrate it live on a Qualcomm Cloud~AI~100 and target AMD via a portable
+  runtime (\S\ref{sec:sovereign}).
+  \item An \textbf{executable trust specification} in Gherkin, readable and
+  auditable by a jurist, in which a single fabricated article turns the build
+  red (\S\ref{sec:bdd}).
+\end{itemize}
+
+\paragraph{Scope and honesty.}
+This system was built under hackathon time constraints. We are deliberately
+candid about what is \emph{proven} (runs today, tested) versus
+\emph{envisioned} (designed, on the roadmap), and we mark the boundary
+explicitly rather than blur it---an editorial choice mirroring the system's own
+fail-closed ethos. The remainder of the paper follows the pipeline:
+\S\ref{sec:background} frames the corpus and a taxonomy of citation errors;
+\S\ref{sec:overview} presents the pipeline and its release predicate;
+\S\ref{sec:verify} details the database verifier that is the technical core;
+\S\ref{sec:service} the reusable trust service; \S\ref{sec:sovereign} the
+sovereign serving layer; \S\ref{sec:bdd} the executable specification; and
+\S\S\ref{sec:eval}--\ref{sec:limits} our observations and the road from
+existence checking to semantic verification.

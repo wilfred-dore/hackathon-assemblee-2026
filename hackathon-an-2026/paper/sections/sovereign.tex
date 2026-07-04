@@ -1,0 +1,74 @@
+\section{Hardware-Sovereign Serving}
+\label{sec:sovereign}
+
+Serving an open-weight LLM is, in practice, often equivalent to depending on a
+single vendor's software stack (CUDA/NVIDIA). For a system whose remit is
+\emph{national law}, that coupling is itself a sovereignty risk: the guarantee
+we make to citizens should not rest on the continued goodwill or export policy
+of one foreign supplier. We therefore treat the serving substrate as
+replaceable.
+
+\subsection{A thin, replaceable indirection}
+Our serving layer is a thin \emph{OpenAI-compatible} indirection. Switching
+silicon means changing three environment variables---\texttt{LLM\_BASE\_URL},
+\texttt{LLM\_API\_KEY}, \texttt{LLM\_MODEL}---while the pipeline, the verifier,
+the service, and the tests are all unchanged. Because the trust guarantee lives
+in the verification layer and not in the model, the model becomes a commodity
+that can be sourced from whatever accelerator is available and appropriate.
+
+\subsection{What runs where, honestly}
+Table~\ref{tab:backends} states, without embellishment, what runs where. We
+demonstrate the full pipeline \emph{live} on a Qualcomm Cloud~AI~100 inference
+accelerator~\cite{qualcommcloudai100} serving Llama-3.1-8B---dedicated
+inference silicon whose value proposition is operations-per-watt rather than
+raw training throughput. We target AMD Instinct through a portable inference
+runtime~\cite{modularmax2024} that already supports it; European accelerators
+are stated as \emph{vision}, not measurement. We report real latency and
+tokens/s from the live backend, and we deliberately do \emph{not} print a
+fabricated energy figure: we claim only the qualitative, well-founded point
+that dedicated inference silicon is engineered for high throughput-per-watt,
+and we defer a measured perf/watt study to future work (\S\ref{sec:limits}).
+
+\begin{table}[t]
+\centering
+\caption{Serving backends and honest status. The pipeline is identical across
+rows; only the OpenAI-compatible endpoint changes.}
+\label{tab:backends}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Backend & Silicon & Status \\
+\midrule
+Qualcomm Cloud AI 100 & Qualcomm & \textbf{live, proven} \\
+Modular MAX & AMD Instinct & target (runtime supports it) \\
+Modular MAX & NVIDIA & backward compatibility \\
+Self-hosted (open weights) & NVIDIA (cloud) & fallback \\
+VSora / Axelera & EU/FR & vision (no access) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The OpenAI-compatible contract}
+The indirection speaks the OpenAI chat-completions API---\texttt{POST
+/v1/chat/completions}, bearer authentication, optional server-sent-event
+streaming---now a lingua franca implemented by most serving stacks, including
+the portable runtime we target for AMD. Concretely, three environment variables
+select the backend, and \emph{nothing else} in the codebase is hardware-aware:
+
+\begin{lstlisting}[style=lr]
+# Qualcomm Cloud AI 100 (live)
+LLM_BASE_URL = https://.../v1
+LLM_API_KEY  = ***
+LLM_MODEL    = llama-3.1-8b
+# to move to AMD via a portable runtime,
+# change these three lines only.
+\end{lstlisting}
+
+\subsection{Frugality as a design value}
+At national scale, throughput-per-watt is not a vanity metric but a cost and
+sustainability constraint. Dedicated inference silicon---engineered for serving
+rather than repurposed from training---targets exactly this regime, which is
+why we prioritize it. We surface a frugality panel in the public demonstration
+(\S\ref{sec:demo}); consistent with our stance on honesty, we present it as an
+architectural argument and defer a \emph{measured} perf/watt number until we
+can produce one under controlled conditions (\S\ref{sec:limits}).

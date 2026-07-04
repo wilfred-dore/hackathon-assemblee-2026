@@ -1,0 +1,98 @@
+\section{Background and Problem}
+\label{sec:background}
+
+\subsection{French legal open data}
+French statutory law is published as open data by the DILA (\emph{Direction de
+l'information légale et administrative}) through
+Légifrance~\cite{legifrance}. The corpus is vast---dozens of codes, each with
+thousands of articles, alongside decrees, ordinances, and case law---and,
+crucially, it is \emph{living}: articles are created, amended, and repealed
+continuously, and every change produces a new version while prior versions are
+retained for the historical record. Our verification target is \emph{Canutes},
+a PostgreSQL corpus mirroring this data. Two structural properties dominate the
+engineering.
+
+\paragraph{The schema is large and irregular.}
+Canutes contains on the order of $253$ tables with terse, historically
+accreted names, and identifiers follow Légifrance's own conventions
+(\texttt{LEGITEXT\ldots} for a text, \texttt{LEGIARTI\ldots} for an article
+version, \texttt{LEGISCTA\ldots} for a section). A public
+PostgREST~\cite{postgrest} endpoint exposes only three of these
+tables---enough to browse, not to verify. Sound verification needs
+schema-aware access to the full article table rather than the sanitized public
+view, and cannot assume a clean star schema or documented foreign keys.
+
+\paragraph{Articles are versioned and stateful.}
+The same numbered article---say \emph{L.\,3121-27}---appears as \emph{several
+rows}, one per historical version, each carrying a state
+(\texttt{étatArticle}) such as \texttt{VIGUEUR} (in force), \texttt{ABROGE}
+(repealed), or \texttt{MODIFIE} (superseded), and a validity interval
+(\texttt{dateDebut}, \texttt{dateFin}). For a citizen's question only the
+\texttt{VIGUEUR} version is authoritative: presenting a repealed version as
+current is itself a form of hallucination, even though the article ``exists''.
+Verification must therefore be \emph{state-aware}, not a bare existence lookup.
+
+\subsection{A taxonomy of citation errors}
+\label{sec:taxonomy}
+Stating the problem precisely clarifies what a verifier must catch.
+Table~\ref{tab:taxonomy} distinguishes four failure modes by \emph{where} a
+citation departs from ground truth. A state-aware existence check---our
+contribution---catches the first three cleanly; the fourth (real, in force, but
+semantically off-topic) is the hard case that motivates our roadmap
+(\S\ref{sec:limits}).
+
+\begin{table}[t]
+\centering
+\caption{A taxonomy of legal citation errors. A state-aware existence check
+catches \textbf{E1--E3}; \textbf{E4} requires semantic verification.}
+\label{tab:taxonomy}
+\small
+\begin{tabular}{@{}clc@{}}
+\toprule
+Type & Failure mode & Caught by existence? \\
+\midrule
+E1 & Article number does not exist & yes \\
+E2 & Exists, but attributed to the wrong code & yes \\
+E3 & Exists, but repealed (state $\neq$ \texttt{VIGUEUR}) & yes \\
+E4 & Exists, in force, but off-topic & \emph{no} (semantic) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Why not RAG alone}
+Retrieval-augmented generation~\cite{lewis2020rag, gao2023ragsurvey} conditions
+the model on retrieved passages and measurably improves faithfulness, and dense
+retrievers~\cite{karpukhin2020dpr} make such conditioning practical at scale.
+But RAG shifts the error distribution without bounding it: a model can
+paraphrase a correctly retrieved passage into a wrong number (E1), substitute a
+neighbouring article, or attribute the right text to the wrong code (E2).
+Self-consistency methods such as SelfCheckGPT~\cite{manakul2023selfcheckgpt}
+sample the model against itself, but a confidently wrong citation is frequently
+\emph{self-consistent} and thus invisible to them. Our position is that
+grounding and \emph{post-hoc verification against an external source of truth}
+are complementary: grounding improves the draft in expectation; verification
+provides a per-citation guarantee. This paper focuses on the guarantee and
+treats the model as an untrusted component.
+
+\subsection{Anatomy of an article record}
+In Canutes each article version is, in essence, a row $\langle \texttt{id},
+\texttt{num}, \texttt{data} \rangle$ whose \texttt{data} payload (JSON)
+carries both metadata and text: the state (\texttt{VIGUEUR}, \texttt{ABROGE},
+\ldots), the validity interval, the article's textual content, and a reference
+to the parent text (\texttt{LEGITEXT}) that identifies the \emph{code}. One
+consequence matters for verification: the code name lives \emph{inside} the
+JSON payload rather than in a normalized, indexed column, so disambiguating
+\emph{which} code an article belongs to is a text match against the payload
+rather than a foreign-key join---directly motivating the two-stage filter of
+\S\ref{sec:verify}.
+
+\subsection{Threat model}
+We separate \emph{benign} error---a fluent model confidently misremembering,
+the dominant source of legal misinformation reaching ordinary citizens---from
+\emph{adversarial} manipulation. Le Rapporteur is designed against benign
+error and is robust to it \emph{by construction}: no sampling of the model can
+make the verifier accept a non-existent or repealed article, because acceptance
+is decided by the database, not the model. We do \emph{not} claim robustness
+against an adversary who controls the legal database or the retrieval channel;
+those---the database and the verifier code---constitute the trusted base
+(\S\ref{sec:overview}).

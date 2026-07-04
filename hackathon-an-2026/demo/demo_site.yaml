@@ -1,0 +1,111 @@
+# Démo du site « Le Rapporteur » générée par DemoDSL.
+# Lancer :  ../.demodsl/bin/demodsl run demo_site.yaml
+# Valider : ../.demodsl/bin/demodsl validate demo_site.yaml
+metadata:
+  title: "Le Rapporteur — visite guidée"
+  description: "IA juridique de confiance et souveraine — démo du site public"
+  version: "1.0.0"
+
+voice:
+  engine: "gtts"
+  voice_id: "fr"
+
+subtitle:
+  enabled: true
+  style: "classic"
+  position: "bottom"
+  max_words_per_line: 7
+
+scenarios:
+  - name: "Visite guidée"
+    url: "https://wilfred-dore.github.io/hackathon-assemblee-2026/"
+    browser: "chrome"
+    viewport:
+      width: 1280
+      height: 720
+    avatar:
+      enabled: true
+      provider: "animated"
+      image: "avatar_rapporteur.png"
+      style: "bounce"
+      position: "bottom-right"
+      size: 140
+      shape: "circle"
+    steps:
+      - action: navigate
+        url: "https://wilfred-dore.github.io/hackathon-assemblee-2026/"
+        narration: "Le Rapporteur : une intelligence artificielle juridique, de confiance et souveraine."
+        wait: 1.5
+        effects:
+          - type: fade_in
+            duration: 2.0
+
+      - action: scroll
+        direction: down
+        pixels: 380
+        narration: "Il ne cite que du droit vérifié dans les sources officielles. Sinon, il refuse plutôt que d'inventer. Et il fonctionne sans dépendre de NVIDIA."
+        wait: 1.0
+
+      - action: navigate
+        url: "https://wilfred-dore.github.io/hackathon-assemblee-2026/demo.html"
+        narration: "Posons une vraie question de droit."
+        wait: 1.0
+
+      - action: click
+        locator:
+          type: text
+          value: "Quelle est la durée légale du travail ?"
+        narration: "Le modèle répond, et chaque article cité est vérifié dans les sources : ici l'article L. 3121-27, avec son lien Légifrance."
+        wait: 3.0
+        effects:
+          - type: highlight
+            duration: 2.5
+
+      - action: click
+        locator:
+          type: text
+          value: "Ai-je droit à la prime de Noël ?"
+        narration: "Ici, le modèle invente un article. Le Rapporteur le détecte et refuse : zéro citation inventée."
+        wait: 3.0
+        effects:
+          - type: glow
+            duration: 2.5
+
+      - action: navigate
+        url: "https://wilfred-dore.github.io/hackathon-assemblee-2026/sources.html"
+        narration: "On peut aussi consulter le texte de loi à la source."
+        wait: 1.0
+
+      - action: wait_for
+        locator:
+          type: css
+          value: ".article-list button"
+        timeout: 8.0
+
+      - action: click
+        locator:
+          type: text
+          value: "Article 9 · Code civil"
+        narration: "Le texte s'affiche verbatim, tel que publié sur Légifrance : aucune reformulation par l'IA."
+        wait: 2.5
+        effects:
+          - type: spotlight
+            duration: 2.5
+
+      - action: navigate
+        url: "https://wilfred-dore.github.io/hackathon-assemblee-2026/presentation/"
+        narration: "Et voici le pitch complet : le problème, les garanties, la souveraineté matérielle."
+        wait: 2.5
+
+pipeline:
+  - generate_narration: {}
+  - edit_video: {}
+  - mix_audio: {}
+  - burn_subtitles: {}
+  - composite_avatar: {}
+  - optimize:
+      format: "mp4"
+
+output:
+  filename: "rapporteur_demo.mp4"
+  directory: "output/"

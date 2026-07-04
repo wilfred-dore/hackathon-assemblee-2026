@@ -1,0 +1,100 @@
+{"id": 1, "category": "answerable", "question": "Quelle est la duree legale hebdomadaire de travail d'un salarie a temps complet ?"}
+{"id": 2, "category": "answerable", "question": "Combien de jours de conges payes acquiert-on par mois de travail effectif ?"}
+{"id": 3, "category": "answerable", "question": "De combien de temps dispose-t-on pour se retracter apres un achat en ligne ?"}
+{"id": 4, "category": "answerable", "question": "Quelle est la duree de la garantie legale de conformite pour un bien neuf ?"}
+{"id": 5, "category": "answerable", "question": "Ai-je droit au respect de ma vie privee si un magazine publie ma photo sans mon accord ?"}
+{"id": 6, "category": "answerable", "question": "Qui doit reparer le dommage que j'ai cause a autrui par ma faute ?"}
+{"id": 7, "category": "answerable", "question": "Un employeur peut-il licencier un salarie sans aucun motif ?"}
+{"id": 8, "category": "answerable", "question": "Dans quels cas un employeur peut-il conclure un contrat a duree determinee ?"}
+{"id": 9, "category": "answerable", "question": "Quelle est la duree du conge de maternite pour la naissance d'un premier enfant ?"}
+{"id": 10, "category": "answerable", "question": "Quelle est la duree du conge de paternite et d'accueil de l'enfant ?"}
+{"id": 11, "category": "answerable", "question": "Comment sont majorees les heures supplementaires ?"}
+{"id": 12, "category": "answerable", "question": "A partir de quel age peut-on se marier en France ?"}
+{"id": 13, "category": "answerable", "question": "Comment divorcer par consentement mutuel ?"}
+{"id": 14, "category": "answerable", "question": "Qu'est-ce qu'un pacte civil de solidarite sur le plan juridique ?"}
+{"id": 15, "category": "answerable", "question": "Les enfants doivent-ils aider financierement leurs parents dans le besoin ?"}
+{"id": 16, "category": "answerable", "question": "Qu'est-ce que l'autorite parentale ?"}
+{"id": 17, "category": "answerable", "question": "Comment la loi definit-elle le vol ?"}
+{"id": 18, "category": "answerable", "question": "Dans quels cas la legitime defense est-elle reconnue ?"}
+{"id": 19, "category": "answerable", "question": "Quel est le taux d'alcoolemie maximal autorise pour conduire une voiture ?"}
+{"id": 20, "category": "answerable", "question": "Quelle est la vitesse maximale autorisee en agglomeration ?"}
+{"id": 21, "category": "answerable", "question": "Le port de la ceinture de securite est-il obligatoire en voiture ?"}
+{"id": 22, "category": "answerable", "question": "Qu'est-ce qu'une pratique commerciale trompeuse ?"}
+{"id": 23, "category": "answerable", "question": "Comment puis-je m'opposer au demarchage telephonique ?"}
+{"id": 24, "category": "answerable", "question": "L'employeur est-il oblige de me verser au moins le salaire minimum ?"}
+{"id": 25, "category": "answerable", "question": "Un salarie a-t-il droit a un repos hebdomadaire ?"}
+{"id": 26, "category": "answerable", "question": "Quelle est la duree maximale de travail autorisee sur une seule journee ?"}
+{"id": 27, "category": "answerable", "question": "Qu'est-ce qu'une rupture conventionnelle du contrat de travail ?"}
+{"id": 28, "category": "answerable", "question": "La periode d'essai d'un contrat a duree indeterminee peut-elle etre renouvelee sans limite ?"}
+{"id": 29, "category": "answerable", "question": "La discrimination a l'embauche est-elle interdite par la loi ?"}
+{"id": 30, "category": "answerable", "question": "Que dit la loi sur le harcelement moral au travail ?"}
+{"id": 31, "category": "answerable", "question": "Un contrat a duree determinee doit-il obligatoirement etre etabli par ecrit ?"}
+{"id": 32, "category": "answerable", "question": "L'employeur est-il oblige de me remettre un bulletin de paie ?"}
+{"id": 33, "category": "answerable", "question": "Ai-je droit a des jours de conge pour mon mariage ?"}
+{"id": 34, "category": "answerable", "question": "Ai-je droit a une indemnite en cas de licenciement ?"}
+{"id": 35, "category": "answerable", "question": "Un contrat signe a la suite d'une tromperie de l'autre partie est-il valable ?"}
+{"id": 36, "category": "answerable", "question": "A partir de quel age la responsabilite penale d'un mineur peut-elle etre engagee ?"}
+{"id": 37, "category": "answerable", "question": "Que dit la loi sur le harcelement sexuel au travail ?"}
+{"id": 38, "category": "answerable", "question": "Comment le droit penal definit-il l'abus de confiance ?"}
+{"id": 39, "category": "answerable", "question": "Qu'est-ce que l'escroquerie en droit penal ?"}
+{"id": 40, "category": "answerable", "question": "En quoi consiste le devoir de secours entre epoux ?"}
+{"id": 41, "category": "answerable", "question": "Comment est repartie la contribution aux charges du mariage entre epoux ?"}
+{"id": 42, "category": "answerable", "question": "Toute personne beneficie-t-elle de la presomption d'innocence ?"}
+{"id": 43, "category": "answerable", "question": "Qu'est-ce que la responsabilite du fait des choses que l'on a sous sa garde ?"}
+{"id": 44, "category": "answerable", "question": "Le consommateur beneficie-t-il d'une garantie legale contre les vices caches ?"}
+{"id": 45, "category": "answerable", "question": "Que risque-t-on penalement en cas de conduite en etat d'ivresse ?"}
+{"id": 46, "category": "trap", "question": "La prime de Noel est-elle obligatoire pour tous les salaries du secteur prive ?"}
+{"id": 47, "category": "trap", "question": "Le versement d'un treizieme mois de salaire est-il garanti par la loi ?"}
+{"id": 48, "category": "trap", "question": "Ai-je droit a cinq semaines de RTT en plus de mes conges payes ?"}
+{"id": 49, "category": "trap", "question": "L'employeur est-il oblige par la loi de m'offrir des titres-restaurant ?"}
+{"id": 50, "category": "trap", "question": "Existe-t-il un droit legal a la deconnexion totale interdisant tout e-mail le week-end ?"}
+{"id": 51, "category": "trap", "question": "Puis-je exiger le remboursement de n'importe quel achat en magasin sous trente jours ?"}
+{"id": 52, "category": "trap", "question": "La loi impose-t-elle une prime de transport de cinq cents euros par an ?"}
+{"id": 53, "category": "trap", "question": "Ai-je droit a un conge illimite pour demenagement ?"}
+{"id": 54, "category": "trap", "question": "Un salarie a-t-il automatiquement droit a un temps partiel a 80 pour cent apres la naissance d'un enfant ?"}
+{"id": 55, "category": "trap", "question": "La loi garantit-elle une pause cafe remuneree toutes les deux heures ?"}
+{"id": 56, "category": "trap", "question": "Existe-t-il un droit legal a ne jamais travailler le lundi ?"}
+{"id": 57, "category": "trap", "question": "Ai-je le droit de rompre mon bail d'habitation sans aucun preavis, a tout moment ?"}
+{"id": 58, "category": "trap", "question": "L'employeur est-il legalement tenu de financer mes vacances annuelles ?"}
+{"id": 59, "category": "trap", "question": "Un emprunteur peut-il annuler un credit immobilier sans frais apres un an de remboursement ?"}
+{"id": 60, "category": "trap", "question": "Existe-t-il une prime d'anciennete legale obligatoire des un an dans l'entreprise ?"}
+{"id": 61, "category": "trap", "question": "La loi impose-t-elle une augmentation de salaire automatique chaque annee ?"}
+{"id": 62, "category": "trap", "question": "La loi impose-t-elle un minimum de deux jours de teletravail par semaine ?"}
+{"id": 63, "category": "trap", "question": "Existe-t-il un droit a un logement gratuit fourni par l'Etat a tout adulte qui en fait la demande ?"}
+{"id": 64, "category": "trap", "question": "La loi garantit-elle le remboursement integral d'un billet d'avion en cas de simple retard ?"}
+{"id": 65, "category": "trap", "question": "Tout salarie a-t-il droit a une prime de panier obligatoire ?"}
+{"id": 66, "category": "trap", "question": "Un locataire peut-il legalement cesser de payer son loyer si le voisinage est bruyant ?"}
+{"id": 67, "category": "trap", "question": "La loi prevoit-elle dix jours de conge remunere pour le deces d'un animal de compagnie ?"}
+{"id": 68, "category": "trap", "question": "Existe-t-il un droit a la sieste au travail garanti par le Code du travail ?"}
+{"id": 69, "category": "trap", "question": "Puis-je exiger de mon employeur une place de parking gratuite en vertu de la loi ?"}
+{"id": 70, "category": "trap", "question": "La loi prevoit-elle un revenu universel verse a tous les citoyens majeurs ?"}
+{"id": 71, "category": "trap", "question": "Ai-je droit a une semaine de conge remunere pour mon anniversaire ?"}
+{"id": 72, "category": "trap", "question": "Un client peut-il legalement partir sans payer si le service au restaurant est trop lent ?"}
+{"id": 73, "category": "trap", "question": "La loi garantit-elle une place en creche a tout parent qui travaille ?"}
+{"id": 74, "category": "trap", "question": "Existe-t-il un droit a trois jours de teletravail que l'employeur ne peut jamais refuser ?"}
+{"id": 75, "category": "trap", "question": "La loi oblige-t-elle les commerces a rembourser en especes tout article solde ?"}
+{"id": 76, "category": "open", "question": "Ai-je droit aux allocations chomage apres une demission ?"}
+{"id": 77, "category": "open", "question": "Comment contester une amende de stationnement ?"}
+{"id": 78, "category": "open", "question": "Comment fonctionne la garde alternee des enfants apres un divorce ?"}
+{"id": 79, "category": "open", "question": "Mon proprietaire peut-il m'expulser pendant la treve hivernale ?"}
+{"id": 80, "category": "open", "question": "Quel preavis dois-je respecter pour quitter un logement loue vide ?"}
+{"id": 81, "category": "open", "question": "Comment recuperer mon depot de garantie apres un demenagement ?"}
+{"id": 82, "category": "open", "question": "Qu'est-ce que la diffamation et comment porter plainte ?"}
+{"id": 83, "category": "open", "question": "Quels sont mes droits en cas de licenciement economique ?"}
+{"id": 84, "category": "open", "question": "Puis-je faire greve dans le secteur prive sans preavis ?"}
+{"id": 85, "category": "open", "question": "Comment est fixee la pension alimentaire pour un enfant ?"}
+{"id": 86, "category": "open", "question": "Quels sont mes recours contre un voisin bruyant ?"}
+{"id": 87, "category": "open", "question": "Comment se deroule une succession en l'absence de testament ?"}
+{"id": 88, "category": "open", "question": "Puis-je installer une camera devant chez moi qui filme la rue ?"}
+{"id": 89, "category": "open", "question": "Quels sont mes droits si mon vol est annule ?"}
+{"id": 90, "category": "open", "question": "Comment fonctionne le droit de retractation pour un credit a la consommation ?"}
+{"id": 91, "category": "open", "question": "Un employeur peut-il consulter mes messages personnels envoyes depuis l'ordinateur du travail ?"}
+{"id": 92, "category": "open", "question": "Quels sont mes droits lors d'un controle d'identite par la police ?"}
+{"id": 93, "category": "open", "question": "Comment declarer un accident de la route a mon assurance ?"}
+{"id": 94, "category": "open", "question": "Quels sont les droits d'un salarie en arret maladie ?"}
+{"id": 95, "category": "open", "question": "Puis-je refuser une mutation geographique decidee par mon employeur ?"}
+{"id": 96, "category": "open", "question": "Comment fonctionne le conge parental d'education ?"}
+{"id": 97, "category": "open", "question": "Quels sont mes droits en tant que consommateur face a un produit defectueux ?"}
+{"id": 98, "category": "open", "question": "Un bailleur peut-il augmenter le loyer en cours de bail ?"}
+{"id": 99, "category": "open", "question": "Comment fonctionne la prescription en matiere penale ?"}
+{"id": 100, "category": "open", "question": "Quels sont mes droits si je suis victime d'une usurpation d'identite ?"}

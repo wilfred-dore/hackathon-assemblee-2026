@@ -1,0 +1,87 @@
+\section{Evaluation on 100 Citizen Questions}
+\label{sec:eval}
+
+\evalModeBanner
+
+We evaluate the fail-closed contract on a suite of \evalN real French
+citizen legal questions, stratified into three buckets: \emph{answerable}
+(\evalAnswerableN questions for which a well-known in-force code article
+applies), \emph{trap} (\evalTrapN questions phrased to elicit a
+plausible-but-nonexistent right or article), and \emph{open} (\evalOpenN broad
+or multi-source questions). Every question is run through the \emph{identical}
+pipeline (backend \evalBackend, model \evalModel; verifier \evalVerifier). All
+figures below are generated directly from that run
+(\texttt{tools/bench\_eval.py} $\to$ \texttt{metrics.tex}); the
+database is the sole source of truth for whether a cited article exists and is
+in force.
+
+\paragraph{The invariant holds end-to-end.}
+Across \evalGraded graded questions, \evalLeak citations were surfaced to the
+user as \emph{verified} while failing to resolve to an in-force article. In
+other words, the ``no verifiable source, no answer'' contract was never
+violated: of the \evalCitTotal citations the model emitted, the \evalCitVerified
+that resolved in the database were the only ones ever presented as sourced, and
+each of the \evalCitFailed unresolved citations forced a refusal instead of a
+fabrication.
+
+\paragraph{The guard fires in the wild.}
+\evalGuardFired questions were refused \emph{because} at least one cited article
+failed verification, catching \evalDistinctInvented distinct non-resolvable
+article numbers---exactly the confident fabrications a fluent model produces.
+Overall the system refused \evalRefusalRate of questions. On the trap bucket it
+correctly refused \evalTrapRefused/\evalTrapN (\evalTrapRate); on the answerable
+bucket it returned a database-verified answer for
+\evalAnswerableAnswered/\evalAnswerableN (\evalAnswerableRate).
+
+\paragraph{Refusal is bounded by coverage, not only fluency.}
+The answerable-bucket gap is a \emph{systems} result as much as a model one: a
+refusal also fires when the model cites the correct rule in a form the verifier
+cannot resolve (a numbering variant, or an article outside the mirrored
+sub-corpus). Answer rate is therefore lower-bounded by corpus coverage and
+citation normalisation, not by generation quality alone---the direction of
+future work in Section~\ref{sec:limits}. Per-citation checks ran at interactive
+latency (median \evalLatMedian\,s, p95 \evalLatPToNine\,s end-to-end;
+\evalTokps~tok/s) over the 253-table corpus without full-table scans
+(Section~\ref{sec:verify}).
+
+\begin{table}[t]
+\centering
+\caption{Le Rapporteur on \evalN citizen questions (mode \evalMode, backend
+\evalBackend, \evalDate). Generated from the run; the fail-closed contract
+surfaced \evalLeak fabricated citation as verified.}
+\label{tab:eval}
+\small
+\begin{tabular}{@{}lr@{}}
+\toprule
+Metric & Value \\
+\midrule
+Questions ($n$) & \evalN \\
+\quad answerable / trap / open & \evalAnswerableN\,/\,\evalTrapN\,/\,\evalOpenN \\
+\midrule
+Fabrications surfaced as verified & \textbf{\evalLeak} \\
+Refusals triggered by a bad citation & \evalGuardFired \\
+Distinct fabricated articles caught & \evalDistinctInvented \\
+Citations verified / total & \evalCitVerified\,/\,\evalCitTotal \\
+\midrule
+Overall refusal rate & \evalRefusalRate \\
+Trap correctly refused & \evalTrapRefused/\evalTrapN\ (\evalTrapRate) \\
+Answerable database-verified & \evalAnswerableAnswered/\evalAnswerableN\ (\evalAnswerableRate) \\
+\midrule
+Latency median / p95 & \evalLatMedian\,s\,/\,\evalLatPToNine\,s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Two representative cases.}
+Beyond the aggregates, both the power \emph{and} the boundary of existence
+checking appear directly. When the model invents a non-existent
+authority---the ``Christmas bonus'' $\to$ \emph{article L.\,4321-7} (type~E1,
+\S\ref{sec:taxonomy})---the verifier resolves it to \texttt{exists=false} and
+the system refuses rather than fabricate: precisely the error class a fluent
+model produces and a database check catches. When instead, asked for the legal
+working week, the model answers \emph{article L.\,3132-2}---which exists and is
+in force, but governs weekly \emph{rest}---rather than the correct
+\emph{L.\,3121-27}, the citation is a type-E4 error: real, in force, yet
+off-topic. An existence check alone does \emph{not} catch it, and we do not
+claim it does; it marks exactly the boundary between the guarantee we provide
+today and the semantic guarantee of Section~\ref{sec:limits}.

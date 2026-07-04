@@ -1,0 +1,12 @@
+# Artefacts de compilation LaTeX (garder seulement .tex + .bib)
+*.pdf
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.bcf
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.synctex.gz
