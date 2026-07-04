@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
+
+\title{\textbf{Fictions juridiques à la française}\\[2mm]
+\large Mesurer et neutraliser l'hallucination de citations d'articles\\
+dans les assistants juridiques grand public}
+
+\author{François Amat \and Wilfred Doré\\[1mm]
+\small Hackathon Assemblée nationale 2026 --- \og IA de confiance \fg{}}
+
+\date{Juillet 2026 --- \emph{draft préliminaire}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Les assistants à base de grands modèles de langage (LLM) citent des articles de loi
+avec aplomb, parfois inexistants ou hors-sujet. Sur le droit américain, ce risque est
+désormais documenté ; sur le \textbf{droit français}, aucun benchmark public ne mesure
+spécifiquement l'\textbf{hallucination de citation d'articles} pour des \textbf{questions
+citoyennes}. Nous proposons un benchmark ancré sur \textbf{Canutes/Légifrance} comme
+vérité-terrain, mesurons le taux d'hallucination d'un panel de modèles (frontier,
+souverain français, petit modèle exécuté localement), et montrons qu'une \textbf{couche
+de vérification déterministe \og fail-closed \fg{}} ramène l'hallucination \emph{présentée}
+à zéro, quel que soit le modèle sous-jacent. Nous formalisons cette couche comme des
+\textbf{garanties exécutables} : une source de vérité unique, partagée entre le code
+d'exécution, les tests et l'interface. Un résultat pilote ($n=12$) fait apparaître un
+\emph{paradoxe frugalité/souveraineté} : le modèle que l'on choisirait pour une
+inférence locale et souveraine est aussi celui qui hallucine le plus, ce qui rend la
+vérification non pas optionnelle mais constitutive de la confiance.
+\end{abstract}
+
+\section{Introduction}
+L'accès des citoyens au droit est un enjeu démocratique. Un assistant qui répond \og
+la durée légale du travail est fixée par l'article X \fg{} n'est utile que si l'article
+X existe et dit bien cela. Or un numéro d'article faux n'est pas une imprécision
+bénigne : il envoie le citoyen vers une norme qui ne le concerne pas. La littérature
+récente rapporte des taux d'hallucination de citations juridiques de l'ordre de
+58 à 88\,\% selon les tâches~\cite{stanford2025,sqmag2026}.
+
+Nous distinguons trois niveaux d'intervention, unifiés par une couche de confiance :
+le \textbf{modèle} (quel LLM, à quel taux d'erreur), le \textbf{moteur d'inférence}
+(portabilité, souveraineté logicielle) et le \textbf{silicium} (frugalité, souveraineté
+matérielle). Nos contributions :
+\begin{enumerate}
+  \item un \textbf{benchmark français} de citation d'articles ancré sur Canutes/Légifrance ;
+  \item une \textbf{mesure comparative} frontier vs souverain français vs petit modèle local ;
+  \item une \textbf{couche de vérification} et des \textbf{garanties exécutables} ramenant
+        l'hallucination présentée à $\approx 0$, et son évaluation.
+\end{enumerate}
+
+\section{Travaux liés}
+\textbf{Hallucinations juridiques (US).} Magesh, Surani, Dahl \emph{et al.} documentent
+les hallucinations des systèmes RAG juridiques sur le droit américain~\cite{stanford2025}.
+Nous nous positionnons comme le pendant \emph{français} et \emph{grand public}.
+\textbf{Détection de citations.} \emph{Who Checks the Citations?}~\cite{whochecks2026} et
+\emph{LegalCiteBench}~\cite{legalcite2026} évaluent la détection/vérification de citations,
+principalement en anglais. \textbf{Droit français.} La détection de citations implicites
+du Code civil dans les décisions de justice via Judilibre~\cite{frimplicit2026} traite
+d'une tâche différente : \emph{détecter} des citations dans des \emph{décisions}, non
+\emph{mesurer l'hallucination générative} sur des \emph{questions citoyennes} ancrées sur
+les \emph{codes}. \textbf{Benchmarks généraux.} LegalBench (US) et LEXTREME (UE)~\cite{lextreme}
+ne comportent pas de tâche dédiée à la citation d'article en droit français grand public.
+\textbf{Écart.} À notre connaissance, aucun travail ne mesure l'hallucination de citation
+d'article pour des questions citoyennes en droit français avec Canutes/Légifrance comme
+vérité-terrain, ni n'évalue une couche de vérification \og fail-closed \fg{} par-dessus.
+
+\section{Méthode}
+\subsection{Construction du benchmark}
+Chaque item associe une \textbf{question citoyenne} à un ou plusieurs \textbf{articles de
+référence}. La vérité-terrain est fournie par \textbf{Canutes} (table
+\texttt{legifrance.article}, statut \textsc{vigueur}, identifiant \textsc{legiarti}),
+ce qui rend la construction automatisable à grande échelle. Métriques : proportions de
+réponses \emph{correcte} / \emph{hallucination} (citation erronée) / \emph{sans citation},
+avec un score \emph{exact-match} sur le couple (code, numéro). Un numéro proche mais faux
+(p.\,ex. 413-3 pour 414) compte comme hallucination : suivre le mauvais article induit
+le citoyen en erreur.
+
+\subsection{Pipeline de vérification (fail-closed)}
+\[
+\text{question} \rightarrow \text{génération} \rightarrow \text{extraction}
+\rightarrow \text{vérification Canutes} \rightarrow \text{réponse sourcée ou refus}.
+\]
+On ne présente que ce qui est vérifié ; en cas de doute, on refuse plutôt que d'inventer.
+
+\subsection{Garanties exécutables}
+Les invariants de confiance (zéro citation inventée présentée ; refus si aucune source
+vérifiable ; chaque citation renvoie à Légifrance) sont encodés dans une \textbf{fonction
+unique} utilisée au \textbf{runtime}, dans les \textbf{tests BDD/Gherkin} et dans
+l'\textbf{interface}. La confiance ne se décrète pas : elle s'exécute et se teste.
+
+\section{Résultats préliminaires}
+Étude pilote : $n=12$ questions de droit du travail, civil, pénal et de la consommation,
+vérité-terrain hand-curée (à re-vérifier systématiquement dans Canutes). Un seul run,
+température $0{,}2$. Panel interrogé via une API OpenAI-compatible et un modèle local
+(Ollama, Mistral 7B, sur MacBook M2 Pro).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lc}
+\toprule
+\textbf{Modèle} & \textbf{Citation correcte} \\
+\midrule
+claude-sonnet-4-5 & 12/12 (100\,\%) \\
+mistral-large-3 (souverain FR) & 12/12 (100\,\%) \\
+mistral-small-24B & 11/12 (92\,\%) \\
+gpt-4o & 10/12 (83\,\%) \\
+gemini-2.5-flash & 10/12 (83\,\%) \\
+mistral 7B (local, Ollama) & 2/12 (17\,\%) \\
+\midrule
+\textbf{Le Rapporteur (LLM + vérification)} & \textbf{0\,\% d'hallucination présentée} \\
+\bottomrule
+\end{tabular}
+\caption{Taux de citation correcte par modèle (pilote, $n=12$).}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/hallucination_rates.png}
+\caption{Répartition correcte / hallucination / sans citation par modèle, et effet de la
+couche de vérification (hallucination présentée nulle).}
+\end{figure}
+
+Trois lectures : (i) même les modèles frontier hallucinent le droit français ; (ii) le
+modèle souverain français est compétitif avec le meilleur du panel ; (iii) \textbf{paradoxe
+frugalité/souveraineté} : le petit modèle exécuté localement, idéal pour une inférence
+souveraine et frugale, hallucine le plus (10/12). La vérification est donc \emph{ce qui
+rend} une IA juridique locale digne de confiance.
+
+\section{Discussion : souveraineté et frugalité}
+La couche de vérification étant \emph{model-agnostique}, elle autorise des choix
+souverains à chaque niveau : moteur portable (le même code d'inférence vise NVIDIA, AMD,
+Apple Silicon) et silicium non-NVIDIA (accélérateurs d'inférence dédiés). La frugalité de
+ces accélérateurs est documentée par ailleurs~\cite{ucsd2026}, tout comme la portabilité
+des moteurs modernes~\cite{mojo2026}. Le message tient en une phrase : \emph{on ne fait
+confiance à aucun modèle, on vérifie} --- ce qui débloque précisément les déploiements
+frugaux et locaux.
+
+\section{Limites et travaux futurs}
+$n=12$, vérité-terrain hand-curée, un seul run : il faut \textbf{élargir à $n\geq 100$}
+ancré sur Canutes, plusieurs exécutions, intervalles de confiance, versions de modèles
+figées. Étendre au-delà de la citation exacte (validité temporelle, abrogations, renvois).
+Un comparatif matériel \emph{apples-to-apples} (même modèle sur NVIDIA / AMD / Qualcomm en
+serveur, Apple Silicon / Snapdragon X Elite en bureau) reste à mener.
+
+\section{Conclusion}
+Nous esquissons le premier benchmark d'hallucination de citations d'articles pour le droit
+français grand public, et montrons qu'une vérification déterministe fail-closed, exprimée
+comme des garanties exécutables, ramène l'hallucination présentée à zéro. Le résultat le
+plus contre-intuitif --- les modèles les plus souhaitables pour la souveraineté frugale
+sont les plus faillibles --- fait de la vérification une brique constitutive, non
+accessoire, d'une IA juridique de confiance.
+
+\begin{thebibliography}{9}
+\small
+\bibitem{stanford2025} V.~Magesh, F.~Surani, M.~Dahl \emph{et al.},
+\emph{Hallucination-Free? Assessing the Reliability of Leading AI Legal Research Tools},
+Journal of Empirical Legal Studies, 2025.
+\bibitem{whochecks2026} \emph{Who Checks the Citations? Benchmarking Legal Hallucination
+Detection}, arXiv:2606.21155, 2026.
+\bibitem{legalcite2026} \emph{LegalCiteBench: Evaluating Citation Reliability in Legal
+Language Models}, arXiv:2605.10186, 2026.
+\bibitem{frimplicit2026} \emph{Detecting Implicit Legal Citations in French Court
+Decisions}, arXiv:2603.22973, 2026.
+\bibitem{lextreme} J.~Niklaus \emph{et al.}, \emph{LEXTREME: A Multi-Lingual and
+Multi-Task Benchmark for the Legal Domain}, 2023.
+\bibitem{ucsd2026} UCSD, \emph{Energy efficiency of the Qualcomm Cloud AI 100 for LLM
+inference}, arXiv:2507.00418, 2026.
+\bibitem{mojo2026} \emph{Portable GPU kernels in Mojo across CUDA and HIP},
+arXiv:2509.21039, 2025.
+\bibitem{sqmag2026} \emph{LLM Hallucination Statistics 2026}, SQ Magazine, 2026.
+\end{thebibliography}
+
+\end{document}

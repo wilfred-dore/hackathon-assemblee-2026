@@ -7,8 +7,16 @@
 *.local.md
 SESSION-CONTEXT*.md
 
-# Papier / benchmark privés (résultats confidentiels jusqu'à soumission)
+# Notes de recherche locales (le papier propre est dans paper/)
 research/
+
+# Artefacts de build LaTeX
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.bbl
+paper/*.blg
 
 # Python / uv
 .venv/
