@@ -51,15 +51,22 @@ Deux tableaux, **même modèle** (p.ex. Mistral-7B open-weight), même prompt, m
    Qualcomm Cloud AI 100 (AI Inference Suite). Mesurer latence, débit, **et perf/watt**.
 2. **Bureau** : Apple Silicon (MAX/Ollama) vs Snapdragon X Elite (via QDC).
 
+**RunPod = choix recommandé** (NVIDIA **et** MI300X au même endroit, à la minute,
+API/CLI `runpodctl`, port HTTPS exposé `https://<pod>-8000.proxy.runpod.net`).
+Community Cloud moins cher ; MI300X fluctuant (faire NVIDIA d'abord si indispo) ;
+vLLM sur MI300X = image ROCm (`rocm/vllm`) ; mettre `--api-key` (proxy public).
+
 **Protocole reproductible** (loue 1 GPU, ~1 h) :
 ```bash
-# sur l'instance louée (MI300X ou H100)
+# sur le pod loué (MI300X ou H100), port 8000 exposé
 # 1) vLLM (baseline)
-pip install vllm && vllm serve mistralai/Mistral-7B-Instruct-v0.3 --port 8000
-# 2) MAX (même modèle, même port après arrêt de vLLM)
-pip install modular && max serve --model mistralai/Mistral-7B-Instruct-v0.3
-# 3) on pointe notre bench vendor-agnostique dessus
-LLM_BASE_URL=http://<ip>:8000/v1 LLM_MODEL=mistralai/Mistral-7B-Instruct-v0.3 make bench
+pip install vllm && vllm serve mistralai/Mistral-7B-Instruct-v0.3 --port 8000 --api-key demo
+# bench depuis le Mac :
+#   LLM_BASE_URL=https://<pod>-8000.proxy.runpod.net/v1 LLM_API_KEY=demo \
+#   LLM_MODEL=mistralai/Mistral-7B-Instruct-v0.3 make bench
+# 2) STOP vLLM puis MAX (même modèle, même GPU -> apples-to-apples)
+pip install modular && max serve --model mistralai/Mistral-7B-Instruct-v0.3 --port 8000
+# 3) re-bench -> comparer latence + tokens/s MAX vs vLLM sur le même silicium
 ```
 → produit latence + tokens/s comparables. Reporter dans `benchmarks/` + le papier.
 
