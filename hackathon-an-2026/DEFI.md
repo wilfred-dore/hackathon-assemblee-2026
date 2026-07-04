@@ -68,6 +68,9 @@ Cochez les ressources utilisées en remplaçant `[ ]` par `[x]`.
 - [On ne fait confiance à aucun modèle, on vérifie](images/image-1.png)
 - [Kernel de calcul sur Apple Silicon (agnosticité matérielle)](images/image-2.png)
 - [Frugalité de l'inférence (perf/watt)](images/image-3.png)
+- [Portabilité : cloud souverain FR ↔ 100 % local sur Mac](images/image-4.png)
+- [Hallucination par modèle (détail de l'étude)](images/image-5.png)
+- [Cartographie du schéma Canutes (253 tables)](images/image-6-schema-canutes.svg)
 
 ### Documents
 - [Article de recherche (draft) — benchmark d'hallucination de citations FR](docs/le-rapporteur-benchmark-hallucination.pdf)
