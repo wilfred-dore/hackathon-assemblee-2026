@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 
 from .citations import extract_citations
 from .data import canutes
+from .guarantees import check_guarantees
 from .llm.client import LLMClient
 from .mcp.client import moulineuse, parlement
 from .verify import default_verifier
@@ -39,6 +40,7 @@ class Answer:
     grounding: list[Source] = field(default_factory=list)
     detail: str = ""
     validation: dict = field(default_factory=dict)
+    guarantees: list = field(default_factory=list)  # garanties de confiance (source unique)
 
     @property
     def ok(self) -> bool:
@@ -121,12 +123,15 @@ def answer_question(question: str, llm: LLMClient | None = None, verifier=None) 
     }
 
     if all_verified:
-        return Answer(question=question, text=draft, status="ok", citations=payload,
-                      grounding=grounding, validation=validation)
+        ans = Answer(question=question, text=draft, status="ok", citations=payload,
+                     grounding=grounding, validation=validation)
+    else:
+        detail = (
+            "Références introuvables dans les sources : " + " ; ".join(invented)
+            if invented else "La réponse générée ne citait aucune source vérifiable."
+        )
+        ans = Answer(question=question, text=REFUSAL, status="refus", citations=payload,
+                     grounding=grounding, detail=detail, validation=validation)
 
-    detail = (
-        "Références introuvables dans les sources : " + " ; ".join(invented)
-        if invented else "La réponse générée ne citait aucune source vérifiable."
-    )
-    return Answer(question=question, text=REFUSAL, status="refus", citations=payload,
-                  grounding=grounding, detail=detail, validation=validation)
+    ans.guarantees = check_guarantees(ans)  # source de vérité unique (runtime + Gherkin + UI)
+    return ans

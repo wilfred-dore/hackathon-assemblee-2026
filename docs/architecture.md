@@ -69,6 +69,11 @@ plein-texte Canutes (colonnes `text_search`) ou l'outil SQL de MCP Moulineuse.
 > à aligner (soit on l'implémente, soit on reformule en « vérification »), sinon
 > c'est un léger sur-discours devant un jury.
 
+## Voir aussi
+- [stack.md](stack.md) — la **stack complète d'un LLM** (modèle, moteur, langage GPU,
+  silicium, cloud) avec souveraineté et environnement à chaque étage.
+- [faq.md](faq.md) — questions techniques anticipées.
+
 ## Références
 - Panorama des puces IA (paysage du silicium souverain) :
   <https://github.com/basicmi/AI-Chip>

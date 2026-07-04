@@ -36,6 +36,8 @@ def step_refus(context):
 
 @then("aucun article absent des sources ne doit être présenté comme vérifié")
 def step_pas_faux_verifie(context):
-    faux_valides = [c["label"] for c in context.answer.citations
-                    if c["exists"] and c["label"] in context.answer.validation["invented"]]
-    assert not faux_valides, f"Articles inventés présentés comme vérifiés : {faux_valides}"
+    # On asserte sur les garanties CALCULÉES AU RUNTIME (src/guarantees.py) : le test
+    # et le runtime partagent la même définition -> aucune divergence possible.
+    g = {x["rule"]: x for x in context.answer.guarantees}
+    rule = g["Zéro citation inventée présentée comme vérifiée"]
+    assert rule["passed"], f"Garantie violée : {rule['detail']}"

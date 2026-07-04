@@ -18,6 +18,9 @@ ouverts sont la condition de tout le reste : auto-hébergement, choix du siliciu
 
 ## Matériel & Modular
 
+> 🧱 Contexte utile avant ces questions : **la stack complète d'un LLM**, étage par
+> étage (modèle, moteur, langage GPU, silicium, cloud) → [stack.md](stack.md).
+
 **Pourquoi Modular MAX / Mojo plutôt que ROCm / vLLM ?**
 Attention, ce ne sont pas les mêmes couches :
 - **ROCm** = la couche **bas-niveau** d'AMD (l'équivalent de CUDA chez NVIDIA). Ce n'est **pas**

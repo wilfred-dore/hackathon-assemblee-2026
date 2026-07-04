@@ -242,6 +242,34 @@ Le Rapporteur coche les trois critères : fiable par construction, frugal par de
 -->
 
 ---
+
+<div class="kicker mb-2">Comprendre · la stack IA</div>
+
+# Tout ce qu'il faut pour exécuter une IA
+
+<div class="text-sm" style="color: var(--lr-muted)">
+À chaque étage se joue la souveraineté et l'environnement. C'est là qu'on fait nos choix.
+</div>
+
+```mermaid {scale: 0.5}
+flowchart TB
+    M["Modèle : ouvert (Mistral, Llama) vs fermé (GPT, Gemini)"] --> E["Moteur d'inférence : vLLM ou Modular MAX"]
+    E --> L["Langage GPU : CUDA · ROCm · Metal · Mojo"]
+    L --> H["Silicium : NVIDIA · AMD · Qualcomm Cloud AI 100 · EU"]
+    H --> C["Cloud : souverain FR (NumSpot) vs hyperscaler US"]
+```
+
+<div class="text-sm mt-4 text-center" style="color: var(--lr-muted)">
+Notre parti pris : <b>souverain à tous les étages</b> : ouvert, moteur agnostique, sans verrou CUDA, silicium non-NVIDIA et frugal.
+</div>
+
+<div class="foot"><span>LE RAPPORTEUR</span><span>LA STACK IA</span></div>
+
+<!--
+[Aparté stack] Avant de parler puce ou moteur, voyons tout ce qu'il faut empiler pour faire tourner une IA : le modèle, le moteur d'inférence, le langage qui programme le GPU, le silicium, et le cloud où ça tourne. À chaque étage, un enjeu de souveraineté et d'énergie. Notre parti pris : être souverain à tous les étages.
+-->
+
+---
 layout: two-cols
 layoutClass: gap-10 items-center
 ---

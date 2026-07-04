@@ -6,6 +6,13 @@
 <title>Le Rapporteur — assistant juridique sourcé</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/app.css">
+<style>
+  .guarantees{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .guarantees .glabel{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mention);width:100%}
+  .guar{font-size:.82rem;padding:4px 10px;border-radius:99px;border:1px solid var(--border)}
+  .guar.pass{color:var(--success);background:var(--success-bg)}
+  .guar.fail{color:var(--error);background:var(--error-bg)}
+</style>
 </head>
 <body>
 <header class="site">
@@ -61,12 +68,15 @@ f.addEventListener('submit', async e => {
                           : `<s>${esc(c.label)}</s>`}
       <span class="src">${esc(c.source)}</span>
     </div>`).join('');
+  const guar = (d.guarantees || []).map(g =>
+    `<span class="guar ${g.passed ? 'pass' : 'fail'}">${g.passed ? '✓' : '✗'} ${esc(g.rule)}</span>`).join('');
   out.innerHTML = `
     <div class="card result ${ok ? 'ok' : 'refus'}">
       <div class="status">${ok ? 'Réponse sourcée' : 'Refus explicite'}</div>
       <div class="answer">${esc(d.answer)}</div>
       ${d.detail ? `<div class="detail">${esc(d.detail)}</div>` : ''}
       ${cites}
+      ${guar ? `<div class="guarantees"><div class="glabel">Garanties vérifiées</div>${guar}</div>` : ''}
     </div>`;
 });
 </script>

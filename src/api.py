@@ -82,6 +82,7 @@ def answer(q: Question) -> dict:
         "answer": ans.text,
         "detail": ans.detail or None,
         "citations": ans.citations,
+        "guarantees": ans.guarantees,   # garanties de confiance (affichables)
         "metrics": llm.last_metrics,    # latence/tokens/s si backend live
     }
 
