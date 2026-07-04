@@ -383,15 +383,16 @@ Même les grands modèles se trompent. Et le petit modèle local, idéal pour la
 </div>
 
 <div class="mt-3 text-sm" style="color: var(--lr-muted)">
-Notre couche de vérification ramène l'hallucination <b>présentée</b> à
-<b style="color: var(--lr-gold)">zéro</b>, quel que soit le modèle. C'est ce qui rend
-une IA juridique <b>locale et frugale</b> digne de confiance.
+Vérifier qu'un article <b>existe</b> ne suffit pas (souvent réel mais hors-sujet) : on
+vérifie sa <b>pertinence</b> — le texte de l'article doit <b>soutenir</b> la réponse. En
+cas de doute, <b style="color: var(--lr-gold)">on refuse</b>. C'est ce qui rend une IA
+juridique <b>locale et frugale</b> digne de confiance.
 </div>
 
 <div class="foot"><span>LE RAPPORTEUR</span><span>07B / BENCHMARKS</span></div>
 
 <!--
-[Benchmarks] On a lancé une mini-étude ce matin : douze questions de droit, avec à chaque fois le bon article comme vérité-terrain. Résultat, même les grands modèles se trompent d'article. Et surtout, le petit modèle qu'on ferait tourner localement pour la frugalité et la souveraineté est celui qui hallucine le plus, huit fois sur dix. C'est contre-intuitif et c'est tout notre argument : plus on veut une IA frugale et locale, plus la vérification devient indispensable. Notre couche de vérification ramène l'hallucination présentée à zéro, quel que soit le modèle en dessous. Le détail par modèle, on le garde pour notre article de recherche.
+[Benchmarks] On a lancé une mini-étude ce matin : douze questions de droit, avec à chaque fois le bon article comme vérité-terrain. Résultat, même les grands modèles se trompent d'article. Et surtout, le petit modèle qu'on ferait tourner localement pour la frugalité et la souveraineté est celui qui hallucine le plus, huit fois sur dix. C'est contre-intuitif et c'est tout notre argument : plus on veut une IA frugale et locale, plus la vérification devient indispensable. Et attention, vérifier qu'un article existe ne suffit pas : la plupart des erreurs sont des articles bien réels mais hors-sujet, avec un vrai lien Légifrance qui les rend crédibles. On vérifie donc aussi la pertinence, avec un LLM qui lit le texte réel de l'article. En cas de doute, on refuse plutôt que de présenter du non vérifié. C'est fail-closed.
 -->
 
 ---
