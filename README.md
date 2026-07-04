@@ -24,6 +24,22 @@ amont (RAG) est sur la [roadmap](docs/roadmap.md). Scaffold agnostique : marche
 pour les 3 défis (« La loi après la loi », « NormaCheck », « IA de confiance
 souveraine »). Voir [SETUP.md](SETUP.md) · [FAQ technique](docs/faq.md).
 
+## Résultats (mesurés le 2026-07-04, MacBook M2 Pro)
+
+Mini-étude, 12 questions de droit, vérité-terrain = le bon article :
+
+| | Citations juridiques hallucinées |
+|---|---|
+| Petit modèle local (Mistral 7B, frugal/souverain) | **83 %** |
+| Grand modèle (moyenne du panel testé) | ~8 % |
+| **Le Rapporteur (LLM + vérification)** | **0 % présentée** |
+
+**Plus on veut une IA frugale et locale, plus la vérification est indispensable.**
+Le même pipeline tourne sur Mistral La Plateforme (🇫🇷), en 100 % local sur Mac
+(Ollama) et sur Qualcomm Cloud AI 100, en changeant une seule variable d'env.
+Détail : [benchmarks/](benchmarks/) · [graphiques](benchmarks/results.md) ·
+[papier (draft)](paper/main.pdf) · [ressources exploitées](docs/ressources-exploitees.md).
+
 ## Lancer en 30 s
 
 ```bash
