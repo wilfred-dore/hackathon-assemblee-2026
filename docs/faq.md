@@ -18,13 +18,25 @@ ouverts sont la condition de tout le reste : auto-hébergement, choix du siliciu
 
 ## Matériel & Modular
 
-**Pourquoi MAX plutôt que vLLM ?**
-Les deux sont des moteurs de service **OpenAI-compatibles**. **vLLM** est le standard mature
-(PagedAttention, gros écosystème) et c'est même lui qui tourne sur Qualcomm Cloud AI 100 (fork
-Qualcomm). **Modular MAX/Mojo** apporte la **portabilité par un seul code** (Mojo → AMD, NVIDIA,
-Apple, sans réécriture par vendeur) et des perfs annoncées en tête. Notre pipeline étant
-**agnostique** (interface OpenAI-compatible), on peut utiliser **l'un ou l'autre** : on met MAX/Mojo
-en avant pour la thèse *portabilité/souveraineté*, vLLM reste une alternative valable.
+**Pourquoi Modular MAX / Mojo plutôt que ROCm / vLLM ?**
+Attention, ce ne sont pas les mêmes couches :
+- **ROCm** = la couche **bas-niveau** d'AMD (l'équivalent de CUDA chez NVIDIA). Ce n'est **pas**
+  un concurrent de MAX : c'est *sur* ROCm que vLLM s'exécute côté AMD.
+- **vLLM** et **MAX** sont deux **moteurs de service** OpenAI-compatibles (l'étage au-dessus).
+- **Mojo** est un **langage de kernels** qui génère le code pour **ROCm (AMD), CUDA (NVIDIA) et
+  Metal (Apple) depuis une seule source**.
+
+La vraie comparaison, c'est donc **vLLM vs MAX** :
+- **vLLM** : mature, énorme écosystème, PagedAttention. Mais structuré autour de **CUDA** (NVIDIA),
+  avec un portage **ROCm** (AMD) souvent en retrait. C'est lui qui sert notre backend Qualcomm.
+- **MAX / Mojo** : pensé **vendeur-neutre dès le départ** → un seul code pour AMD/NVIDIA/Apple,
+  sans réécriture ; perfs annoncées en tête (non re-vérifiées par nous).
+
+**Notre position** : le pipeline est **agnostique** (interface OpenAI-compatible), donc il tourne
+aussi bien sur vLLM que sur MAX. On met **MAX/Mojo** en avant car c'est le plus cohérent avec la
+**souveraineté matérielle** (pas de verrou d'écosystème CUDA) ; mais **vLLM (+ROCm sur AMD) reste
+un choix pragmatique tout aussi valable**. C'est justement le point : on n'est enfermés dans aucun
+des deux.
 
 **Qualcomm Cloud AI 100 tourne-t-il sous MAX ?**
 **Non.** Il utilise le **SDK Qualcomm** (compilation ONNX → QPC, avec un fork vLLM). MAX/Mojo
