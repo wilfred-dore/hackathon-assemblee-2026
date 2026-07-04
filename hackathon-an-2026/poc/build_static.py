@@ -146,7 +146,7 @@ def main() -> None:
         print(f"  + doc schéma copiée depuis {schema_src.name}/ -> site/schema/")
 
     # Papier de recherche (draft PDF) -> /paper.pdf (tuile « Papier » du hall)
-    paper_src = POC.parent / "paper" / "main.pdf"
+    paper_src = POC.parent / "docs" / "paper.pdf"
     if paper_src.exists():
         shutil.copy(paper_src, OUT / "paper.pdf")
         print("  + papier copié -> site/paper.pdf")
