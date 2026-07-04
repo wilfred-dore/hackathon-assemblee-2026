@@ -17,6 +17,9 @@ smoke:        ## Smoke test end-to-end (mode mock, sans vraies clés)
 bdd:          ## Scénarios Gherkin (behave)
 	uv run behave
 
+bench:        ## Benchmark latence/tokens-s du backend LLM (MODE=live requis)
+	MODE=live uv run python -m src.bench
+
 db:           ## Ajoute l'accès PostgreSQL direct (optionnel : psycopg)
 	uv sync --extra db
 
