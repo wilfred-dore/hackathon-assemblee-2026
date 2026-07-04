@@ -251,28 +251,30 @@ layoutClass: gap-10 items-center
 # Sans verrou NVIDIA
 
 <div class="mt-4 text-sm" style="color: var(--lr-muted)">
-Une interface OpenAI-compatible. On change de backend, le pipeline ne bouge pas.
-Servir un LLM open source rime aujourd'hui avec NVIDIA et CUDA. Nous le prouvons autrement.
+Un <b>modèle ouvert</b> (Mistral, Llama) derrière une interface OpenAI-compatible.
+On change de backend, le pipeline ne bouge pas. Servir un LLM open source rime aujourd'hui
+avec NVIDIA et CUDA. Nous le prouvons autrement.
 </div>
 
 <v-clicks>
 
 - <b style="color: var(--lr-gold)">ex. Qualcomm Cloud AI 100</b> : backend souverain, prouvé en direct
-- <b>Modular MAX et Mojo</b> : le même code sur <b>AMD</b>, <b>NVIDIA</b> et <b>Apple Silicon</b> (CUDA, ROCm, Metal)
-- À venir : les puces <b>européennes</b>, VSora (France) et Axelera (Europe)
+- <b>Modular MAX et Mojo</b> : le même code sur <b>AMD</b> et <b>NVIDIA</b> (CUDA, ROCm)
+- Alternatives potentielles : puces souveraines <b>EU</b> (VSora, Axelera), voire TPU
 
 </v-clicks>
 
 ::right::
 
-```mermaid {scale: 0.62}
+```mermaid {scale: 0.6}
 flowchart LR
-    L["Interface LLM<br>OpenAI-compatible"] --> Q["ex. Qualcomm Cloud AI 100<br>souverain, live"]
+    L["Modèle ouvert<br>interface OpenAI"] --> Q["ex. Qualcomm Cloud AI 100<br>souverain, live"]
     L --> M["Modular MAX / Mojo"]
     M --> AMD["AMD"]
     M --> NV["NVIDIA"]
-    M --> APL["Apple Silicon"]
-    M -. à venir .-> FUT["VSora, Axelera<br>TPU (visé)"]
+    M -.-> ALT["Alternatives potentielles"]
+    ALT --> EU["VSora, Axelera (EU)"]
+    ALT --> TPU["TPU"]
     style Q stroke:#c9a24b,stroke-width:2px
     style AMD stroke:#5b8cff,stroke-width:2px
 ```
