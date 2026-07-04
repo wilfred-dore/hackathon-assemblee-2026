@@ -40,6 +40,9 @@ aussi bien sur vLLM que sur MAX. On met **MAX/Mojo** en avant car c'est le plus 
 **souveraineté matérielle** (pas de verrou d'écosystème CUDA) ; mais **vLLM (+ROCm sur AMD) reste
 un choix pragmatique tout aussi valable**. C'est justement le point : on n'est enfermés dans aucun
 des deux.
+> *Validation académique de la portabilité Mojo* : une étude (arXiv 2509.21039) montre Mojo à
+> **87 % de CUDA** (NVIDIA H100) et **à parité avec HIP** (AMD MI300A), depuis **une source unique**.
+> À cadrer honnêtement : ce sont des **kernels HPC**, pas de l'inférence LLM.
 
 **Qualcomm Cloud AI 100 tourne-t-il sous MAX ?**
 **Non.** Il utilise le **SDK Qualcomm** (compilation ONNX → QPC, avec un fork vLLM). MAX/Mojo
@@ -114,6 +117,7 @@ Le **moteur souverain live** (Qualcomm Cloud AI 100 + vérif Canutes) tourne **s
 `make api`. Choix assumé : tokens limités, pas de serveur LLM public.
 
 ## Références
-- UCSD, *Serving LLMs in HPC Clusters: Qualcomm Cloud AI 100 Ultra vs NVIDIA* — <https://arxiv.org/abs/2507.00418>
+- UCSD, *Serving LLMs in HPC Clusters: Qualcomm Cloud AI 100 Ultra vs NVIDIA* — <https://arxiv.org/abs/2507.00418> (frugalité)
+- *Mojo: MLIR-Based Performance-Portable HPC Science Kernels on GPUs* — <https://arxiv.org/abs/2509.21039> (portabilité Mojo NVIDIA/AMD)
 - Modular 25.6 (NVIDIA/AMD/Apple) — <https://www.modular.com/blog/modular-25-6-unifying-the-latest-gpus-from-nvidia-amd-and-apple>
 - Architecture & accès aux données : [architecture.md](architecture.md) · Roadmap : [roadmap.md](roadmap.md)
