@@ -311,8 +311,9 @@ dédiée fait le même travail pour bien moins d'énergie qu'un GPU généralist
 
 <div class="mt-6 text-sm" style="color: var(--lr-muted)">
 Validation externe : une <b>étude UCSD</b> (arXiv 2507.00418) mesure 10 à 35× moins
-d'énergie sur Qualcomm Cloud AI 100 Ultra vs A100, pour 12 LLM open source. Nous citons
-ce résultat, nous ne l'avons pas re-benchmarké. À la démo : latence et débit en direct.
+d'énergie sur Qualcomm Cloud AI 100 Ultra vs A100, pour 12 LLM open source. On voulait
+benchmarker ce cas d'usage nous-mêmes ; un hackathon, c'est des arbitrages de temps assumés.
+À la démo : latence et débit en direct.
 </div>
 
 ::right::
@@ -368,7 +369,8 @@ benchmarké contre Python, alimente le panneau de frugalité.</p>
 </div>
 
 <div class="mt-10 text-center text-sm" style="color: var(--lr-muted)">
-On ne se contente pas de répondre : on devient une <b>brique de confiance</b> que l'écosystème peut brancher.
+On vérifie par la voie la plus <b>directe et déterministe</b> (la base Canutes elle-même),
+et on <b>expose cette vérification en MCP</b> pour que tout l'écosystème puisse la réutiliser.
 </div>
 
 <div class="foot"><span>LE RAPPORTEUR</span><span>08 / CE QU'ON APPORTE</span></div>

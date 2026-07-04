@@ -51,8 +51,9 @@ n'est pas dans le schéma de déploiement.
 Non, soyons clairs. On **cite une étude tierce** (UCSD, *Serving LLMs in HPC Clusters*, arXiv
 2507.00418) : sur 12 LLM open source, Qualcomm Cloud AI 100 Ultra consomme **10 à 35× moins**
 d'énergie qu'un A100 pour un service équivalent (ex. granite-3.2-8B : 36 W vs 1 246 W).
-Notre démo, elle, affiche **latence et débit en direct**. Le benchmark AMD vs NVIDIA via MAX
-est sur notre roadmap.
+Notre démo, elle, affiche **latence et débit en direct**. On **voulait benchmarker ce cas
+d'usage nous-mêmes** ; faute de temps pendant le hackathon, on cite l'étude et on l'assume :
+un hackathon, c'est des **arbitrages**. Le benchmark AMD vs NVIDIA via MAX est sur la roadmap.
 
 **Frugalité = argument marketing ?**
 Non : un datacenter d'IA, c'est une facture d'électricité et du CO₂. Une puce d'inférence
@@ -67,6 +68,9 @@ indexé est **plus rapide, déterministe, sous notre contrôle**. Moulineuse *ex
 c'est la **même base** + une couche protocole. On avait les identifiants → utilisable tout de
 suite. Et on n'ignore pas MCP : **on expose notre propre serveur MCP** (`repondre_question`,
 `verifier_article`) pour l'interop. Le RAG (roadmap) passera, lui, par le SQL de Moulineuse.
+> En une phrase : **on vérifie par la voie la plus directe et déterministe (la base Canutes
+> elle-même), et on expose cette vérification en MCP pour que tout l'écosystème puisse la
+> réutiliser.**
 
 **Pourquoi *generate → verify* et pas du RAG ?**
 Aujourd'hui : le LLM répond, puis on **vérifie l'existence** de chaque article cité (garde-fou

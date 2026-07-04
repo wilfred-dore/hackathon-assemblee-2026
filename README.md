@@ -10,14 +10,19 @@
 > statiques utilisent l'extension `.html` (un `404.html` rattrape les URL sans extension).
 
 Assistant juridique **sourcé** : le LLM répond, puis **chaque article cité est
-vérifié** contre les sources (MCP Moulineuse / Canutes-Légifrance). Au moindre
-article introuvable — ou en l'absence de citation vérifiable — la réponse est un
+vérifié** dans les sources officielles (base **Canutes / Légifrance**). Au moindre
+article introuvable, ou en l'absence de citation vérifiable, la réponse est un
 **refus explicite** (« Je ne trouve pas de texte applicable »). Objectif : zéro
 citation inventée.
 
-Défense en profondeur : ancrage RAG (retrieval) **+** fact-check des citations a
-posteriori. Scaffold agnostique : marche pour les 3 défis (« La loi après la
-loi », « NormaCheck », « IA de confiance souveraine »). Voir [SETUP.md](SETUP.md).
+> **Notre parti pris** : on vérifie par la voie la plus directe et déterministe,
+> la base Canutes elle-même, et on **expose cette vérification en MCP** pour que
+> tout l'écosystème puisse la réutiliser.
+
+Aujourd'hui : *génération → vérification* (fact-check a posteriori). L'ancrage
+amont (RAG) est sur la [roadmap](docs/roadmap.md). Scaffold agnostique : marche
+pour les 3 défis (« La loi après la loi », « NormaCheck », « IA de confiance
+souveraine »). Voir [SETUP.md](SETUP.md) · [FAQ technique](docs/faq.md).
 
 ## Lancer en 30 s
 
@@ -39,6 +44,6 @@ Copie `.env.example` → `.env`. `MODE=demo` par défaut (hors-ligne) ; passe à
 
 ## Pipeline
 
-`question → (ancrage retrieval) → génération LLM → extraction des citations →
-vérification de chaque article → réponse sourcée ou refus`
+`question → génération LLM → extraction des citations → vérification en base
+(Canutes / Légifrance) → réponse sourcée ou refus`
 (voir [src/pipeline.py](src/pipeline.py)).
