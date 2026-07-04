@@ -1,0 +1,24 @@
+[
+  {
+    "tier": "cloud",
+    "hardware": "NVIDIA H100",
+    "engine": "vLLM",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "runs_per_prompt": 3,
+    "n_prompts": 4,
+    "ttft_s_median": 0.564,
+    "tok_per_s_median": 163.6,
+    "total_s_median": 1.51
+  },
+  {
+    "tier": "local",
+    "hardware": "Apple M2 Pro (local)",
+    "engine": "Ollama",
+    "model": "mistral",
+    "runs_per_prompt": 2,
+    "n_prompts": 4,
+    "ttft_s_median": 0.112,
+    "tok_per_s_median": 32.7,
+    "total_s_median": 4.643
+  }
+]
