@@ -14,7 +14,7 @@
 \large Mesurer et neutraliser l'hallucination de citations d'articles\\
 dans les assistants juridiques grand public}
 
-\author{François Amat \and Wilfred Doré\\[1mm]
+\author{Wilfred Doré \and François Amat\\[1mm]
 \small Hackathon Assemblée nationale 2026 --- \og IA de confiance \fg{}}
 
 \date{Juillet 2026 --- \emph{draft préliminaire}}
@@ -97,6 +97,11 @@ Les invariants de confiance (zéro citation inventée présentée ; refus si auc
 vérifiable ; chaque citation renvoie à Légifrance) sont encodés dans une \textbf{fonction
 unique} utilisée au \textbf{runtime}, dans les \textbf{tests BDD/Gherkin} et dans
 l'\textbf{interface}. La confiance ne se décrète pas : elle s'exécute et se teste.
+Cette approche relève de la \emph{vérification à l'exécution} et de la \emph{spécification
+exécutable} : la contribution ne tient pas au choix d'implémentation (une fonction Python
+plutôt que des scénarios Gherkin), mais au \textbf{principe d'une source de vérité unique}
+des invariants --- simultanément vérifiée en production, testée, et rendue visible à
+l'utilisateur --- appliquée au cas de la citation juridique.
 
 \section{Résultats préliminaires}
 Étude pilote : $n=12$ questions de droit du travail, civil, pénal et de la consommation,
