@@ -9,9 +9,9 @@ on:
   push:
     branches: [main]          # Pages ne sert qu'un site -> on déploie depuis main
     paths:
-      - 'poc/**'
-      - 'presentation/**'
-      - 'schema-site/**'
+      - 'hackathon-an-2026/poc/**'
+      - 'hackathon-an-2026/presentation/**'
+      - 'hackathon-an-2026/schema-site/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -35,21 +35,21 @@ jobs:
       - name: Construire le site statique
         run: |
           pip install httpx
-          python poc/build_static.py
+          python hackathon-an-2026/poc/build_static.py
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: Construire le deck Slidev (-> site/presentation)
-        working-directory: presentation
+        working-directory: hackathon-an-2026/presentation
         run: |
           npm install
-          npx slidev build slides.md --base /hackathon-assemblee-2026/presentation/ --out "$GITHUB_WORKSPACE/site/presentation"
+          npx slidev build slides.md --base /hackathon-assemblee-2026/presentation/ --out "$GITHUB_WORKSPACE/hackathon-an-2026/site/presentation"
       - uses: actions/configure-pages@v5
         with:
           enablement: true   # active GitHub Pages si pas encore fait (évite « Get Pages site failed »)
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: hackathon-an-2026/site
 
   deploy:
     needs: build

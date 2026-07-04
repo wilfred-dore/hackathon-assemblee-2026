@@ -11,12 +11,12 @@ SESSION-CONTEXT*.md
 research/
 
 # Artefacts de build LaTeX
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.toc
-paper/*.bbl
-paper/*.blg
+**/paper/*.aux
+**/paper/*.log
+**/paper/*.out
+**/paper/*.toc
+**/paper/*.bbl
+**/paper/*.blg
 
 # Python / uv
 .venv/
@@ -36,12 +36,12 @@ node_modules/
 .vscode/
 
 # Données lourdes déposées localement
-data/fixtures/*
-!data/fixtures/README.md
-!data/fixtures/.gitkeep
+**/data/fixtures/*
+!**/data/fixtures/README.md
+!**/data/fixtures/.gitkeep
 
 # Sorties générées (SchemaSpy HTML brut, volumineux)
 out/
 
 # Build statique GitHub Pages de l'app — généré par poc/build_static.py (François)
-/site/
+site/

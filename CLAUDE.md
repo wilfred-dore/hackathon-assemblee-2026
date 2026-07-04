@@ -35,7 +35,8 @@ Les chiffres passent par OpenFisca/Catala (rules-as-code), jamais inventés. Une
 Gel samedi 14h (restitution ~16h). Rendu + démo prêts 2h avant. Ce qui doit être VISIBLE à la démo : sources cliquables, scénarios Gherkin vert/rouge, panneau frugalité (perf/watt).
 
 ## Repères repo
-- `make setup | smoke | bdd` — voir [README.md](README.md) / [SETUP.md](SETUP.md).
-- Flux de confiance : [src/pipeline.py](src/pipeline.py) (question → retrieval → réponse sourcée → validation, refus si pas de source).
-- Endpoints/tokens : `.env` (jamais commité), template dans [.env.example](.env.example).
-- Docs de référence (endpoints exacts, défis, schémas MCP) : [docs/](docs/).
+Tout le projet vit dans `hackathon-an-2026/` (format plateforme hackathon) ; à la racine ne restent que README (pointeur), CLAUDE.md, .gitignore et .github/. Lancer les commandes depuis `hackathon-an-2026/`.
+- `make setup | smoke | bdd` — voir [README](hackathon-an-2026/README.md) / [SETUP](hackathon-an-2026/SETUP.md).
+- Flux de confiance : [src/pipeline.py](hackathon-an-2026/src/pipeline.py) (question → retrieval → réponse sourcée → validation, refus si pas de source).
+- Endpoints/tokens : `.env` (jamais commité), template dans [.env.example](hackathon-an-2026/.env.example).
+- Docs de référence (endpoints exacts, défis, schémas MCP) : [docs/](hackathon-an-2026/docs/).
