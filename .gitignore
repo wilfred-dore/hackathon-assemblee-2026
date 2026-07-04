@@ -3,6 +3,13 @@
 .env.*
 !.env.example
 
+# Contexte de conversation / notes locales — JAMAIS commité
+*.local.md
+SESSION-CONTEXT*.md
+
+# Papier / benchmark privés (résultats confidentiels jusqu'à soumission)
+research/
+
 # Python / uv
 .venv/
 __pycache__/

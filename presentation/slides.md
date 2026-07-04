@@ -290,9 +290,9 @@ avec NVIDIA et CUDA. Nous le prouvons autrement.
 
 <v-clicks>
 
-- <b style="color: var(--lr-gold)">ex. Qualcomm Cloud AI 100</b> : backend souverain, prouvé en direct
-- <b>Modular MAX et Mojo</b> : le même code sur <b>AMD</b> et <b>NVIDIA</b> (CUDA, ROCm)
-- <b>Alternatives</b> : puces souveraines EU (VSora, Axelera), voire TPU
+- <b style="color: var(--lr-gold)">Prouvé en direct</b> : swap <b>Qualcomm Cloud AI 100</b> ⇄ <b>Mistral La Plateforme 🇫🇷</b>, sans toucher au pipeline
+- <b>Modular MAX / Mojo</b> : le même code sur <b>AMD</b>, <b>NVIDIA</b>, <b>Apple Silicon</b> (démontrable en local) ; puces EU en vision (VSora, Axelera)
+- <b>On vérifie quel que soit le modèle</b> : le garde-fou ne dépend d'aucun LLM
 
 </v-clicks>
 
@@ -305,6 +305,7 @@ flowchart TB
     L -.-> ALT["Alternatives"]
     M --> AMD["AMD"]
     M --> NV["NVIDIA"]
+    M --> APL["Apple Silicon"]
     ALT --> EU["VSora,<br>Axelera, TPU"]
     style Q stroke:#c9a24b,stroke-width:2px
     style AMD stroke:#5b8cff,stroke-width:2px
@@ -313,7 +314,7 @@ flowchart TB
 <div class="foot"><span>LE RAPPORTEUR</span><span>06 / SOUVERAINETÉ MATÉRIELLE</span></div>
 
 <!--
-[Souveraineté] Notre couche de confiance est indépendante du fournisseur de puce. Aujourd'hui, servir un LLM open source rime de fait avec NVIDIA et CUDA, un seul fournisseur américain. Nous le prouvons sans NVIDIA : en direct sur ex. Qualcomm Cloud AI 100, et portable vers AMD via Modular MAX. Demain, les puces souveraines européennes, VSora et Axelera. La rumeur d'un rapprochement Qualcomm et Modular reste une spéculation, nous ne l'affirmons pas.
+[Souveraineté] Notre couche de confiance est indépendante du fournisseur de puce ET du modèle. On le prouve en direct : le même pipeline tourne sur Qualcomm Cloud AI 100 et sur Mistral La Plateforme, souverain français, en changeant une seule variable d'environnement. Modular MAX et Mojo portent l'inférence sur AMD, NVIDIA et Apple Silicon, démontrable sur un simple MacBook. Puces souveraines européennes en vision : VSora, Axelera. Et surtout : on vérifie quel que soit le modèle, le garde-fou ne dépend d'aucun LLM. Observation à confirmer par notre benchmark : le modèle souverain français tend à être plus juste sur le droit français, un avantage de souveraineté supplémentaire, mais on ne s'y fie pas, on vérifie. La rumeur d'un rapprochement Qualcomm et Modular reste une spéculation, nous ne l'affirmons pas.
 -->
 
 ---
