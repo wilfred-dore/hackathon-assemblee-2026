@@ -151,6 +151,12 @@ def main() -> None:
         shutil.copy(paper_src, OUT / "paper.pdf")
         print("  + papier copié -> site/paper.pdf")
 
+    # Diapositives de présentation (PDF) -> /diapositives.pdf (livrable défi, hébergé sur Pages)
+    slides_src = POC.parent / "docs" / "diapositives.pdf"
+    if slides_src.exists():
+        shutil.copy(slides_src, OUT / "diapositives.pdf")
+        print("  + diapositives copiées -> site/diapositives.pdf")
+
     print(f"Site statique généré dans {OUT}")
     print(f"  {len(answers)} réponses pré-calculées, {len(articles)} articles.")
     print("  Test local : python -m http.server -d site 8000")
