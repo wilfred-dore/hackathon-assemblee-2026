@@ -75,3 +75,16 @@ honnête : pour l'usage individuel, l'inférence locale ou l'accélérateur déd
 **Mesure réelle (travaux futurs)** : échantillonner `nvidia-smi power.draw` /
 `rocm-smi --showpower` pendant le bench (SSH pods), CodeCarbon/Ecostral pour
 l'empreinte complète, télémétrie `qaic-util` côté Qualcomm.
+
+## 6. Journal des tentatives MAX sur GPU cloud (transparence)
+
+Trois tentatives de servir Mistral-7B via les containers officiels MAX sur RunPod
+(2026-07-04) : `modular/max-nvidia-full` (H100, 2 essais dont un de 50 min) et
+`modular/max-amd` (MI300X, 40 min) — **endpoint jamais devenu joignable** dans la
+fenêtre impartie (pull d'images volumineuses + compilation de graphe au premier
+chargement + pas d'accès aux logs du pod via l'API pour diagnostiquer). En
+comparaison, l'image `vllm/vllm-openai` a servi en ~8 min sur le même H100.
+Conclusion honnête : le déploiement conteneurisé de MAX demande un accès shell/logs
+pour être debuggé — refaire avec SSH sur le pod (travaux futurs). Les cellules
+mesurées restent : H100+vLLM (163,6 tok/s), M2+Ollama (32,7 tok/s), Qualcomm Cloud
+AI 100 (essai gratuit, 22 tok/s à titre indicatif).
