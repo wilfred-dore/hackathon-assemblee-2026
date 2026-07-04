@@ -1,0 +1,21 @@
+\section{An Executable Trust Specification}
+\label{sec:bdd}
+The anti-hallucination guarantee is not a slogan; it is encoded as
+behavior-driven tests in Gherkin~\cite{gherkin}, in French, so that a lawyer
+(not only an engineer) can read and audit them. The suite runs on every
+change; \emph{a single fabricated article turns the build red}.
+
+\begin{lstlisting}[style=lr]
+Scenario: No invented citation
+  Given a citizen question "Ai-je droit a la prime de Noel ?"
+  When the system answers
+  Then the answer must be an explicit refusal
+  And no article absent from the sources may be
+      presented as verified
+\end{lstlisting}
+
+Three scenarios cover the invariant: a verified citation must be sourced; a
+question that elicits a fabricated article (the ``Christmas bonus'', for which
+the model invents \emph{article L.\,4321-7}) must be refused; and a question
+with no verifiable source must be refused. Turning trust into a red/green test
+makes the property continuously checkable rather than merely asserted.

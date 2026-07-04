@@ -1,0 +1,45 @@
+\section{System Overview}
+\label{sec:overview}
+
+Figure~\ref{fig:pipeline} shows the pipeline. A citizen question is sent to a
+sovereign LLM. The draft answer is parsed for legal citations of the canonical
+French form \emph{``article $\langle$num$\rangle$ du $\langle$code$\rangle$''}
+using a normalization-tolerant extractor. Each extracted citation is verified
+independently against the legal database. The answer is released
+\emph{only if} the set of citations is non-empty and \emph{every} citation
+resolves to an in-force article; otherwise the system refuses. This
+\emph{fail-closed} disjunction is the whole point: the guarantee does not
+depend on the model behaving well.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  node distance=6mm and 8mm,
+  box/.style={draw, rounded corners, align=center, font=\footnotesize,
+              minimum height=7mm, inner sep=3pt},
+  db/.style={draw, cylinder, shape border rotate=90, aspect=0.25,
+             align=center, font=\footnotesize, inner sep=3pt},
+  dec/.style={draw, diamond, aspect=2, align=center, font=\scriptsize, inner sep=1pt},
+  ok/.style={draw=lrblue, thick, rounded corners, align=center, font=\footnotesize, inner sep=3pt},
+  no/.style={draw=lrred, thick, rounded corners, align=center, font=\footnotesize, inner sep=3pt},
+  a/.style={-{Latex}, thick}]
+  \node[box] (q) {Question};
+  \node[box, right=of q] (g) {LLM\\(sovereign)};
+  \node[box, below=of g] (e) {Extract\\citations};
+  \node[dec, below=of e] (v) {verify?};
+  \node[db, left=of v, xshift=-2mm] (db) {Canutes\\Légifrance};
+  \node[ok, right=of v, xshift=6mm] (r) {Sourced answer\\+ Légifrance link};
+  \node[no, below=of v, yshift=-1mm] (x) {Refusal\\``no source,\\no answer''};
+  \draw[a] (q) -- (g);
+  \draw[a] (g) -- (e);
+  \draw[a] (e) -- (v);
+  \draw[a] (v) -- (db) node[midway, above, font=\scriptsize] {num+code};
+  \draw[a] (db) -- (v) node[midway, below, font=\scriptsize] {VIGUEUR?};
+  \draw[a] (v) -- (r) node[midway, above, font=\scriptsize] {all exist};
+  \draw[a] (v) -- (x) node[midway, right, font=\scriptsize] {any missing};
+\end{tikzpicture}
+\caption{The fail-closed pipeline: \emph{generate, extract, verify,
+source-or-refuse}. The trust guarantee is enforced at the verification
+diamond, independently of the model.}
+\label{fig:pipeline}
+\end{figure}

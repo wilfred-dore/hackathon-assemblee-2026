@@ -1,0 +1,23 @@
+\section{A Reusable Trust Service}
+\label{sec:service}
+
+Rather than a monolithic chatbot, Le Rapporteur exposes its trust layer as a
+service others can call. Over HTTP:
+\begin{itemize}
+  \item \texttt{POST /answer} --- ask a question, receive a sourced answer or a
+  refusal, with each citation annotated \{\,exists, url, excerpt\,\} and,
+  under a live backend, latency/throughput metrics;
+  \item \texttt{POST /verify} --- submit \emph{arbitrary} text (e.g., another
+  LLM's output) and receive, per citation, whether it is real, plus aggregate
+  flags (\texttt{n\_invented}, \texttt{trustworthy}).
+\end{itemize}
+\texttt{/verify} is the key integration point: any citizen platform or
+parliamentary tool can detect invented legal citations in a third-party model's
+output without adopting our model.
+
+The same two capabilities---\texttt{repondre\_question} and
+\texttt{verifier\_article}---are also exposed as a \textbf{Model Context
+Protocol} server~\cite{mcp2024} (JSON-RPC 2.0 over streamable HTTP). Le
+Rapporteur is thus a \emph{provider}, not merely a consumer, of verified legal
+knowledge: an agent such as a general assistant can call it as a tool. We
+verified interoperability by driving our own MCP client against this server.

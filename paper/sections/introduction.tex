@@ -1,0 +1,48 @@
+\section{Introduction}
+Citizens increasingly ask general-purpose LLMs questions of law. The models
+answer in fluent, authoritative prose---and sometimes cite articles that do
+not exist, or that exist but say something else. Unlike open-domain chit-chat,
+the legal domain has an asymmetric cost structure: a plausible-sounding but
+fabricated citation actively \emph{misleads}, and is worse than an admission
+of ignorance. Hallucination in natural language generation is by now
+well documented~\cite{ji2023hallucination}, and retrieval augmentation is the
+standard mitigation~\cite{lewis2020rag}; yet grounding a generation in
+retrieved passages \emph{reduces} but does not \emph{guarantee} the absence of
+invented references.
+
+\emph{Le Rapporteur} takes a deliberately conservative stance suited to law.
+The system is organized around a single invariant---\textbf{no verifiable
+source, no answer}---enforced not by prompt engineering but by a
+post-generation verification stage that is \emph{fail-closed}: any doubt,
+network error, or unresolved reference collapses to an explicit refusal
+(``Je ne trouve pas de texte applicable.'', \emph{I find no applicable
+text.}). The design is a defense in depth: the model may draft freely, but
+nothing reaches the user unless each citation resolves to a real, in-force
+article in an authoritative database.
+
+\paragraph{Contributions.}
+\begin{itemize}
+  \item A \textbf{fail-closed pipeline} for legal QA (\emph{generate,
+  extract, verify, source-or-refuse}) whose trust guarantee is a property of
+  the \emph{system}, not of the model (\S\ref{sec:overview}).
+  \item A \textbf{database-centric citation verifier} over the Canutes/Légifrance
+  corpus, and the query engineering (index-friendly citation normalization,
+  state-aware selection of the in-force version) that makes per-citation
+  checking feasible at interactive latency over a large, irregular schema
+  without full-table regular-expression scans (\S\ref{sec:verify}).
+  \item A \textbf{reusable trust service}: the verifier is exposed over HTTP
+  (\texttt{/verify}) and as a Model Context Protocol (MCP) server, so any
+  third-party agent can fact-check the citations in an arbitrary LLM output
+  (\S\ref{sec:service}).
+  \item A \textbf{hardware-sovereign serving layer}: an OpenAI-compatible
+  indirection lets the identical pipeline run on non-NVIDIA accelerators; we
+  demonstrate it live on a Qualcomm Cloud~AI~100 and target AMD via a portable
+  runtime (\S\ref{sec:sovereign}).
+  \item An \textbf{executable trust specification} in Gherkin, readable and
+  auditable by a jurist, in which a single fabricated article fails the build
+  (\S\ref{sec:bdd}).
+\end{itemize}
+
+We are candid throughout about what is \emph{proven} versus \emph{envisioned};
+this project was built under hackathon constraints and we mark roadmap items
+explicitly.

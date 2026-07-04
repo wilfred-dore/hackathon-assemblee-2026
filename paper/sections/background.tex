@@ -1,0 +1,21 @@
+\section{Background and Problem}
+\label{sec:background}
+
+\paragraph{French legal open data.}
+French statutory law is published as open data by the DILA through
+Légifrance~\cite{legifrance}. Our verification target is \emph{Canutes}, a
+PostgreSQL corpus mirroring this data. Two properties shape the engineering.
+First, the schema is large and irregular: on the order of $253$ tables with
+cryptic names, of which a public PostgREST~\cite{postgrest} endpoint exposes
+only three---insufficient for verification. Second, articles are versioned:
+the same numbered article (e.g., \emph{L.\,3121-27}) has multiple rows over
+time, and only the \texttt{VIGUEUR} (in-force) version is authoritative for a
+citizen's question. Verification must therefore be \emph{state-aware}.
+
+\paragraph{Why not RAG alone.}
+Retrieval-augmented generation~\cite{lewis2020rag} conditions the model on
+retrieved passages and improves faithfulness, but the model can still
+paraphrase a real passage into a wrong article number, or cite a neighbor.
+Our position is that grounding and \emph{post-hoc verification} are
+complementary: grounding improves the draft; verification provides the
+guarantee. This paper focuses on the guarantee.

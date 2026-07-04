@@ -1,0 +1,45 @@
+\section{Citation Verification over a Legal Database}
+\label{sec:verify}
+
+The verifier answers a deceptively simple query: \emph{does article
+$\langle$num$\rangle$ of $\langle$code$\rangle$ exist and is it in force?} Doing
+this at interactive latency over Canutes required care.
+
+\paragraph{Index-friendly citation matching.}
+Légifrance encodes article numbers inconsistently (e.g., \texttt{L3121-27},
+\texttt{L.\,3121-27}, \texttt{L. 3121-27}). A naive predicate
+(\texttt{num \textasciitilde{} '.*3121-27.*'}) forces a sequential scan and a
+regular-expression match over the whole \texttt{legifrance.article} table,
+which in our environment hit a statement timeout. Instead, we expand the
+citation into a small, closed set of \emph{exact} string variants and match
+with equality against the (indexable) \texttt{num} column:
+
+\begin{lstlisting}[style=lr, language=SQL]
+-- variants = {"L. 3121-27", "L.3121-27", "L3121-27", ...}
+SELECT id, num, data
+FROM   legifrance.article
+WHERE  num = ANY(%s)          -- equality, index-friendly
+  AND  data::text ILIKE %s    -- code name appears in the article JSON
+LIMIT  200;
+\end{lstlisting}
+
+\paragraph{Code disambiguation and accents.}
+The code name (e.g., \emph{Code du travail}) is matched by \texttt{ILIKE}
+against the article's JSON payload, then re-checked in Python with an
+accent-insensitive normalization (Postgres \texttt{ILIKE} is not
+accent-folding). This two-stage filter keeps the SQL cheap while remaining
+correct on inputs such as \emph{Code de la s\'ecurit\'e sociale}.
+
+\paragraph{State-aware selection.}
+Among the surviving rows we prefer the \texttt{VIGUEUR} (in-force) version;
+if present, we return its canonical \texttt{LEGIARTI} identifier, from which we
+build a real, clickable Légifrance URL, plus a short text excerpt. If no row
+matches the code, the verifier returns \texttt{exists=false}, which the
+pipeline treats as a refusal trigger. Crucially, \emph{every failure mode maps
+to ``not verified''}: this is what makes the layer fail-closed.
+
+\paragraph{Offline determinism.}
+For demos and tests without network access, a mock verifier answers from a
+small local set of articles known to be in force. The same code path yields a
+deterministic, reproducible refusal for a fabricated article---essential for
+the executable specification of \S\ref{sec:bdd}.

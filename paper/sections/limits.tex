@@ -1,0 +1,24 @@
+\section{Limitations and Future Work}
+\label{sec:limits}
+
+\paragraph{Existence is not semantics.}
+Our verifier checks that a cited article \emph{exists} and is \emph{in force};
+it does not yet check that the article's \emph{content} supports the claim.
+We observed the model cite an article that exists but is off-topic
+(\emph{L.\,2122-4}); such a citation passes an existence check. Closing this
+gap requires semantic verification (entailment between the article text and the
+answer's claim).
+
+\paragraph{Grounding.}
+The current system \emph{generates then verifies}; it does not yet retrieve
+before generating. The planned grounding is \emph{lexical}, not vectorial: a
+full-text search (via a metadata-aware SQL tool, or Postgres
+\texttt{to\_tsvector}) returning top-$k$ passages that condition generation.
+The obstacle is not a vector store but an efficient full-text \emph{index}
+over a very large article table---indexing the entire corpus is the real wall,
+so we would scope to a sub-corpus first.
+
+\paragraph{Model and hardware.}
+Mistral is not served by our live Qualcomm endpoint (Llama-3.1-8B only); a
+Mistral deployment via the portable runtime on AMD is future work, as is a
+kernel-level (Mojo) hot-path benchmark for perf/watt claims.

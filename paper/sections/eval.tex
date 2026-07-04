@@ -1,0 +1,12 @@
+\section{Qualitative Evaluation and Observations}
+\label{sec:eval}
+
+This is a hackathon system; we report observations, not a benchmark. The
+executable specification passes ($3/3$ scenarios) in the deterministic offline
+mode. Under the live Qualcomm backend we observed the intended failure being
+caught in the wild: asked for the legal working week, the model answered with
+\emph{article L.\,3132-2} (which exists, but concerns weekly rest) instead of
+the correct \emph{L.\,3121-27}; the verifier flagged the mismatch and the
+system refused rather than emit the plausible-but-wrong citation. This is
+precisely the class of error a fluent model produces and a database check
+catches.

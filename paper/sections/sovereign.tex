@@ -1,0 +1,38 @@
+\section{Hardware-Sovereign Serving}
+\label{sec:sovereign}
+
+Serving an open-weight LLM is, in practice, often equivalent to depending on a
+single vendor's stack (CUDA/NVIDIA). For a system whose remit is national law,
+that coupling is itself a sovereignty risk. Our serving layer is a thin
+\emph{OpenAI-compatible} indirection: switching silicon is switching three
+environment variables (\texttt{LLM\_BASE\_URL}, \texttt{LLM\_API\_KEY},
+\texttt{LLM\_MODEL}); the pipeline is unchanged.
+
+Table~\ref{tab:backends} states, honestly, what runs where. We demonstrate the
+pipeline \emph{live} on a Qualcomm Cloud~AI~100 inference
+accelerator~\cite{qualcommcloudai100} (Llama-3.1-8B), a dedicated
+inference silicon whose value proposition is operations-per-watt rather than
+raw training throughput. We target AMD via a portable inference
+runtime~\cite{modularmax2024}; European accelerators are stated as vision, not
+measurement. We report real latency and tokens/s; we deliberately do
+\emph{not} report a fabricated energy figure, citing only that dedicated
+inference silicon is designed for high throughput-per-watt.
+
+\begin{table}[t]
+\centering
+\caption{Serving backends and honest status. The pipeline is identical across
+rows; only the OpenAI-compatible endpoint changes.}
+\label{tab:backends}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Backend & Silicon & Status \\
+\midrule
+Qualcomm Cloud AI 100 & Qualcomm & \textbf{live, proven} \\
+Modular MAX & AMD Instinct & target (runtime supports it) \\
+Modular MAX & NVIDIA & backward compatibility \\
+Self-hosted (open weights) & NVIDIA (cloud) & fallback \\
+VSora / Axelera & EU/FR & vision (no access) \\
+\bottomrule
+\end{tabular}
+\end{table}
