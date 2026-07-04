@@ -74,6 +74,9 @@ Cochez les ressources utilisées en remplaçant `[ ]` par `[x]`.
 
 ### Documents
 - [Article de recherche (draft) — benchmark d'hallucination de citations FR](docs/le-rapporteur-benchmark-hallucination.pdf)
+- [Ressources exploitées (orga + apportées)](docs/ressources-exploitees.md)
+- [Résultats de benchmark (méthodo + chiffres)](docs/benchmarks-results.md)
+- [FAQ technique (vérification, souveraineté, frugalité)](docs/faq.md)
 
 ### URL de démonstration
 https://wilfred-dore.github.io/hackathon-assemblee-2026/
