@@ -22,6 +22,8 @@ Un assistant juridique pour les citoyens qui ne fait confiance à aucun modèle 
 
 **Ce que notre benchmark révèle (et pourquoi ça compte).** Sur une étude de citations juridiques, la vérification d'**existence seule** laisse passer la majorité des erreurs (des articles réels mais hors-sujet, crédibilisés par un vrai lien). Il faut vérifier la **pertinence**. Et surtout : le petit modèle qu'on voudrait pour une inférence **locale et souveraine** hallucine le plus — donc la vérification n'est pas optionnelle, elle est **ce qui rend** une IA juridique frugale digne de confiance.
 
+**Passage à l'échelle du benchmark.** Canutes contient 292 746 questions parlementaires du Sénat, et les questions écrites/orales de l'AN au Gouvernement figurent parmi les ressources : les réponses ministérielles citent les textes applicables, fournissant des paires question → articles de référence vérifiables — la voie pour étendre notre benchmark à n ≥ 100.
+
 **Souveraineté & frugalité.** La couche de vérification est **agnostique** au modèle et au matériel. Le même pipeline tourne sur un cloud souverain français (Mistral La Plateforme), **100 % en local sur un MacBook** (Apple Silicon, sans NVIDIA) et sur des accélérateurs d'inférence dédiés — en changeant une seule variable d'environnement. On **expose aussi un serveur MCP** (`repondre_question`, `verifier_article`) : notre vérification est réutilisable par tout l'écosystème.
 
 ### Image principale
@@ -53,7 +55,7 @@ Cochez les ressources utilisées en remplaçant `[ ]` par `[x]`.
 - [ ] `senat-dossiers-legislatifs` — Dossiers législatifs du Sénat ✺ Sénat
 - [ ] `senat-amendements` — Amendements déposés au Sénat ✺ Sénat
 - [ ] `senat-senateurs` — Sénateurs ✺ Sénat
-- [ ] `senat-questions-gouvernement` — Questions orales et écrites du Sénat au Gouvernement ✺ Sénat
+- [x] `senat-questions-gouvernement` — Questions orales et écrites du Sénat au Gouvernement ✺ Sénat
 - [ ] `senat-comptes-rendus` — Comptes rendus de la séance publique au Sénat ✺ Sénat
 - [x] `an-et-co-database-regroupement-toutes-donnees` — Base de données unifiée Parlement / Législation / Service Public ✺ Assemblée nationale & communauté
 - [x] `an-et-co-serveur-mcp-regroupement-toutes-donnees` — Serveur MCP  - Accès unifié Parlement / Législation / Service Public ✺ Assemblée nationale & communauté
