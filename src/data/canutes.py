@@ -65,12 +65,40 @@ def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", _strip_accents(s).lower()).strip()
 
 
+_CODE_CID_CACHE: dict[str, str] = {}  # titre normalisé -> CID LEGITEXT (169 codes VIGUEUR)
+
+
+def _resolve_code_cid(code: str) -> str | None:
+    """Résout le nom d'un code vers son identifiant stable Légifrance (CID LEGITEXT).
+
+    Un match exact sur le CID évite le piège du ILIKE '%code%' : « article 9 »
+    existe dans des dizaines de codes, et « civil » apparaît dans des milliers
+    d'articles (responsabilité civile, procédure civile…).
+    """
+    if not _CODE_CID_CACHE:
+        rows = db_query(
+            "select id, data->'META'->'META_SPEC'->'META_TEXTE_VERSION'->>'TITRE' "
+            "from legifrance.texte_version where nature = 'CODE' "
+            "and data->'META'->'META_SPEC'->'META_TEXTE_VERSION'->>'ETAT' = 'VIGUEUR'"
+        )
+        for id_, titre in rows:
+            if titre:
+                _CODE_CID_CACHE[_norm(titre)] = id_
+    nc = _norm(code)
+    if nc in _CODE_CID_CACHE:
+        return _CODE_CID_CACHE[nc]
+    # tolérance : titre officiel qui commence par le nom cité (ex. variantes de ponctuation)
+    hits = [cid for t, cid in _CODE_CID_CACHE.items() if t.startswith(nc)]
+    return hits[0] if len(hits) == 1 else None
+
+
 def verify_article(num: str, code: str) -> dict:
     """Vérifie qu'un article existe dans un code donné, via Canutes (legifrance.article).
 
-    Stratégie : num normalisé (SQL) + nom du code présent dans le JSON de l'article
-    (ILIKE) + on préfère la version EN VIGUEUR. Renvoie l'ID LEGIARTI réel (→ URL
-    Légifrance) et un extrait. `exists=False` si aucun match code n'est trouvé.
+    Stratégie : num normalisé (SQL) + **match exact du code par CID** (l'attribut
+    CONTEXTE.TEXTE.@cid de l'article = LEGITEXT du code, résolu via texte_version).
+    Repli sur l'ancien filtre ILIKE si le code n'est pas résolu. On préfère la
+    version EN VIGUEUR. Renvoie l'ID LEGIARTI réel (→ URL Légifrance) et un extrait.
     """
     # Variantes exactes de `num` (index-friendly) plutôt qu'un regexp sur toute
     # la table (scan complet -> statement timeout). Légifrance encode ex.
@@ -82,22 +110,33 @@ def verify_article(num: str, code: str) -> dict:
     if m:
         letter, rest = m.group(1).upper(), m.group(2)
         variants |= {f"{letter}{rest}", f"{letter}. {rest}", f"{letter}.{rest}"}
-    like = f"%{code.strip()}%"
-    rows = db_query(
-        "select id, num, data from legifrance.article "
-        "where num = any(%s) and data::text ilike %s limit 200",
-        (list(variants), like),
-    )
-    nc = _norm(code)
+    cid = _resolve_code_cid(code)
     candidates = []  # (etat, id, data)
-    for id_, _rnum, data in rows:
-        etat = (
-            data.get("META", {}).get("META_SPEC", {}).get("META_ARTICLE", {}).get("ETAT")
+    if cid:
+        # Voie sûre : match exact num + CID du code (pas de faux positifs JORF/autres codes)
+        rows = db_query(
+            "select id, num, data from legifrance.article "
+            "where num = any(%s) and data->'CONTEXTE'->'TEXTE'->>'@cid' = %s limit 50",
+            (list(variants), cid),
         )
-        # double-check accent-insensible côté Python (ILIKE ne gère pas les accents)
-        import json as _json
-        if nc in _norm(_json.dumps(data, ensure_ascii=False)):
+        for id_, _rnum, data in rows:
+            etat = data.get("META", {}).get("META_SPEC", {}).get("META_ARTICLE", {}).get("ETAT")
             candidates.append((etat, id_, data))
+    else:
+        # Repli : ancien filtre texte (code non résolu en CID)
+        like = f"%{code.strip()}%"
+        rows = db_query(
+            "select id, num, data from legifrance.article "
+            "where num = any(%s) and data::text ilike %s limit 200",
+            (list(variants), like),
+        )
+        nc = _norm(code)
+        for id_, _rnum, data in rows:
+            etat = data.get("META", {}).get("META_SPEC", {}).get("META_ARTICLE", {}).get("ETAT")
+            # double-check accent-insensible côté Python (ILIKE ne gère pas les accents)
+            import json as _json
+            if nc in _norm(_json.dumps(data, ensure_ascii=False)):
+                candidates.append((etat, id_, data))
 
     if not candidates:
         return {"exists": False, "etat": None, "id": None, "url": None, "excerpt": None}
