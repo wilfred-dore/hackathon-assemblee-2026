@@ -30,8 +30,10 @@ spécifiquement l'\textbf{hallucination de citation d'articles} pour des \textbf
 citoyennes}. Nous proposons un benchmark ancré sur \textbf{Canutes/Légifrance} comme
 vérité-terrain, mesurons le taux d'hallucination d'un panel de modèles (frontier,
 souverain français, petit modèle exécuté localement), et montrons qu'une \textbf{couche
-de vérification déterministe \og fail-closed \fg{}} ramène l'hallucination \emph{présentée}
-à zéro, quel que soit le modèle sous-jacent. Nous formalisons cette couche comme des
+de vérification déterministe \og fail-closed \fg{}} à deux niveaux (existence \emph{et}
+pertinence) refuse de présenter toute citation non vérifiée, quel que soit le modèle
+sous-jacent --- et nous quantifions que l'existence seule est insuffisante ($\sim$19\,\%
+des citations sont des articles réels mais hors-sujet). Nous formalisons cette couche comme des
 \textbf{garanties exécutables} : une source de vérité unique, partagée entre le code
 d'exécution, les tests et l'interface. Un résultat pilote ($n=12$) fait apparaître un
 \emph{paradoxe frugalité/souveraineté} : le modèle que l'on choisirait pour une
@@ -88,9 +90,17 @@ le citoyen en erreur.
 \subsection{Pipeline de vérification (fail-closed)}
 \[
 \text{question} \rightarrow \text{génération} \rightarrow \text{extraction}
-\rightarrow \text{vérification Canutes} \rightarrow \text{réponse sourcée ou refus}.
+\rightarrow \text{vérification} \rightarrow \text{réponse sourcée ou refus}.
 \]
 On ne présente que ce qui est vérifié ; en cas de doute, on refuse plutôt que d'inventer.
+La vérification a \textbf{deux niveaux}, car l'existence ne suffit pas : (i)
+\emph{existence} --- l'article existe-t-il, en vigueur, dans le bon code (identifié par
+son identifiant stable Légifrance, non par simple correspondance de chaîne) ? (ii)
+\emph{pertinence} --- le \textbf{texte réel} de l'article, récupéré dans Canutes, soutient-il
+la question ? Ce second niveau est \emph{ancré} : un vérificateur lit la source primaire,
+il ne juge pas de mémoire. \textbf{Constat empirique} : sur notre pilote, la vérification
+d'existence seule laisse passer $\sim$19\,\% des citations --- des articles \emph{réels
+mais hors-sujet}, rendus crédibles par un vrai lien --- que seule la pertinence rejette.
 
 \subsection{Garanties exécutables}
 Les invariants de confiance (zéro citation inventée présentée ; refus si aucune source
@@ -122,7 +132,7 @@ gpt-4o & 10/12 (83\,\%) \\
 gemini-2.5-flash & 10/12 (83\,\%) \\
 mistral 7B (local, Ollama) & 2/12 (17\,\%) \\
 \midrule
-\textbf{Le Rapporteur (LLM + vérification)} & \textbf{0\,\% d'hallucination présentée} \\
+\textbf{Le Rapporteur (existence + pertinence)} & \textbf{0\,\% de citation non vérifiée présentée} \\
 \bottomrule
 \end{tabular}
 \caption{Taux de citation correcte par modèle (pilote, $n=12$).}
@@ -160,7 +170,7 @@ serveur, Apple Silicon / Snapdragon X Elite en bureau) reste à mener.
 \section{Conclusion}
 Nous esquissons le premier benchmark d'hallucination de citations d'articles pour le droit
 français grand public, et montrons qu'une vérification déterministe fail-closed, exprimée
-comme des garanties exécutables, ramène l'hallucination présentée à zéro. Le résultat le
+comme des garanties exécutables, refuse de présenter toute citation non vérifiée. Le résultat le
 plus contre-intuitif --- les modèles les plus souhaitables pour la souveraineté frugale
 sont les plus faillibles --- fait de la vérification une brique constitutive, non
 accessoire, d'une IA juridique de confiance.
