@@ -28,6 +28,10 @@ Zéro article inventé. Chaque citation vérifiée.
 L'assistant juridique citoyen qui refuse d'halluciner
 </div>
 
+<div class="mt-8 text-sm tracking-wider" style="color: var(--lr-muted)">
+François Amat · Wilfred Doré
+</div>
+
 </div>
 
 <div class="foot"><span>LE RAPPORTEUR</span><span>PITCH · 3 MIN</span></div>
@@ -288,21 +292,20 @@ avec NVIDIA et CUDA. Nous le prouvons autrement.
 
 - <b style="color: var(--lr-gold)">ex. Qualcomm Cloud AI 100</b> : backend souverain, prouvé en direct
 - <b>Modular MAX et Mojo</b> : le même code sur <b>AMD</b> et <b>NVIDIA</b> (CUDA, ROCm)
-- Alternatives potentielles : puces souveraines <b>EU</b> (VSora, Axelera), voire TPU
+- <b>Alternatives</b> : puces souveraines EU (VSora, Axelera), voire TPU
 
 </v-clicks>
 
 ::right::
 
-```mermaid {scale: 0.6}
-flowchart LR
-    L["Modèle ouvert<br>interface OpenAI"] --> Q["ex. Qualcomm Cloud AI 100<br>souverain, live"]
-    L --> M["Modular MAX / Mojo"]
+```mermaid {scale: 0.58}
+flowchart TB
+    L["Modèle ouvert<br>interface OpenAI"] --> Q["ex. Qualcomm<br>Cloud AI 100<br>souverain, live"]
+    L --> M["Modular MAX<br>/ Mojo"]
+    L -.-> ALT["Alternatives"]
     M --> AMD["AMD"]
     M --> NV["NVIDIA"]
-    M -.-> ALT["Alternatives potentielles"]
-    ALT --> EU["VSora, Axelera (EU)"]
-    ALT --> TPU["TPU"]
+    ALT --> EU["VSora,<br>Axelera, TPU"]
     style Q stroke:#c9a24b,stroke-width:2px
     style AMD stroke:#5b8cff,stroke-width:2px
 ```
@@ -460,9 +463,8 @@ La confiance dans le droit, ça ne s'improvise pas.<br>
 </div>
 
 <div class="mt-12 flex justify-center gap-10 text-xs tracking-wider" style="color: var(--lr-muted)">
-<div>mcp.hackathon2026.leximpact.dev</div>
-<div>db.code4code.eu/canutes</div>
-<div>parlement.tricoteuses.fr</div>
+<div>François Amat · Wilfred Doré</div>
+<div>wilfred-dore.github.io/hackathon-assemblee-2026</div>
 </div>
 
 <!--
