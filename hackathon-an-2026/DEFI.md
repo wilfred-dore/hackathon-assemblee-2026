@@ -1,5 +1,5 @@
 ### Nom du défi
-Le Rapporteur — une IA juridique de confiance qui vérifie, et refuse d'halluciner
+Le Rapporteur: une IA juridique de confiance qui vérifie, et refuse d'halluciner
 
 ### Description courte
 Un assistant juridique pour les citoyens qui ne fait confiance à aucun modèle : chaque article de loi cité est vérifié dans les sources officielles (codes consolidés / Légifrance), et à défaut de source fiable, l'assistant refuse plutôt que d'inventer. Souverain et frugal : le même pipeline tourne d'un cloud français à un simple MacBook.
