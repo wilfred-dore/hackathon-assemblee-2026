@@ -39,5 +39,5 @@ def step_pas_faux_verifie(context):
     # On asserte sur les garanties CALCULÉES AU RUNTIME (src/guarantees.py) : le test
     # et le runtime partagent la même définition -> aucune divergence possible.
     g = {x["rule"]: x for x in context.answer.guarantees}
-    rule = g["Zéro citation inventée présentée comme vérifiée"]
+    rule = g["Zéro citation inexistante présentée comme vérifiée"]
     assert rule["passed"], f"Garantie violée : {rule['detail']}"

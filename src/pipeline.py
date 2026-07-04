@@ -18,6 +18,7 @@ from .citations import extract_citations
 from .data import canutes
 from .guarantees import check_guarantees
 from .llm.client import LLMClient
+from .pertinence import check_pertinence
 from .mcp.client import moulineuse, parlement
 from .verify import default_verifier
 
@@ -101,24 +102,39 @@ def answer_question(question: str, llm: LLMClient | None = None, verifier=None) 
     citations = extract_citations(draft)
     results = [verifier.verify(c) for c in citations]
 
-    payload = [
-        {
-            "label": r.citation.label,
-            "exists": r.exists,
-            # URL réelle (LEGIARTI) si le vérificateur l'a fournie, sinon recherche Légifrance
-            "url": (r.url or r.citation.legifrance_url) if r.exists else None,
-            "source": r.source,
-        }
+    # Existence != pertinence. Un article RÉEL mais hors-sujet (citer L. 3121-1 au
+    # lieu de L. 3121-27) est une hallucination que la vérif d'existence laisse
+    # passer, avec un vrai lien Légifrance qui la rend crédible. On juge donc la
+    # pertinence sur le TEXTE réel de l'article (excerpt) : ancrée LLM en live,
+    # lexicale sinon. Sans texte (mock), pertinent=True -> existence seule.
+    pertinence = [
+        (check_pertinence(question, r.excerpt, llm) if r.exists else False)
         for r in results
     ]
 
-    all_verified = bool(results) and all(r.exists for r in results)
-    invented = [r.citation.label for r in results if not r.exists]
+    payload = []
+    for r, pert in zip(results, pertinence):
+        payload.append({
+            "label": r.citation.label,
+            "exists": r.exists,
+            "pertinent": (pert if r.exists else None),
+            "verified": bool(r.exists and pert),
+            # URL réelle (LEGIARTI) si dispo, sinon recherche Légifrance
+            "url": (r.url or r.citation.legifrance_url) if r.exists else None,
+            "source": r.source,
+        })
+
+    all_verified = bool(payload) and all(p["verified"] for p in payload)
+    inexistant = [p["label"] for p in payload if not p["exists"]]
+    hors_sujet = [p["label"] for p in payload if p["exists"] and not p["pertinent"]]
     validation = {
         "has_grounding": bool(grounding),
-        "cited": [r.citation.label for r in results],
-        "invented": invented,
-        "no_invented_citation": not invented,
+        "cited": [p["label"] for p in payload],
+        "invented": inexistant,          # rétro-compat
+        "inexistant": inexistant,
+        "hors_sujet": hors_sujet,
+        "no_invented_citation": not inexistant,
+        "all_pertinent": not hors_sujet,
         "retrieval_notes": notes,
     }
 
@@ -126,10 +142,13 @@ def answer_question(question: str, llm: LLMClient | None = None, verifier=None) 
         ans = Answer(question=question, text=draft, status="ok", citations=payload,
                      grounding=grounding, validation=validation)
     else:
-        detail = (
-            "Références introuvables dans les sources : " + " ; ".join(invented)
-            if invented else "La réponse générée ne citait aucune source vérifiable."
-        )
+        parts = []
+        if inexistant:
+            parts.append("articles introuvables : " + " ; ".join(inexistant))
+        if hors_sujet:
+            parts.append("articles hors-sujet (existent mais ne fondent pas la réponse) : "
+                         + " ; ".join(hors_sujet))
+        detail = " | ".join(parts) or "La réponse générée ne citait aucune source vérifiable."
         ans = Answer(question=question, text=REFUSAL, status="refus", citations=payload,
                      grounding=grounding, detail=detail, validation=validation)
 

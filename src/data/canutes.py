@@ -106,7 +106,7 @@ def verify_article(num: str, code: str) -> dict:
     etat, id_, data = (vigueur or candidates)[0]
     contenu = (data.get("BLOC_TEXTUEL", {}) or {}).get("CONTENU", "") or ""
     excerpt = re.sub(r"<[^>]+>", " ", contenu)
-    excerpt = re.sub(r"\s+", " ", excerpt).strip()[:280] or None
+    excerpt = re.sub(r"\s+", " ", excerpt).strip()[:1200] or None
     return {
         "exists": True,
         "etat": etat,
