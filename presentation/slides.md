@@ -94,7 +94,7 @@ Un assistant qui <b>prouve</b> chaque citation, ou refuse de répondre
 
 ```mermaid {scale: 0.9}
 flowchart LR
-    Q["👤 Question<br>citoyenne"] --> LLM["🧠 LLM souverain<br>Qualcomm Cloud AI 100"]
+    Q["👤 Question<br>citoyenne"] --> LLM["🧠 LLM souverain<br>ex. Qualcomm Cloud AI 100"]
     LLM --> V{"🔍 Vérification<br>en base Canutes"}
     V -->|"article existe"| R["✅ Réponse<br>+ citations liées"]
     V -->|"introuvable"| N["🛑 « Je ne trouve pas<br>de texte applicable »"]
@@ -125,7 +125,7 @@ Notre réponse : Le Rapporteur. Chaque article cité par le modèle est confront
 
 ### Génération souveraine
 
-<p>Un LLM open source sur silicium souverain : <b>Qualcomm Cloud AI 100</b> en direct, AMD via <b>Modular MAX</b> en cible. Hors NVIDIA.</p>
+<p>Un LLM open source sur silicium souverain : <b>ex. Qualcomm Cloud AI 100</b> en direct, AMD via <b>Modular MAX</b> en cible. Hors NVIDIA.</p>
 </div>
 
 <div class="card accent-white">
@@ -154,7 +154,7 @@ Données <b>Tricoteuses</b> (assemblée · sénat · légifrance) &nbsp;·&nbsp;
 
 <!--
 [1:20 – 1:50]
-Trois briques : un modèle ouvert servi sur silicium souverain (Qualcomm Cloud AI 100 en direct, AMD via Modular MAX en cible), la vérification systématique en base Canutes, et une interface qui lie chaque phrase à sa source consolidée.
+Trois briques : un modèle ouvert servi sur silicium souverain (ex. Qualcomm Cloud AI 100 en direct, AMD via Modular MAX en cible), la vérification systématique en base Canutes, et une interface qui lie chaque phrase à sa source consolidée.
 -->
 
 ---
@@ -257,7 +257,7 @@ Servir un LLM open source rime aujourd'hui avec NVIDIA et CUDA. Nous le prouvons
 
 <v-clicks>
 
-- <b style="color: var(--lr-gold)">Qualcomm Cloud AI 100</b> : backend souverain, prouvé en direct
+- <b style="color: var(--lr-gold)">ex. Qualcomm Cloud AI 100</b> : backend souverain, prouvé en direct
 - <b>Modular MAX et Mojo</b> : le même code sur <b>AMD</b>, <b>NVIDIA</b> et <b>Apple Silicon</b> (CUDA, ROCm, Metal)
 - À venir : les puces <b>européennes</b>, VSora (France) et Axelera (Europe)
 
@@ -267,7 +267,7 @@ Servir un LLM open source rime aujourd'hui avec NVIDIA et CUDA. Nous le prouvons
 
 ```mermaid {scale: 0.62}
 flowchart LR
-    L["Interface LLM<br>OpenAI-compatible"] --> Q["Qualcomm Cloud AI 100<br>souverain, live"]
+    L["Interface LLM<br>OpenAI-compatible"] --> Q["ex. Qualcomm Cloud AI 100<br>souverain, live"]
     L --> M["Modular MAX / Mojo"]
     M --> AMD["AMD"]
     M --> NV["NVIDIA"]
@@ -280,7 +280,7 @@ flowchart LR
 <div class="foot"><span>LE RAPPORTEUR</span><span>06 / SOUVERAINETÉ MATÉRIELLE</span></div>
 
 <!--
-[Souveraineté] Notre couche de confiance est indépendante du fournisseur de puce. Aujourd'hui, servir un LLM open source rime de fait avec NVIDIA et CUDA, un seul fournisseur américain. Nous le prouvons sans NVIDIA : en direct sur Qualcomm Cloud AI 100, et portable vers AMD via Modular MAX. Demain, les puces souveraines européennes, VSora et Axelera. La rumeur d'un rapprochement Qualcomm et Modular reste une spéculation, nous ne l'affirmons pas.
+[Souveraineté] Notre couche de confiance est indépendante du fournisseur de puce. Aujourd'hui, servir un LLM open source rime de fait avec NVIDIA et CUDA, un seul fournisseur américain. Nous le prouvons sans NVIDIA : en direct sur ex. Qualcomm Cloud AI 100, et portable vers AMD via Modular MAX. Demain, les puces souveraines européennes, VSora et Axelera. La rumeur d'un rapprochement Qualcomm et Modular reste une spéculation, nous ne l'affirmons pas.
 -->
 
 ---
@@ -308,7 +308,7 @@ dédiée fait le même travail pour bien moins d'énergie qu'un GPU généralist
 </v-click>
 
 <div class="mt-6 text-sm" style="color: var(--lr-muted)">
-Mesuré en direct sur Qualcomm Cloud AI 100 : latence et débit affichés à la démo.
+Mesuré en direct sur ex. Qualcomm Cloud AI 100 : latence et débit affichés à la démo.
 Benchmark AMD et NVIDIA via Modular MAX : la prochaine étape.
 </div>
 
@@ -327,7 +327,7 @@ benchmarké contre Python, alimente le panneau de frugalité.</p>
 <div class="foot"><span>LE RAPPORTEUR</span><span>07 / PERFORMANCE</span></div>
 
 <!--
-[Performance] Un datacenter d'IA, c'est une facture d'électricité avant tout. Une puce d'inférence dédiée comme le Qualcomm Cloud AI 100 fait le même travail pour beaucoup moins de watts qu'un GPU généraliste. Frugalité égale souveraineté plus écologie. Modular MAX est la couche de portabilité, et Mojo permet d'optimiser les points chauds. On mesure la latence et le débit en direct ; le benchmark AMD contre NVIDIA est notre prochaine étape.
+[Performance] Un datacenter d'IA, c'est une facture d'électricité avant tout. Une puce d'inférence dédiée comme le ex. Qualcomm Cloud AI 100 fait le même travail pour beaucoup moins de watts qu'un GPU généraliste. Frugalité égale souveraineté plus écologie. Modular MAX est la couche de portabilité, et Mojo permet d'optimiser les points chauds. On mesure la latence et le débit en direct ; le benchmark AMD contre NVIDIA est notre prochaine étape.
 -->
 
 ---
@@ -388,7 +388,7 @@ layoutClass: gap-10
 <v-clicks>
 
 - Vérification en base réelle, refus explicite, preuve Gherkin
-- Backend souverain en direct (Qualcomm Cloud AI 100)
+- Backend souverain en direct (ex. Qualcomm Cloud AI 100)
 - Serveur MCP, API de fact-check, carte du schéma Canutes
 
 </v-clicks>
@@ -409,7 +409,7 @@ layoutClass: gap-10
 <div class="foot"><span>LE RAPPORTEUR</span><span>09 / ROADMAP</span></div>
 
 <!--
-[Roadmap] Soyons transparents sur l'état. Ce qui tourne aujourd'hui : la vérification en base réelle, le refus explicite, la preuve Gherkin, le backend souverain Qualcomm Cloud AI 100 en direct, le serveur MCP et la carte du schéma. Ce qui vient : le RAG pour ancrer le contenu et pas seulement la citation, Mistral en direct via Modular MAX sur AMD, le benchmark performance par watt entre AMD et NVIDIA avec un noyau Mojo, et l'unification du serveur MCP sur notre moteur de vérification.
+[Roadmap] Soyons transparents sur l'état. Ce qui tourne aujourd'hui : la vérification en base réelle, le refus explicite, la preuve Gherkin, le backend souverain ex. Qualcomm Cloud AI 100 en direct, le serveur MCP et la carte du schéma. Ce qui vient : le RAG pour ancrer le contenu et pas seulement la citation, Mistral en direct via Modular MAX sur AMD, le benchmark performance par watt entre AMD et NVIDIA avec un noyau Mojo, et l'unification du serveur MCP sur notre moteur de vérification.
 -->
 
 ---
