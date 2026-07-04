@@ -123,6 +123,38 @@ La démo *publique* (GitHub Pages) est un **précalcul statique** (sûr, pas d'a
 Le **moteur souverain live** (Qualcomm Cloud AI 100 + vérif Canutes) tourne **sur scène** via
 `make api`. Choix assumé : tokens limités, pas de serveur LLM public.
 
+## Vérification & nouveauté
+
+**Votre vérification, c'est juste du `string.contains` ?**
+Non. Il y a un **LLM ancré dans la boucle**. Quatre couches : (1) index sur le **numéro**
+d'article ; (2) **match exact du code** par son identifiant stable Légifrance (CID), pas
+une correspondance de chaîne — « article 9 » existe dans des dizaines de codes ; (3)
+**pertinence ancrée** : un vérificateur LLM lit le **texte réel** de l'article (récupéré
+dans Canutes) et juge s'il **soutient la question** — il lit la source primaire, il ne
+répond pas de mémoire ; (4) **refus** si l'existence ou la pertinence échoue.
+
+**Pourquoi la pertinence, si l'article existe ?**
+Parce que **l'existence ne suffit pas**. Sur notre étude pilote, ~19 % des citations
+fausses étaient des articles **réels mais hors-sujet** (p. ex. citer l'article de
+définition au lieu de l'article de fond) — que la seule vérification d'existence laisse
+passer, avec un vrai lien Légifrance qui les rend crédibles. C'est le piège que la
+pertinence attrape.
+
+**Quelle est la contribution défendable (papier) ?**
+Deux choses. (1) Le **1er benchmark** d'hallucination de **citation d'article** pour le
+droit **français grand public**, ancré sur Canutes/Légifrance (les benchmarks existants
+sont US, UE, ou portent sur la *détection* dans les décisions, pas la génération sur
+questions citoyennes). (2) La méthode des **garanties exécutables** : la contribution
+n'est pas « une fonction Python plutôt que du Gherkin », c'est le **principe d'une source
+de vérité unique** des invariants — vérifiée en production, testée, et affichée — au cas
+de la citation juridique (vérification à l'exécution appliquée aux LLM).
+
+**Vous garantissez donc zéro hallucination ?**
+On garantit le **fail-closed** : on ne **présente** que des citations vérifiées (existantes
+ET pertinentes) ; en cas de doute, on **refuse**. Mieux vaut un refus qu'un faux. La
+pertinence repose sur un LLM ancré (faillible, qu'on itère) ; le match d'existence des
+numéros simples par CID est un raffinement identifié.
+
 ## Références
 - UCSD, *Serving LLMs in HPC Clusters: Qualcomm Cloud AI 100 Ultra vs NVIDIA* — <https://arxiv.org/abs/2507.00418> (frugalité)
 - *Mojo: MLIR-Based Performance-Portable HPC Science Kernels on GPUs* — <https://arxiv.org/abs/2509.21039> (portabilité Mojo NVIDIA/AMD)
