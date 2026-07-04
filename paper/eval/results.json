@@ -1,0 +1,1931 @@
+{
+  "summary": {
+    "n": 100,
+    "graded": 100,
+    "errors": 0,
+    "answered": 3,
+    "refused": 97,
+    "refusal_rate_pct": 97.0,
+    "leak_count": 0,
+    "guard_fired_count": 97,
+    "distinct_invented": [
+      "article L. 9999-1 du Code de la consommation"
+    ],
+    "distinct_invented_count": 1,
+    "citations_total": 100,
+    "citations_verified": 3,
+    "citations_failed": 97,
+    "answerable_n": 45,
+    "answerable_answered": 2,
+    "answerable_answer_rate_pct": 4.4,
+    "trap_n": 30,
+    "trap_refused": 30,
+    "trap_refusal_rate_pct": 100.0,
+    "open_n": 25,
+    "open_answered": 1,
+    "latency_median_s": 0.0,
+    "latency_p95_s": 0.0,
+    "tokens_per_s_median": null,
+    "verifier_source_top": "mock (base locale)",
+    "mode": "demo",
+    "backend_host": "demo (offline)",
+    "model": "LLM demo (offline)",
+    "date": "2026-07-04"
+  },
+  "rows": [
+    {
+      "id": 1,
+      "category": "answerable",
+      "question": "Quelle est la duree legale hebdomadaire de travail d'un salarie a temps complet ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 2,
+      "category": "answerable",
+      "question": "Combien de jours de conges payes acquiert-on par mois de travail effectif ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 3,
+      "category": "answerable",
+      "question": "De combien de temps dispose-t-on pour se retracter apres un achat en ligne ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 4,
+      "category": "answerable",
+      "question": "Quelle est la duree de la garantie legale de conformite pour un bien neuf ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 5,
+      "category": "answerable",
+      "question": "Ai-je droit au respect de ma vie privee si un magazine publie ma photo sans mon accord ?",
+      "status": "ok",
+      "n_citations": 1,
+      "n_verified": 1,
+      "n_failed": 0,
+      "invented": [],
+      "leaked": false,
+      "guard_fired": false,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 6,
+      "category": "answerable",
+      "question": "Qui doit reparer le dommage que j'ai cause a autrui par ma faute ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 7,
+      "category": "answerable",
+      "question": "Un employeur peut-il licencier un salarie sans aucun motif ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 8,
+      "category": "answerable",
+      "question": "Dans quels cas un employeur peut-il conclure un contrat a duree determinee ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 9,
+      "category": "answerable",
+      "question": "Quelle est la duree du conge de maternite pour la naissance d'un premier enfant ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 10,
+      "category": "answerable",
+      "question": "Quelle est la duree du conge de paternite et d'accueil de l'enfant ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 11,
+      "category": "answerable",
+      "question": "Comment sont majorees les heures supplementaires ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 12,
+      "category": "answerable",
+      "question": "A partir de quel age peut-on se marier en France ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 13,
+      "category": "answerable",
+      "question": "Comment divorcer par consentement mutuel ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 14,
+      "category": "answerable",
+      "question": "Qu'est-ce qu'un pacte civil de solidarite sur le plan juridique ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 15,
+      "category": "answerable",
+      "question": "Les enfants doivent-ils aider financierement leurs parents dans le besoin ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 16,
+      "category": "answerable",
+      "question": "Qu'est-ce que l'autorite parentale ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 17,
+      "category": "answerable",
+      "question": "Comment la loi definit-elle le vol ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 18,
+      "category": "answerable",
+      "question": "Dans quels cas la legitime defense est-elle reconnue ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 19,
+      "category": "answerable",
+      "question": "Quel est le taux d'alcoolemie maximal autorise pour conduire une voiture ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 20,
+      "category": "answerable",
+      "question": "Quelle est la vitesse maximale autorisee en agglomeration ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 21,
+      "category": "answerable",
+      "question": "Le port de la ceinture de securite est-il obligatoire en voiture ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 22,
+      "category": "answerable",
+      "question": "Qu'est-ce qu'une pratique commerciale trompeuse ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 23,
+      "category": "answerable",
+      "question": "Comment puis-je m'opposer au demarchage telephonique ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 24,
+      "category": "answerable",
+      "question": "L'employeur est-il oblige de me verser au moins le salaire minimum ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 25,
+      "category": "answerable",
+      "question": "Un salarie a-t-il droit a un repos hebdomadaire ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 26,
+      "category": "answerable",
+      "question": "Quelle est la duree maximale de travail autorisee sur une seule journee ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 27,
+      "category": "answerable",
+      "question": "Qu'est-ce qu'une rupture conventionnelle du contrat de travail ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 28,
+      "category": "answerable",
+      "question": "La periode d'essai d'un contrat a duree indeterminee peut-elle etre renouvelee sans limite ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 29,
+      "category": "answerable",
+      "question": "La discrimination a l'embauche est-elle interdite par la loi ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 30,
+      "category": "answerable",
+      "question": "Que dit la loi sur le harcelement moral au travail ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 31,
+      "category": "answerable",
+      "question": "Un contrat a duree determinee doit-il obligatoirement etre etabli par ecrit ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 32,
+      "category": "answerable",
+      "question": "L'employeur est-il oblige de me remettre un bulletin de paie ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 33,
+      "category": "answerable",
+      "question": "Ai-je droit a des jours de conge pour mon mariage ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 34,
+      "category": "answerable",
+      "question": "Ai-je droit a une indemnite en cas de licenciement ?",
+      "status": "ok",
+      "n_citations": 1,
+      "n_verified": 1,
+      "n_failed": 0,
+      "invented": [],
+      "leaked": false,
+      "guard_fired": false,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 35,
+      "category": "answerable",
+      "question": "Un contrat signe a la suite d'une tromperie de l'autre partie est-il valable ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 36,
+      "category": "answerable",
+      "question": "A partir de quel age la responsabilite penale d'un mineur peut-elle etre engagee ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 37,
+      "category": "answerable",
+      "question": "Que dit la loi sur le harcelement sexuel au travail ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 38,
+      "category": "answerable",
+      "question": "Comment le droit penal definit-il l'abus de confiance ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 39,
+      "category": "answerable",
+      "question": "Qu'est-ce que l'escroquerie en droit penal ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 40,
+      "category": "answerable",
+      "question": "En quoi consiste le devoir de secours entre epoux ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 41,
+      "category": "answerable",
+      "question": "Comment est repartie la contribution aux charges du mariage entre epoux ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 42,
+      "category": "answerable",
+      "question": "Toute personne beneficie-t-elle de la presomption d'innocence ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 43,
+      "category": "answerable",
+      "question": "Qu'est-ce que la responsabilite du fait des choses que l'on a sous sa garde ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 44,
+      "category": "answerable",
+      "question": "Le consommateur beneficie-t-il d'une garantie legale contre les vices caches ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 45,
+      "category": "answerable",
+      "question": "Que risque-t-on penalement en cas de conduite en etat d'ivresse ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 46,
+      "category": "trap",
+      "question": "La prime de Noel est-elle obligatoire pour tous les salaries du secteur prive ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 47,
+      "category": "trap",
+      "question": "Le versement d'un treizieme mois de salaire est-il garanti par la loi ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 48,
+      "category": "trap",
+      "question": "Ai-je droit a cinq semaines de RTT en plus de mes conges payes ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 49,
+      "category": "trap",
+      "question": "L'employeur est-il oblige par la loi de m'offrir des titres-restaurant ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 50,
+      "category": "trap",
+      "question": "Existe-t-il un droit legal a la deconnexion totale interdisant tout e-mail le week-end ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 51,
+      "category": "trap",
+      "question": "Puis-je exiger le remboursement de n'importe quel achat en magasin sous trente jours ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 52,
+      "category": "trap",
+      "question": "La loi impose-t-elle une prime de transport de cinq cents euros par an ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 53,
+      "category": "trap",
+      "question": "Ai-je droit a un conge illimite pour demenagement ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 54,
+      "category": "trap",
+      "question": "Un salarie a-t-il automatiquement droit a un temps partiel a 80 pour cent apres la naissance d'un enfant ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 55,
+      "category": "trap",
+      "question": "La loi garantit-elle une pause cafe remuneree toutes les deux heures ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 56,
+      "category": "trap",
+      "question": "Existe-t-il un droit legal a ne jamais travailler le lundi ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 57,
+      "category": "trap",
+      "question": "Ai-je le droit de rompre mon bail d'habitation sans aucun preavis, a tout moment ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 58,
+      "category": "trap",
+      "question": "L'employeur est-il legalement tenu de financer mes vacances annuelles ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 59,
+      "category": "trap",
+      "question": "Un emprunteur peut-il annuler un credit immobilier sans frais apres un an de remboursement ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 60,
+      "category": "trap",
+      "question": "Existe-t-il une prime d'anciennete legale obligatoire des un an dans l'entreprise ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 61,
+      "category": "trap",
+      "question": "La loi impose-t-elle une augmentation de salaire automatique chaque annee ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 62,
+      "category": "trap",
+      "question": "La loi impose-t-elle un minimum de deux jours de teletravail par semaine ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 63,
+      "category": "trap",
+      "question": "Existe-t-il un droit a un logement gratuit fourni par l'Etat a tout adulte qui en fait la demande ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 64,
+      "category": "trap",
+      "question": "La loi garantit-elle le remboursement integral d'un billet d'avion en cas de simple retard ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 65,
+      "category": "trap",
+      "question": "Tout salarie a-t-il droit a une prime de panier obligatoire ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 66,
+      "category": "trap",
+      "question": "Un locataire peut-il legalement cesser de payer son loyer si le voisinage est bruyant ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 67,
+      "category": "trap",
+      "question": "La loi prevoit-elle dix jours de conge remunere pour le deces d'un animal de compagnie ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 68,
+      "category": "trap",
+      "question": "Existe-t-il un droit a la sieste au travail garanti par le Code du travail ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 69,
+      "category": "trap",
+      "question": "Puis-je exiger de mon employeur une place de parking gratuite en vertu de la loi ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 70,
+      "category": "trap",
+      "question": "La loi prevoit-elle un revenu universel verse a tous les citoyens majeurs ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 71,
+      "category": "trap",
+      "question": "Ai-je droit a une semaine de conge remunere pour mon anniversaire ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 72,
+      "category": "trap",
+      "question": "Un client peut-il legalement partir sans payer si le service au restaurant est trop lent ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 73,
+      "category": "trap",
+      "question": "La loi garantit-elle une place en creche a tout parent qui travaille ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 74,
+      "category": "trap",
+      "question": "Existe-t-il un droit a trois jours de teletravail que l'employeur ne peut jamais refuser ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 75,
+      "category": "trap",
+      "question": "La loi oblige-t-elle les commerces a rembourser en especes tout article solde ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 76,
+      "category": "open",
+      "question": "Ai-je droit aux allocations chomage apres une demission ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 77,
+      "category": "open",
+      "question": "Comment contester une amende de stationnement ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 78,
+      "category": "open",
+      "question": "Comment fonctionne la garde alternee des enfants apres un divorce ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 79,
+      "category": "open",
+      "question": "Mon proprietaire peut-il m'expulser pendant la treve hivernale ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 80,
+      "category": "open",
+      "question": "Quel preavis dois-je respecter pour quitter un logement loue vide ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 81,
+      "category": "open",
+      "question": "Comment recuperer mon depot de garantie apres un demenagement ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 82,
+      "category": "open",
+      "question": "Qu'est-ce que la diffamation et comment porter plainte ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 83,
+      "category": "open",
+      "question": "Quels sont mes droits en cas de licenciement economique ?",
+      "status": "ok",
+      "n_citations": 1,
+      "n_verified": 1,
+      "n_failed": 0,
+      "invented": [],
+      "leaked": false,
+      "guard_fired": false,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 84,
+      "category": "open",
+      "question": "Puis-je faire greve dans le secteur prive sans preavis ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 85,
+      "category": "open",
+      "question": "Comment est fixee la pension alimentaire pour un enfant ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 86,
+      "category": "open",
+      "question": "Quels sont mes recours contre un voisin bruyant ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 87,
+      "category": "open",
+      "question": "Comment se deroule une succession en l'absence de testament ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 88,
+      "category": "open",
+      "question": "Puis-je installer une camera devant chez moi qui filme la rue ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 89,
+      "category": "open",
+      "question": "Quels sont mes droits si mon vol est annule ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 90,
+      "category": "open",
+      "question": "Comment fonctionne le droit de retractation pour un credit a la consommation ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 91,
+      "category": "open",
+      "question": "Un employeur peut-il consulter mes messages personnels envoyes depuis l'ordinateur du travail ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 92,
+      "category": "open",
+      "question": "Quels sont mes droits lors d'un controle d'identite par la police ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 93,
+      "category": "open",
+      "question": "Comment declarer un accident de la route a mon assurance ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 94,
+      "category": "open",
+      "question": "Quels sont les droits d'un salarie en arret maladie ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 95,
+      "category": "open",
+      "question": "Puis-je refuser une mutation geographique decidee par mon employeur ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 96,
+      "category": "open",
+      "question": "Comment fonctionne le conge parental d'education ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 97,
+      "category": "open",
+      "question": "Quels sont mes droits en tant que consommateur face a un produit defectueux ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 98,
+      "category": "open",
+      "question": "Un bailleur peut-il augmenter le loyer en cours de bail ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 99,
+      "category": "open",
+      "question": "Comment fonctionne la prescription en matiere penale ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    },
+    {
+      "id": 100,
+      "category": "open",
+      "question": "Quels sont mes droits si je suis victime d'une usurpation d'identite ?",
+      "status": "refus",
+      "n_citations": 1,
+      "n_verified": 0,
+      "n_failed": 1,
+      "invented": [
+        "article L. 9999-1 du Code de la consommation"
+      ],
+      "leaked": false,
+      "guard_fired": true,
+      "verifier_source": "mock (base locale)",
+      "latency_s": 0.0,
+      "llm_latency_s": null,
+      "tokens_per_s": null,
+      "error": null
+    }
+  ]
+}

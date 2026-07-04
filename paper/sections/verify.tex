@@ -1,18 +1,56 @@
 \section{Citation Verification over a Legal Database}
 \label{sec:verify}
 
-The verifier answers a deceptively simple query: \emph{does article
-$\langle$num$\rangle$ of $\langle$code$\rangle$ exist and is it in force?} Doing
-this at interactive latency over Canutes required care.
+The verifier answers a deceptively simple question: \emph{does article
+$\langle$num$\rangle$ of $\langle$code$\rangle$ exist, and is it in force?}
+Answering it soundly \emph{and} at interactive latency over Canutes is the
+technical core of the system.
 
-\paragraph{Index-friendly citation matching.}
-Légifrance encodes article numbers inconsistently (e.g., \texttt{L3121-27},
-\texttt{L.\,3121-27}, \texttt{L. 3121-27}). A naive predicate
-(\texttt{num \textasciitilde{} '.*3121-27.*'}) forces a sequential scan and a
-regular-expression match over the whole \texttt{legifrance.article} table,
-which in our environment hit a statement timeout. Instead, we expand the
-citation into a small, closed set of \emph{exact} string variants and match
-with equality against the (indexable) \texttt{num} column:
+\subsection{Finding the needle in 253 tables}
+Because Canutes ships without documented foreign keys and with opaque,
+historically accreted table names, \emph{locating} the authoritative article
+table is itself work. We recover a usable map of the schema
+\emph{offline}---entity-and-relationship inference over the 253 tables,
+cross-checked against L\'egifrance's identifier conventions
+(\texttt{LEGITEXT}/\texttt{LEGIARTI})---and pin verification to
+\texttt{legifrance.article}, whose rows are the versioned records of
+\S\ref{sec:background}. Paying this cost once, offline, keeps the online path a
+single, well-understood query rather than an exploratory crawl across an
+unknown schema.
+
+\subsection{Extraction and normalization}
+Citations are first lifted from the draft by a tolerant matcher keyed on the
+French legal idiom (\emph{``article~\ldots\ du Code~\ldots''}), capturing the
+article number and the code name. L\'egifrance, however, encodes article
+numbers \emph{inconsistently}: the same article surfaces as \texttt{L3121-27},
+\texttt{L.\,3121-27}, or \texttt{L. 3121-27}, with or without a space after the
+book letter and with or without the period. A naive existence predicate that
+tries to absorb this variation with a pattern
+match---\texttt{num \textasciitilde{} '.*3121-27.*'}---forces a sequential scan
+and a regular-expression evaluation over the \emph{entire}
+\texttt{legifrance.article} table; in our environment this reliably hit the
+statement timeout.
+
+Instead, we push the variation to the \emph{client}: a citation is expanded
+into a small, closed set of \emph{exact} string variants
+(Algorithm~\ref{alg:variants}), which are then matched with \emph{equality}
+against the indexable \texttt{num} column. Equality against a bounded set turns
+a full-table regex scan into an index probe.
+
+\begin{algorithm}[t]
+\caption{Variant expansion: turn one written citation number into a closed set
+of exact strings for index-friendly equality matching.}
+\label{alg:variants}
+\begin{algorithmic}[1]
+\Function{Variants}{\textit{num}}
+  \State \textit{core} $\gets$ strip spaces and periods from \textit{num}
+         \Comment{e.g.\ \texttt{L3121-27}}
+  \State \Return the closed set re-inserting the optional period and space
+         after the leading letter(s), e.g.\ $\{$\texttt{L3121-27},
+         \texttt{L.3121-27}, \texttt{L. 3121-27}, \texttt{L 3121-27}$\}$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \begin{lstlisting}[style=lr, language=SQL]
 -- variants = {"L. 3121-27", "L.3121-27", "L3121-27", ...}
@@ -23,23 +61,64 @@ WHERE  num = ANY(%s)          -- equality, index-friendly
 LIMIT  200;
 \end{lstlisting}
 
-\paragraph{Code disambiguation and accents.}
-The code name (e.g., \emph{Code du travail}) is matched by \texttt{ILIKE}
-against the article's JSON payload, then re-checked in Python with an
-accent-insensitive normalization (Postgres \texttt{ILIKE} is not
-accent-folding). This two-stage filter keeps the SQL cheap while remaining
-correct on inputs such as \emph{Code de la s\'ecurit\'e sociale}.
+\subsection{Code disambiguation and accents}
+The code name (e.g., \emph{Code du travail}) is first filtered in SQL by
+\texttt{ILIKE} against the article's JSON payload---cheap, because the variant
+equality has already reduced the candidate set to a handful of rows. It is then
+re-checked in Python under an accent-insensitive normalization, because
+PostgreSQL \texttt{ILIKE} folds case but \emph{not} diacritics: without this
+second stage, \emph{``Code de la s\'ecurit\'e sociale''} and \emph{``Code de la
+securite sociale''} would be treated as different codes. This two-stage
+filter---coarse in SQL, exact in the client---keeps the query cheap while
+remaining correct on accented input.
 
-\paragraph{State-aware selection.}
-Among the surviving rows we prefer the \texttt{VIGUEUR} (in-force) version;
-if present, we return its canonical \texttt{LEGIARTI} identifier, from which we
-build a real, clickable Légifrance URL, plus a short text excerpt. If no row
-matches the code, the verifier returns \texttt{exists=false}, which the
-pipeline treats as a refusal trigger. Crucially, \emph{every failure mode maps
-to ``not verified''}: this is what makes the layer fail-closed.
+\subsection{State-aware selection and provenance}
+Among the surviving rows the verifier prefers the \texttt{VIGUEUR} (in-force)
+version. When one is found it returns the canonical \texttt{LEGIARTI}
+identifier, from which a real, clickable L\'egifrance URL is constructed, plus
+a short textual excerpt for display. The URL and excerpt are the
+\emph{provenance} that turns a released citation into something a user can
+independently check; they are never synthesized, only copied from the row. If
+no surviving row matches the requested code, the verifier returns
+\texttt{exists=false}, which the pipeline treats as a refusal trigger.
+Crucially, \emph{every} failure mode---no row, no in-force row, timeout,
+malformed number---maps to ``not verified''. That total mapping is what makes
+the layer fail-closed: there is no code path in which uncertainty is reported
+as success.
 
-\paragraph{Offline determinism.}
-For demos and tests without network access, a mock verifier answers from a
-small local set of articles known to be in force. The same code path yields a
-deterministic, reproducible refusal for a fabricated article---essential for
-the executable specification of \S\ref{sec:bdd}.
+\subsection{Cost and offline determinism}
+Because matching is an equality probe against a bounded variant set followed by
+an \texttt{ILIKE} over a handful of candidates, per-citation verification is a
+small, bounded query rather than a corpus scan, and the checks for the several
+citations in one answer are independent and can be issued concurrently. For
+demonstrations and continuous integration without network access, a mock
+verifier answers from a small local set of articles known to be in force,
+exercising the \emph{same} code path and decision logic as the live backend.
+This yields a deterministic, reproducible refusal for a fabricated
+article---exactly what the executable specification of \S\ref{sec:bdd} needs to
+turn trust into a repeatable test.
+
+\subsection{Verifier backends, one contract}
+\label{sec:verify-backends}
+The verifier is an \emph{interface} with interchangeable implementations that
+all honour the same fail-closed contract: (i)~a \emph{mock} over a small
+in-force set, for offline determinism; (ii)~a \emph{direct} PostgreSQL client
+issuing the query above; (iii)~an \emph{MCP} client that calls a tool server
+(``Moulineuse'') exposing SQL/JS over Canutes; and (iv)~a read-only
+\emph{PostgREST} fallback for the public tables. Whichever backend is
+configured, an unresolved citation or \emph{any} error maps to ``not
+verified''. The guarantee is thus a property of the contract, not of a
+particular data path---so the trust layer survives changes in how the corpus is
+reached. Putting the pieces together, one verification runs as:
+
+\begin{lstlisting}[style=lr]
+verify("L. 3121-27", "Code du travail")
+  variants -> {L3121-27, L.3121-27, L. 3121-27, ...}
+  SELECT id,num,data FROM legifrance.article
+    WHERE num = ANY(variants)
+      AND data::text ILIKE '%travail%';
+  rows     -> [ LEGIARTI...815 (VIGUEUR), ... ]
+  select   -> VIGUEUR  =>  exists = true
+  url      -> legifrance.gouv.fr/.../LEGIARTI...815
+  excerpt  -> "La duree legale du travail effectif..."
+\end{lstlisting}

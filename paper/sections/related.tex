@@ -1,11 +1,40 @@
 \section{Related Work}
 \label{sec:related}
 
-Hallucination in generation is surveyed by Ji et al.~\cite{ji2023hallucination};
-retrieval augmentation~\cite{lewis2020rag} is the dominant mitigation. Our
-contribution is orthogonal and complementary: a \emph{fail-closed, database-backed
-verification} layer specialized to a versioned legal corpus, exposed as a
-reusable service over MCP~\cite{mcp2024}. On the systems side, the work is a
-small study in making per-citation checks cheap over an irregular open-government
-schema, and in decoupling a trust pipeline from the serving
-silicon~\cite{modularmax2024, qualcommcloudai100}.
+\paragraph{Hallucination and its mitigation.}
+Hallucination in generation is surveyed broadly by Ji et
+al.~\cite{ji2023hallucination} and Huang et al.~\cite{huang2025hallucination},
+and profiled specifically for law by Dahl et al.~\cite{dahl2024legalfictions},
+whose findings motivate our conservative stance. Retrieval
+augmentation~\cite{lewis2020rag, gao2023ragsurvey, karpukhin2020dpr} is the
+dominant mitigation; self-consistency detectors such as
+SelfCheckGPT~\cite{manakul2023selfcheckgpt} probe the model against itself. Our
+contribution is orthogonal and complementary: rather than making the model
+\emph{more likely} to be right, we \emph{verify} each citation against an
+external source of truth and fail closed otherwise.
+
+\paragraph{Fact verification and legal NLP.}
+The FEVER line of work~\cite{thorne2018fever} frames verification as retrieving
+evidence and deciding entailment~\cite{williams2018mnli}; we adopt the
+retrieve-then-decide shape but specialize the retrieve step to an exact,
+state-aware lookup in a versioned legal database, and (for now) the decide step
+to existence rather than entailment. In legal NLP, domain encoders and
+benchmarks~\cite{chalkidis2020legalbert, guha2023legalbench} target legal
+\emph{reasoning}; we instead target legal \emph{citation integrity}, a narrower
+but safety-critical property.
+
+\paragraph{Systems and sovereignty.}
+On the systems side, the work is a small study in making per-citation checks
+cheap over an irregular open-government schema, and in decoupling a trust
+pipeline from the serving silicon~\cite{modularmax2024, qualcommcloudai100} via
+an OpenAI-compatible indirection. Exposing verification as an MCP
+service~\cite{mcp2024} places the guarantee where other agents can reuse it,
+turning a single application into shared trust infrastructure.
+
+\paragraph{Attribution and grounded citation.}
+A parallel line asks models to \emph{attribute} their statements to sources and
+measures whether the attribution holds. We take the strict end of that
+spectrum: rather than scoring attribution \emph{post hoc}, we make an
+unverifiable attribution \emph{fatal} to the answer. In that sense our closest
+relatives are not chatbots but fact-checking and database-integrity systems,
+specialized to the narrow, high-stakes surface of statutory citation.

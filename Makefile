@@ -1,7 +1,7 @@
 # Hackathon Assemblée 2026 — commandes rapides
 # uv gère l'env Python (.venv créé automatiquement).
 
-.PHONY: setup smoke bdd db api env clean
+.PHONY: setup smoke bdd bench db api env clean
 
 setup:        ## Crée l'env + installe les deps minimales
 	uv sync
@@ -16,6 +16,9 @@ smoke:        ## Smoke test end-to-end (mode mock, sans vraies clés)
 
 bdd:          ## Scénarios Gherkin (behave)
 	uv run behave
+
+bench:        ## Benchmark n=100 questions (données RÉELLES ; nécessite .env MODE=live)
+	uv run python tools/bench_eval.py
 
 db:           ## Ajoute l'accès PostgreSQL direct (optionnel : psycopg)
 	uv sync --extra db

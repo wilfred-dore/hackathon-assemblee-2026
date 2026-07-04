@@ -1,15 +1,64 @@
 \section{System Overview}
 \label{sec:overview}
 
-Figure~\ref{fig:pipeline} shows the pipeline. A citizen question is sent to a
-sovereign LLM. The draft answer is parsed for legal citations of the canonical
-French form \emph{``article $\langle$num$\rangle$ du $\langle$code$\rangle$''}
-using a normalization-tolerant extractor. Each extracted citation is verified
-independently against the legal database. The answer is released
-\emph{only if} the set of citations is non-empty and \emph{every} citation
-resolves to an in-force article; otherwise the system refuses. This
-\emph{fail-closed} disjunction is the whole point: the guarantee does not
-depend on the model behaving well.
+Figure~\ref{fig:pipeline} shows the four-stage pipeline---\emph{generate,
+extract, verify, source-or-refuse}---and Algorithm~\ref{alg:pipeline} states it
+precisely. A citizen question $q$ is sent to a sovereign LLM
+(\S\ref{sec:sovereign}), which returns a draft answer $a$. The draft is parsed
+for legal citations of the canonical French form \emph{``article
+$\langle$num$\rangle$ du $\langle$code$\rangle$''} by a normalization-tolerant
+extractor (\S\ref{sec:verify}). Each extracted citation $c_i$ is verified
+\emph{independently} against the legal database, yielding a verdict together
+with, on success, a canonical \texttt{LEGIARTI} identifier, a clickable
+Légifrance URL, and a short excerpt.
+
+\begin{algorithm}[t]
+\caption{Fail-closed answering. A single unverifiable citation---or any
+exception raised while checking---yields a refusal.}
+\label{alg:pipeline}
+\begin{algorithmic}[1]
+\Function{Answer}{$q$}
+  \State $a \gets \textsc{Llm}(q)$ \Comment{untrusted draft}
+  \State $C \gets \textsc{ExtractCitations}(a)$
+  \If{$C = \emptyset$}
+    \State \Return \textsc{Refuse}
+  \EndIf
+  \State $S \gets \emptyset$
+  \For{$c \in C$}
+    \State $r \gets \textsc{Verify}(c)$ \Comment{state-aware DB lookup}
+    \If{$\neg\, r.\mathit{exists}$}
+      \State \Return \textsc{Refuse} \Comment{fail-closed}
+    \EndIf
+    \State $S \gets S \cup \{\langle c,\, r.\mathit{url},\, r.\mathit{excerpt}\rangle\}$
+  \EndFor
+  \State \Return \textsc{Sourced}(a, S)
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{The release predicate.}
+Let $C(a) = \{c_1, \dots, c_n\}$ be the citations extracted from draft $a$. The
+answer is released to the user \emph{if and only if}
+\[
+  C(a) \neq \emptyset \;\wedge\; \forall\, c_i \in C(a):\;
+  \mathrm{verify}(c_i) = \textsc{ok}.
+\]
+Every other outcome---no citation at all, one unresolved citation, or any
+exception while checking---maps to an explicit refusal. The disjunction is
+deliberately lopsided: the release branch demands \emph{universal} success,
+whereas a \emph{single} failure anywhere triggers refusal. This is what we mean
+by \emph{fail-closed}, and it is the whole point: the guarantee does not depend
+on the model behaving well, only on the verifier being sound about what it can
+confirm.
+
+\paragraph{Why independent, per-citation checks.}
+Verifying citations one at a time---rather than scoring the answer as a
+whole---keeps the trusted computing base small and its verdicts explainable:
+each released citation is accompanied by the exact identifier and URL that
+justify it, so a user (or an auditor) can click through to the primary source.
+Independence also makes the layer trivially parallelizable and lets a partial
+failure localize to the offending citation instead of tainting the whole
+answer.
 
 \begin{figure}[t]
 \centering
@@ -43,3 +92,22 @@ source-or-refuse}. The trust guarantee is enforced at the verification
 diamond, independently of the model.}
 \label{fig:pipeline}
 \end{figure}
+
+\subsection{Trusted computing base}
+The components that must be correct for the guarantee to hold are few and
+explicit: the citation extractor, the verifier, and the legal database. The
+model, the network, the serving hardware, and even the prompt lie
+\emph{outside} the trusted base---any may fail arbitrarily, and the worst
+observable outcome is a refusal, never a fabricated citation presented as
+verified. Shrinking the trusted base to a database lookup plus a few hundred
+lines of verification code is what makes the guarantee auditable rather than
+aspirational.
+
+\subsection{Where the latency goes}
+End-to-end latency is dominated by \emph{generation}, not verification: the
+verifier issues a handful of bounded, index-friendly queries
+(\S\ref{sec:verify}) whose cost is negligible beside a multi-hundred-token
+decode. Per-citation checking is therefore affordable online, and the
+end-to-end latency we report (\S\ref{sec:eval}) tracks the model rather than
+the database---verification buys the guarantee essentially for free relative to
+the cost already paid to generate the draft.

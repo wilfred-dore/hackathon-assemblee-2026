@@ -1,9 +1,20 @@
 \section{An Executable Trust Specification}
 \label{sec:bdd}
+
 The anti-hallucination guarantee is not a slogan; it is encoded as
-behavior-driven tests in Gherkin~\cite{gherkin}, in French, so that a lawyer
-(not only an engineer) can read and audit them. The suite runs on every
-change; \emph{a single fabricated article turns the build red}.
+behavior-driven tests in Gherkin~\cite{gherkin}, written \emph{in French} so
+that a jurist---not only an engineer---can read, challenge, and sign off on
+them. The suite runs on every change, and \emph{a single fabricated article
+turns the build red}. Turning the invariant into a red/green signal makes it
+continuously checkable rather than merely asserted, and hands a non-technical
+domain expert a direct grip on the system's behaviour.
+
+Three scenarios cover the invariant. (i)~A verified citation must be presented
+\emph{with} its source. (ii)~A question that elicits a fabricated
+article---the ``Christmas bonus'', for which the model invents
+\emph{article~L.\,4321-7}---must be refused, and no article absent from the
+sources may be shown as verified. (iii)~A question with no verifiable source
+must be refused rather than answered from parametric memory.
 
 \begin{lstlisting}[style=lr]
 Scenario: No invented citation
@@ -14,8 +25,32 @@ Scenario: No invented citation
       presented as verified
 \end{lstlisting}
 
-Three scenarios cover the invariant: a verified citation must be sourced; a
-question that elicits a fabricated article (the ``Christmas bonus'', for which
-the model invents \emph{article L.\,4321-7}) must be refused; and a question
-with no verifiable source must be refused. Turning trust into a red/green test
-makes the property continuously checkable rather than merely asserted.
+Because the offline mock verifier (\S\ref{sec:verify}) exercises the same
+decision logic as the live backend, these scenarios are deterministic: they
+pin the \emph{behaviour} of the trust layer independently of which model or
+accelerator sits behind it, so what turns the suite red is a regression in the
+pipeline---not merely a model that happens to answer well today.
+
+The other two scenarios pin the positive and the no-source cases:
+
+\begin{lstlisting}[style=lr]
+Scenario: A verified citation is always sourced
+  Given a question with a known in-force article
+  When the system answers
+  Then every article shown as verified
+       resolves in the database
+  And each carries a clickable Legifrance link
+
+Scenario: No source, no answer
+  Given a question with no verifiable legal source
+  When the system answers
+  Then the answer must be an explicit refusal
+\end{lstlisting}
+
+\subsection{The harness}
+The scenarios run under \texttt{behave}: French \emph{Soit\,/\,Quand\,/\,Alors}
+steps drive the pipeline in offline mock mode, \texttt{environment.py} wires
+the deterministic verifier, and the suite is a continuous-integration gate.
+Because the steps read as domain language rather than code, a jurist can
+\emph{author} new obligations---each becoming a test the system must satisfy on
+every commit.

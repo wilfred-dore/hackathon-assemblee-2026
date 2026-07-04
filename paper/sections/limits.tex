@@ -3,22 +3,49 @@
 
 \paragraph{Existence is not semantics.}
 Our verifier checks that a cited article \emph{exists} and is \emph{in force};
-it does not yet check that the article's \emph{content} supports the claim.
-We observed the model cite an article that exists but is off-topic
-(\emph{L.\,2122-4}); such a citation passes an existence check. Closing this
-gap requires semantic verification (entailment between the article text and the
-answer's claim).
+it does not yet check that the article's \emph{content} supports the answer's
+claim. As \S\ref{sec:eval} shows, a real but off-topic citation (type~E4)
+passes an existence check. Closing this gap is a natural-language inference
+problem: treat the article text as the premise and the answer's claim as the
+hypothesis, and require \emph{entailment} before releasing the
+citation~\cite{williams2018mnli}. Legal-domain encoders such as
+LEGAL-BERT~\cite{chalkidis2020legalbert} and fact-verification pipelines in the
+FEVER tradition~\cite{thorne2018fever} are the obvious building blocks, and
+benchmarks like LegalBench~\cite{guha2023legalbench} would let us measure
+progress. This would upgrade the guarantee from ``the source exists'' to ``the
+source says so''.
 
-\paragraph{Grounding.}
+\paragraph{Grounding: generate-then-verify $\rightarrow$ retrieve-then-generate.}
 The current system \emph{generates then verifies}; it does not yet retrieve
-before generating. The planned grounding is \emph{lexical}, not vectorial: a
-full-text search (via a metadata-aware SQL tool, or Postgres
-\texttt{to\_tsvector}) returning top-$k$ passages that condition generation.
-The obstacle is not a vector store but an efficient full-text \emph{index}
-over a very large article table---indexing the entire corpus is the real wall,
-so we would scope to a sub-corpus first.
+before generating. The planned grounding is deliberately \emph{lexical} rather
+than vectorial: a full-text search---via a metadata-aware SQL tool or
+PostgreSQL \texttt{to\_tsvector}, ranked with BM25~\cite{robertson2009bm25}---
+returning top-$k$ passages that condition generation, complementing dense
+retrieval~\cite{karpukhin2020dpr, lewis2020rag}. The obstacle is not a vector
+store but an efficient full-text \emph{index} over a very large, versioned
+article table; indexing the entire corpus is the real wall, so we would scope
+to a sub-corpus (e.g., a single code) first.
 
 \paragraph{Model and hardware.}
 Mistral is not served by our live Qualcomm endpoint (Llama-3.1-8B only); a
-Mistral deployment via the portable runtime on AMD is future work, as is a
-kernel-level (Mojo) hot-path benchmark for perf/watt claims.
+Mistral deployment through the portable runtime on AMD is future work, as is a
+kernel-level (Mojo) hot-path study to support a \emph{measured} perf/watt
+claim---which we have deliberately avoided asserting without data
+(\S\ref{sec:sovereign}).
+
+\paragraph{Verifier soundness and coverage.}
+Our guarantee is only as good as the verifier's soundness and the corpus's
+completeness. The extractor targets the canonical \emph{``article~X du
+Code~Y''} form and will miss unusual citation phrasings---which, being
+unextracted, are simply not vouched for, a fail-closed omission rather than a
+false endorsement. Coverage beyond codified statute (case law, EU law,
+circulars) and robustness to multilingual input remain open.
+
+\paragraph{From refusal to repair.}
+A refusal is safe but blunt. A natural next step is \emph{repair}: when a draft
+cites a non-existent article, use the grounding index above to retrieve the
+provision the citizen most likely needs and regenerate, moving the system from
+``I cannot confirm this'' toward ``here is the text that actually
+applies''---without ever relaxing the release predicate. Refusal remains the
+safe default; repair is a strict improvement only if the retrieved,
+re-generated citation itself passes verification.

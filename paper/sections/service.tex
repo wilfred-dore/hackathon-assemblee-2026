@@ -1,23 +1,99 @@
 \section{A Reusable Trust Service}
 \label{sec:service}
 
-Rather than a monolithic chatbot, Le Rapporteur exposes its trust layer as a
-service others can call. Over HTTP:
-\begin{itemize}
-  \item \texttt{POST /answer} --- ask a question, receive a sourced answer or a
-  refusal, with each citation annotated \{\,exists, url, excerpt\,\} and,
-  under a live backend, latency/throughput metrics;
-  \item \texttt{POST /verify} --- submit \emph{arbitrary} text (e.g., another
-  LLM's output) and receive, per citation, whether it is real, plus aggregate
-  flags (\texttt{n\_invented}, \texttt{trustworthy}).
-\end{itemize}
-\texttt{/verify} is the key integration point: any citizen platform or
-parliamentary tool can detect invented legal citations in a third-party model's
-output without adopting our model.
+Rather than ship a monolithic chatbot, Le Rapporteur exposes its trust layer as
+a service that others can call. The design goal is \emph{reuse}: the value is
+not only the answers our own model produces, but the ability to fact-check the
+citations in \emph{any} model's output.
 
+\subsection{HTTP API}
+Two endpoints cover the two use cases.
+\begin{itemize}
+  \item \texttt{POST /answer} --- ask a question and receive a sourced answer
+  or a refusal. Each citation is annotated with \{\,\texttt{exists},
+  \texttt{url}, \texttt{excerpt}\,\}; under a live backend the response also
+  carries serving metrics (latency, tokens/s).
+  \item \texttt{POST /verify} --- submit \emph{arbitrary} text (e.g., another
+  LLM's output) and receive, per citation, whether it resolves to a real
+  in-force article, plus aggregate flags such as \texttt{n\_invented} and a
+  boolean \texttt{trustworthy}.
+\end{itemize}
+\texttt{/verify} is the key integration point: a citizen platform, a newsroom,
+or a parliamentary tool can screen a third-party model's output for invented
+legal citations without adopting our model at all.
+
+\begin{lstlisting}[style=lr]
+POST /verify
+{ "text": "See article L. 4321-7 of the Code du travail." }
+
+200 OK
+{ "citations": [
+    { "ref": "L.4321-7", "code": "Code du travail",
+      "exists": false, "url": null } ],
+  "n_invented": 1,
+  "trustworthy": false }
+\end{lstlisting}
+
+\subsection{An MCP provider, not just a consumer}
 The same two capabilities---\texttt{repondre\_question} and
 \texttt{verifier\_article}---are also exposed as a \textbf{Model Context
-Protocol} server~\cite{mcp2024} (JSON-RPC 2.0 over streamable HTTP). Le
-Rapporteur is thus a \emph{provider}, not merely a consumer, of verified legal
-knowledge: an agent such as a general assistant can call it as a tool. We
-verified interoperability by driving our own MCP client against this server.
+Protocol} (MCP) server~\cite{mcp2024}, speaking JSON-RPC~2.0 over streamable
+HTTP (\texttt{initialize}, \texttt{tools/list}, \texttt{tools/call}, with
+\texttt{structuredContent} in the result). This inverts the usual framing: Le
+Rapporteur is a \emph{provider} of verified legal knowledge, so that a
+general-purpose assistant can call it \emph{as a tool} mid-conversation and
+inherit the fail-closed guarantee.
+
+\begin{lstlisting}[style=lr]
+--> tools/call  verifier_article
+    { "ref": "L.3121-27", "code": "Code du travail" }
+<-- structuredContent
+    { "exists": true, "etat": "VIGUEUR",
+      "url": "https://www.legifrance.gouv.fr/.../LEGIARTI...",
+      "excerpt": "La duree legale de travail effectif..." }
+\end{lstlisting}
+
+We verified interoperability end-to-end by driving our own MCP client against
+this server, confirming that the tool contract---names, argument shapes, and
+structured results---is honoured in both directions.
+
+\subsection{Tool discovery and a full exchange}
+An MCP client first discovers the available tools, then calls one; the server
+returns \texttt{structuredContent} that the client can act on programmatically
+rather than having to parse prose.
+
+\begin{lstlisting}[style=lr]
+--> tools/list
+<-- { "tools": [
+      { "name": "repondre_question",
+        "inputSchema": { "question": "string" } },
+      { "name": "verifier_article",
+        "inputSchema": { "ref": "string",
+                         "code": "string" } } ] }
+\end{lstlisting}
+
+A sourced \texttt{/answer} response carries exactly the provenance the verifier
+produced, so a caller never has to trust the prose alone:
+
+\begin{lstlisting}[style=lr]
+POST /answer  { "question": "Duree legale du travail ?" }
+200 OK
+{ "answer": "La duree legale est de 35 heures ...",
+  "citations": [
+    { "ref": "L.3121-27", "code": "Code du travail",
+      "exists": true, "etat": "VIGUEUR",
+      "url": "https://www.legifrance.gouv.fr/.../LEGIARTI...",
+      "excerpt": "La duree legale de travail effectif..." } ],
+  "trustworthy": true,
+  "metrics": { "latency_s": ..., "tok_s": ... } }
+\end{lstlisting}
+
+\subsection{Deployment modes}
+The service runs in two modes behind the \emph{same} API. In \emph{live} mode a
+FastAPI process talks to the model endpoint and the database. In \emph{static}
+mode the pipeline's outputs for a fixed question set are precomputed by the
+\emph{real} Python pipeline and served as flat files, so a zero-backend host
+can present faithful, verified answers with clickable L\'egifrance links for a
+public demonstration (\S\ref{sec:demo}). Because the static build is emitted by
+the same code, what the public sees is what the pipeline actually
+produced---not a hand-written mock.
