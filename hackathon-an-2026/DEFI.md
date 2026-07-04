@@ -82,4 +82,4 @@ Cochez les ressources utilisées en remplaçant `[ ]` par `[x]`.
 https://wilfred-dore.github.io/hackathon-assemblee-2026/
 
 ### Diapositives de présentation
-[Diapositives de présentation (en ligne)](https://wilfred-dore.github.io/hackathon-assemblee-2026/presentation/)
+[Diapositives de présentation (PDF)](docs/diapositives.pdf) · [version en ligne](https://wilfred-dore.github.io/hackathon-assemblee-2026/presentation/)
