@@ -58,3 +58,20 @@ L. 3121-27 du Code du travail**). Citations produites :
 couche de vérification attrape : *on ne fait confiance à aucun modèle, on vérifie.*
 La mesure systématique de ce taux (avec vs sans vérification) est le cœur de notre
 benchmark de recherche (gardé privé).
+
+## 5. Énergie (cadrage honnête, 2026-07-04)
+
+**Documenté** : TDP — Qualcomm Cloud AI 100 Ultra ~150 W (Standard 75 W) · A100 ~400 W ·
+H100 SXM ~700 W · MI300X ~750 W · Apple M2 Pro (SoC) ~30-40 W. Mesure tierce : **UCSD
+(arXiv 2507.00418) : Cloud AI 100 Ultra = 10-35× moins d'énergie qu'un A100** (12 LLM).
+
+**Estimation dérivée de nos mesures** (J/token ≈ TDP ÷ débit, batch-1, borne haute) :
+H100+vLLM ≈ 4,3 J/token · M2 Pro+Ollama ≈ 0,9 J/token. À requête unique, la machine
+locale est ~4-5× plus frugale par token — MAIS un H100 à fort batch amortit ses watts
+(J/token chute d'un ordre de grandeur en service multi-utilisateurs). L'argument
+honnête : pour l'usage individuel, l'inférence locale ou l'accélérateur dédié
+(Cloud AI 100) est la voie frugale.
+
+**Mesure réelle (travaux futurs)** : échantillonner `nvidia-smi power.draw` /
+`rocm-smi --showpower` pendant le bench (SSH pods), CodeCarbon/Ecostral pour
+l'empreinte complète, télémétrie `qaic-util` côté Qualcomm.
